@@ -6,7 +6,7 @@
 #include <vector>
 #include <optional>
 
-class FindRuns
+class FindStraightsAndFlushes
 {
     public:
         static std::optional<HandRank> Find(std::vector<Card> cards);

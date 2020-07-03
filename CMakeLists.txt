@@ -14,7 +14,7 @@ endif()
 
 set ( src_files
       src/engines/FindPairs.cpp
-      src/engines/FindRuns.cpp
+      src/engines/FindStraightsAndFlushes.cpp
       src/HandDatabase.cpp
       src/ResolveSameRankWinner.cpp
       src/CalculateOdds.cpp
@@ -43,14 +43,14 @@ target_link_libraries( ${PROJECT_NAME} pthread )
 
 set ( src_files_test
       src/engines/FindPairs.cpp
-      src/engines/FindRuns.cpp
+      src/engines/FindStraightsAndFlushes.cpp
       src/Hand.cpp
       src/TransposeHands.cpp
       src/ValidateHand.cpp
       src/DeckBuilder.cpp
       src/HandDatabase.cpp
       test/TestSuiteFindPairs.cpp
-      test/TestSuiteFindRuns.cpp
+      test/TestSuiteFindStraightsAndFlushes.cpp
       test/TestSuiteHandRank.cpp
       test/TestSuiteSuit.cpp
       test/TestSuiteRank.cpp
@@ -59,6 +59,7 @@ set ( src_files_test
       test/TestSuiteHand.cpp
       test/TestSuitePermutations.cpp
       test/TestSuiteHandDatabase.cpp
+      test/main.cpp
 )
 
 add_executable( test_poker_odds ${src_files_test} )

@@ -57,4 +57,17 @@ TEST_F(TestSuiteCard, TestInEquality_Card_Rank)
 	EXPECT_TRUE(card1 != card2);
 }
 
+TEST_F(TestSuiteCard, TestingAdjacentDifference)
+{
+    std::vector<Card> cards{ { Rank::ACE, Suit::DIAMOND }, { Rank::QUEEN, Suit::DIAMOND } };
+
+	for (unsigned int i=0; i<cards.size() - 1; i++)
+    {
+		if( cards[i+1].rank - cards[i].rank != 1 )
+		{
+			break;
+		}
+	}
+}
+
 // }  // namespace - could surround Project1Test in a namespace
