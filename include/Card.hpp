@@ -3,6 +3,14 @@
 #include "Rank.hpp"
 #include "Suit.hpp"
 
+// Important clarification
+//
+// Two Cards are considered equal if the Ranks match
+// Suit is not considered
+//
+// For an exact match, see CardExactMatch which inherits from
+// card but will change the equals operator
+
 struct Card
 {
     Rank rank;
@@ -13,11 +21,6 @@ inline bool operator==(const Card& lhs, const Card& rhs)
 {
     if( lhs.rank == rhs.rank )
     {
-        // if( lhs.suit == rhs.suit )
-        // {
-        //     return true;
-        // }
-        
         return true;
     }
 

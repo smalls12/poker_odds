@@ -78,6 +78,11 @@ TEST_F(TestSuiteFindPairs, FindFullHouse_v2)
 	std::optional<ValidatedHand> result = FindPairs::Find(cards);
 	EXPECT_TRUE(result);
 	EXPECT_TRUE((*result).rank == HandRank::FULL_HOUSE);
+	
+	for(auto& card : (*result).cards)
+	{
+		std::cout << card << std::endl;
+	}
 }
 
 TEST_F(TestSuiteFindPairs, FindThreeOfAKind)
@@ -93,6 +98,7 @@ TEST_F(TestSuiteFindPairs, FindThreeOfAKind)
 	std::optional<ValidatedHand> result = FindPairs::Find(cards);
 	EXPECT_TRUE(result);
 	EXPECT_TRUE((*result).rank == HandRank::THREE_OF_A_KIND);
+	EXPECT_TRUE((*result).cards == std::vector<Card>( { { Rank::ACE, Suit::DIAMOND }, { Rank::ACE, Suit::CLUB }, { Rank::ACE, Suit::HEART } } ));
 }
 
 TEST_F(TestSuiteFindPairs, FindTwoPair)

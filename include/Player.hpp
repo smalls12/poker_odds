@@ -9,16 +9,14 @@ class Player
         Player(int id);
         ~Player() = default;
 
-        void AddCard(Card card);
-
-        Hand GetHand();
-        int GetId();
+        friend class Dealer;
+        friend class CalculateOdds;
 
         friend std::ostream& operator<<(std::ostream & os, Player& player);
 
     private:
-        int         m_id;
-        Hand        m_hand;
+        int                 m_id;
+        std::vector<Card>   m_hand;
 
         Player(const Player&) = delete;
         Player& operator=(const Player&) = delete;

@@ -30,15 +30,14 @@ class Hand
         }
 
         friend class ValidateHand;
-        friend class Player;
         friend class ResolveSameRankWinner;
 
         friend bool operator<(const Hand& lhs, const Hand& rhs);
         friend bool operator>(const Hand& lhs, const Hand& rhs);
         friend std::ostream& operator<<(std::ostream & os, Hand& hand);
 
-    private:
-        int id;  
+    protected:
+        int id;
 
         std::vector<Card> cards;
         ValidatedHand rank;

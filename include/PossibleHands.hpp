@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Hand.hpp"
+#include "Hands.hpp"
 #include "Player.hpp"
 #include "Deck.hpp"
 
@@ -11,5 +11,6 @@ class PossibleHands
         // copy the deck
         static std::vector<Hand> SummarizeAllPossibleHands(Hand hand, Deck deck);
         static std::vector<Hand> SummarizeAllPossibleHands(Hand hand, std::vector<std::vector<Card>> dealerPermutations);
+        static Hands SummarizeAllPossibleHands(int id, std::vector<Card> cards, std::vector<std::vector<Card>> dealerPermutations);
 
 };

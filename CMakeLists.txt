@@ -13,8 +13,10 @@ if(Boost_FOUND)
 endif()
 
 set ( src_files
+      src/engines/FindHighCard.cpp
       src/engines/FindPairs.cpp
       src/engines/FindStraightsAndFlushes.cpp
+      src/hands/HighCardHand.cpp
       src/DealerPermutations.cpp
       src/HandDatabase.cpp
       src/ResolveSameRankWinner.cpp
@@ -35,6 +37,7 @@ add_executable( ${PROJECT_NAME} ${src_files} )
 
 target_include_directories( ${PROJECT_NAME} PRIVATE include )
 target_include_directories( ${PROJECT_NAME} PRIVATE include/engines )
+target_include_directories( ${PROJECT_NAME} PRIVATE include/hands )
 
 target_link_libraries( ${PROJECT_NAME} ${Boost_LIBRARIES} )
 
@@ -43,8 +46,10 @@ target_link_libraries( ${PROJECT_NAME} spdlog )
 target_link_libraries( ${PROJECT_NAME} pthread )
 
 set ( src_files_test
+      src/engines/FindHighCard.cpp
       src/engines/FindPairs.cpp
       src/engines/FindStraightsAndFlushes.cpp
+      src/hands/HighCardHand.cpp
       src/Hand.cpp
       src/TransposeHands.cpp
       src/ValidateHand.cpp
@@ -52,6 +57,8 @@ set ( src_files_test
       src/HandDatabase.cpp
       src/DealerPermutations.cpp
       src/ResolveSameRankWinner.cpp
+      src/PossibleHands.cpp
+      test/TestSuiteFindHighCard.cpp
       test/TestSuiteFindPairs.cpp
       test/TestSuiteFindStraightsAndFlushes.cpp
       test/TestSuiteHandRank.cpp
@@ -63,6 +70,7 @@ set ( src_files_test
       test/TestSuitePermutations.cpp
       test/TestSuiteHandDatabase.cpp
       test/TestSuiteDealerPermutations.cpp
+      test/TestSuitePossibleHands.cpp
       test/main.cpp
 )
 
@@ -70,6 +78,7 @@ add_executable( test_poker_odds ${src_files_test} )
 
 target_include_directories( test_poker_odds PRIVATE include )
 target_include_directories( test_poker_odds PRIVATE include/engines )
+target_include_directories( test_poker_odds PRIVATE include/hands )
 
 target_link_libraries( test_poker_odds gtest )
 target_link_libraries( test_poker_odds gtest_main )

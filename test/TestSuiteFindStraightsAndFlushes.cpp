@@ -35,7 +35,7 @@ protected:
 
 // Test case must be called the class above
 // Also note: use TEST_F instead of TEST to access the test fixture (from google test primer)
-TEST_F(TestSuiteFindStraightsAndFlushes, FindAStraight)
+TEST_F(TestSuiteFindStraightsAndFlushes, FindAStraight_Ace_High)
 {
 	std::vector<Card> cards{{
 		{ Rank::ACE, Suit::DIAMOND },
@@ -45,8 +45,20 @@ TEST_F(TestSuiteFindStraightsAndFlushes, FindAStraight)
 		{ Rank::TEN, Suit::HEART }
 	}};
 
-	// sort first
-    std::sort(cards.begin(), cards.end());
+	std::optional<ValidatedHand> result = FindStraightsAndFlushes::Find(cards);
+	EXPECT_TRUE(result);
+	EXPECT_TRUE((*result).rank == HandRank::STRAIGHT);
+}
+
+TEST_F(TestSuiteFindStraightsAndFlushes, FindAStraight_Five_High)
+{
+	std::vector<Card> cards{{
+		{ Rank::FIVE, Suit::DIAMOND },
+		{ Rank::FOUR, Suit::CLUB },
+		{ Rank::QUEEN, Suit::HEART },
+		{ Rank::JACK, Suit::SPADE },
+		{ Rank::TEN, Suit::HEART }
+	}};
 
 	std::optional<ValidatedHand> result = FindStraightsAndFlushes::Find(cards);
 	EXPECT_TRUE(result);
@@ -63,9 +75,6 @@ TEST_F(TestSuiteFindStraightsAndFlushes, FindARoyalFlush)
 		{ Rank::TEN, Suit::DIAMOND }
 	}};
 
-	// sort first
-    std::sort(cards.begin(), cards.end());
-
 	std::optional<ValidatedHand> result = FindStraightsAndFlushes::Find(cards);
 	EXPECT_TRUE(result);
 	EXPECT_TRUE((*result).rank == HandRank::ROYAL_FLUSH);
@@ -80,9 +89,6 @@ TEST_F(TestSuiteFindStraightsAndFlushes, FindAStraightFlush)
 		{ Rank::TEN, Suit::DIAMOND },
 		{ Rank::NINE, Suit::DIAMOND }
 	}};
-
-	// sort first
-    std::sort(cards.begin(), cards.end());
 
 	std::optional<ValidatedHand> result = FindStraightsAndFlushes::Find(cards);
 	EXPECT_TRUE(result);
