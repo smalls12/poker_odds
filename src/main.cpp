@@ -50,6 +50,7 @@ int main(int argc, const char **argv)
     Players players{player1, player2};
 
     dealer.DealCards(players, deck);
+    dealer.DealCards(players, deck);
 
     CalculateOdds::Calculate(players, deck);
 

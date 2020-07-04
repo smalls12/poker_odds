@@ -15,6 +15,7 @@ endif()
 set ( src_files
       src/engines/FindPairs.cpp
       src/engines/FindStraightsAndFlushes.cpp
+      src/DealerPermutations.cpp
       src/HandDatabase.cpp
       src/ResolveSameRankWinner.cpp
       src/CalculateOdds.cpp
@@ -49,6 +50,8 @@ set ( src_files_test
       src/ValidateHand.cpp
       src/DeckBuilder.cpp
       src/HandDatabase.cpp
+      src/DealerPermutations.cpp
+      src/ResolveSameRankWinner.cpp
       test/TestSuiteFindPairs.cpp
       test/TestSuiteFindStraightsAndFlushes.cpp
       test/TestSuiteHandRank.cpp
@@ -59,6 +62,7 @@ set ( src_files_test
       test/TestSuiteHand.cpp
       test/TestSuitePermutations.cpp
       test/TestSuiteHandDatabase.cpp
+      test/TestSuiteDealerPermutations.cpp
       test/main.cpp
 )
 

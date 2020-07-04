@@ -3,10 +3,10 @@
 #include "FindPairs.hpp"
 #include "FindStraightsAndFlushes.hpp"
 
-HandRank ValidateHand::DetermineHandRank(std::vector<Card>& cards)
+std::optional<ValidatedHand> ValidateHand::DetermineHandRank(std::vector<Card>& cards)
 {
     // searching for different card combinations
-    std::optional<HandRank> straightsAndFlushes = FindStraightsAndFlushes::Find(cards);
+    std::optional<ValidatedHand> straightsAndFlushes = FindStraightsAndFlushes::Find(cards);
 
     // royal flush (1)
 
@@ -21,7 +21,7 @@ HandRank ValidateHand::DetermineHandRank(std::vector<Card>& cards)
     // straight (6)
 
     // three of a kind (7)
-    std::optional<HandRank> pairs = FindPairs::Find(cards);
+    std::optional<ValidatedHand> pairs = FindPairs::Find(cards);
 
     // two pair (8)
 
@@ -33,16 +33,16 @@ HandRank ValidateHand::DetermineHandRank(std::vector<Card>& cards)
     {
         if( pairs )
         {
-            return ((*straightsAndFlushes > *pairs) ? *straightsAndFlushes : *pairs);
+            return (((*straightsAndFlushes).rank > (*pairs).rank) ? straightsAndFlushes : pairs);
         }
 
-        return *straightsAndFlushes;
+        return straightsAndFlushes;
     }
     else if( pairs )
     {
-        return *pairs;
+        return pairs;
     }
     
 
-    return HandRank::HIGH_CARD;
+    return std::nullopt;
 }

@@ -48,9 +48,9 @@ TEST_F(TestSuiteFindStraightsAndFlushes, FindAStraight)
 	// sort first
     std::sort(cards.begin(), cards.end());
 
-	std::optional<HandRank> result = FindStraightsAndFlushes::Find(cards);
+	std::optional<ValidatedHand> result = FindStraightsAndFlushes::Find(cards);
 	EXPECT_TRUE(result);
-	EXPECT_TRUE(*result == HandRank::STRAIGHT);
+	EXPECT_TRUE((*result).rank == HandRank::STRAIGHT);
 }
 
 TEST_F(TestSuiteFindStraightsAndFlushes, FindARoyalFlush)
@@ -66,9 +66,9 @@ TEST_F(TestSuiteFindStraightsAndFlushes, FindARoyalFlush)
 	// sort first
     std::sort(cards.begin(), cards.end());
 
-	std::optional<HandRank> result = FindStraightsAndFlushes::Find(cards);
+	std::optional<ValidatedHand> result = FindStraightsAndFlushes::Find(cards);
 	EXPECT_TRUE(result);
-	EXPECT_TRUE(*result == HandRank::ROYAL_FLUSH);
+	EXPECT_TRUE((*result).rank == HandRank::ROYAL_FLUSH);
 }
 
 TEST_F(TestSuiteFindStraightsAndFlushes, FindAStraightFlush)
@@ -84,9 +84,9 @@ TEST_F(TestSuiteFindStraightsAndFlushes, FindAStraightFlush)
 	// sort first
     std::sort(cards.begin(), cards.end());
 
-	std::optional<HandRank> result = FindStraightsAndFlushes::Find(cards);
+	std::optional<ValidatedHand> result = FindStraightsAndFlushes::Find(cards);
 	EXPECT_TRUE(result);
-	EXPECT_TRUE(*result == HandRank::STRAIGHT_FLUSH);
+	EXPECT_TRUE((*result).rank == HandRank::STRAIGHT_FLUSH);
 }
 
 TEST_F(TestSuiteFindStraightsAndFlushes, FindAFlush)
@@ -102,9 +102,9 @@ TEST_F(TestSuiteFindStraightsAndFlushes, FindAFlush)
 	// sort first
     std::sort(cards.begin(), cards.end());
 
-	std::optional<HandRank> result = FindStraightsAndFlushes::Find(cards);
+	std::optional<ValidatedHand> result = FindStraightsAndFlushes::Find(cards);
 	EXPECT_TRUE(result);
-	EXPECT_TRUE(*result == HandRank::FLUSH);
+	EXPECT_TRUE((*result).rank == HandRank::FLUSH);
 }
 
 // }  // namespace - could surround Project1Test in a namespace

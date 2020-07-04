@@ -45,9 +45,9 @@ TEST_F(TestSuiteFindPairs, FindFourOfAKind)
 		{ Rank::KING, Suit::HEART }
 	}};
 
-	std::optional<HandRank> result = FindPairs::Find(cards);
+	std::optional<ValidatedHand> result = FindPairs::Find(cards);
 	EXPECT_TRUE(result);
-	EXPECT_TRUE(*result == HandRank::FOUR_OF_A_KIND);
+	EXPECT_TRUE((*result).rank == HandRank::FOUR_OF_A_KIND);
 }
 
 TEST_F(TestSuiteFindPairs, FindFullHouse)
@@ -60,9 +60,9 @@ TEST_F(TestSuiteFindPairs, FindFullHouse)
 		{ Rank::KING, Suit::HEART }
 	}};
 
-	std::optional<HandRank> result = FindPairs::Find(cards);
+	std::optional<ValidatedHand> result = FindPairs::Find(cards);
 	EXPECT_TRUE(result);
-	EXPECT_TRUE(*result == HandRank::FULL_HOUSE);
+	EXPECT_TRUE((*result).rank == HandRank::FULL_HOUSE);
 }
 
 TEST_F(TestSuiteFindPairs, FindThreeOfAKind)
@@ -75,9 +75,9 @@ TEST_F(TestSuiteFindPairs, FindThreeOfAKind)
 		{ Rank::QUEEN, Suit::DIAMOND }
 	}};
 
-	std::optional<HandRank> result = FindPairs::Find(cards);
+	std::optional<ValidatedHand> result = FindPairs::Find(cards);
 	EXPECT_TRUE(result);
-	EXPECT_TRUE(*result == HandRank::THREE_OF_A_KIND);
+	EXPECT_TRUE((*result).rank == HandRank::THREE_OF_A_KIND);
 }
 
 TEST_F(TestSuiteFindPairs, FindTwoPair)
@@ -90,9 +90,9 @@ TEST_F(TestSuiteFindPairs, FindTwoPair)
 		{ Rank::QUEEN, Suit::DIAMOND }
 	}};
 
-	std::optional<HandRank> result = FindPairs::Find(cards);
+	std::optional<ValidatedHand> result = FindPairs::Find(cards);
 	EXPECT_TRUE(result);
-	EXPECT_TRUE(*result == HandRank::TWO_PAIR);
+	EXPECT_TRUE((*result).rank == HandRank::TWO_PAIR);
 }
 
 TEST_F(TestSuiteFindPairs, FindOnePair)
@@ -105,8 +105,9 @@ TEST_F(TestSuiteFindPairs, FindOnePair)
 		{ Rank::QUEEN, Suit::DIAMOND }
 	}};
 
-	std::optional<HandRank> result = FindPairs::Find(cards);
+	std::optional<ValidatedHand> result = FindPairs::Find(cards);
 	EXPECT_TRUE(result);
+	EXPECT_TRUE((*result).rank == HandRank::ONE_PAIR);
 }
 
 // }  // namespace - could surround Project1Test in a namespace

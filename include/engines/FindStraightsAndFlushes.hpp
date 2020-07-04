@@ -1,6 +1,6 @@
 #pragma once
 
-#include "HandRank.hpp"
+#include "Find.hpp"
 #include "Card.hpp"
 
 #include <vector>
@@ -9,6 +9,6 @@
 class FindStraightsAndFlushes
 {
     public:
-        static std::optional<HandRank> Find(std::vector<Card> cards);
+        static std::optional<ValidatedHand> Find(std::vector<Card> cards);
 
 };

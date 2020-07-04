@@ -10,4 +10,6 @@ class PossibleHands
         // copy the hand
         // copy the deck
         static std::vector<Hand> SummarizeAllPossibleHands(Hand hand, Deck deck);
+        static std::vector<Hand> SummarizeAllPossibleHands(Hand hand, std::vector<std::vector<Card>> dealerPermutations);
+
 };

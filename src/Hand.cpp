@@ -7,7 +7,7 @@
 Hand::Hand(int id)
 :   id(id),
     cards(),
-    rank(HandRank::HIGH_CARD)
+    rank()
 {
     // no hand to validate at this point
 }
@@ -15,7 +15,7 @@ Hand::Hand(int id)
 Hand::Hand(int id, std::vector<Card> cards)
 :   id(id),
     cards(cards),
-    rank(HandRank::HIGH_CARD)
+    rank()
 {
     // cards are provided
 
@@ -23,7 +23,11 @@ Hand::Hand(int id, std::vector<Card> cards)
     std::sort(cards.begin(), cards.end());
 
     // validate and find the highest hand ranking
-    rank = ValidateHand::DetermineHandRank(cards);
+    std::optional<ValidatedHand> result = ValidateHand::DetermineHandRank(cards);
+    if( result )
+    {
+        rank = *result;
+    }
 }
 
 void Hand::addCard(Card card)
@@ -36,7 +40,11 @@ void Hand::addCard(Card card)
     std::sort(cards.begin(), cards.end());
 
     // validate and find the highest hand ranking
-    rank = ValidateHand::DetermineHandRank(cards);
+    std::optional<ValidatedHand> result = ValidateHand::DetermineHandRank(cards);
+    if( result )
+    {
+        rank = *result;
+    }
 }
 
 std::vector<Card> Hand::getCards()
@@ -44,7 +52,7 @@ std::vector<Card> Hand::getCards()
     return cards;
 }
 
-HandRank Hand::getHandRank()
+ValidatedHand Hand::getHandRank()
 {
     return rank;
 }
@@ -56,7 +64,7 @@ std::ostream& operator<<(std::ostream & os, Hand& hand)
     os << " ]";
 
     os << "[ ";
-    os << hand.rank;
+    os << hand.rank.rank;
     os << " ]";
 
     for(auto& card : hand.cards)

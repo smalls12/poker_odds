@@ -2,7 +2,10 @@
 
 #include "Deck.hpp"
 #include "DeckBuilder.hpp"
+
+#include "Find.hpp"
 #include "ValidateHand.hpp"
+#include "DealerPermutations.hpp"
 
 #include "spdlog/spdlog.h"
 
@@ -41,28 +44,7 @@ void HandDatabase::BuildDatabase()
     // build a 52 card deck
 	Deck deck = DeckBuilder::Build();
 
-    std::string bitmask(5, 1); // K leading 1's
-    bitmask.resize(52, 0); // N-K trailing 0's
-
-    // print integers and permute bitmask
-    do
-	{
-		std::vector<Card> cards;
-        for (int i = 0; i < 52; ++i) // [0..N-1] integers
-        {
-            if (bitmask[i])
-			{
-				cards.push_back(deck[i]);
-				// std::cout << " " << i;
-			}
-        }
-        // sort first
-        std::sort(cards.begin(), cards.end());
-
-		m_allPossibleHands.push_back(cards);
-        // std::cout << std::endl;
-    }
-	while (std::prev_permutation(bitmask.begin(), bitmask.end()));
+    m_allPossibleHands = DealerPermutations::Simulate(deck, 5);
 
     spdlog::get("console")->info("Total Possible Hands [{}]", m_allPossibleHands.size()); 
 }
@@ -84,7 +66,13 @@ void HandDatabase::RankHandsInDatabase()
 
     for(auto& hand : m_allPossibleHands)
     {
-        router[ValidateHand::DetermineHandRank(hand)](hand);
+        std::optional<ValidatedHand> result = ValidateHand::DetermineHandRank(hand);
+        
+        if( result )
+        {
+            router[(*result).rank](hand);
+        }
+        
     }
 
     spdlog::get("console")->info("Total Possible Hands [{}]", m_allPossibleHands.size()); 

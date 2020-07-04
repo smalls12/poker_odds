@@ -1,13 +1,9 @@
 #pragma once
 
-#include "HandRank.hpp"
-#include "Card.hpp"
-#include "ResolveSameRankWinner.hpp"
-
-#include <vector>
+#include "Hand.hpp"
 
 class ResolveSameRankWinner
 {
     public:
-        static void Resolve(HandRank rank, std::vector<Card> cards_one, std::vector<Card> cards_two);
+        static void Resolve(Hand hand1, Hand hand2);
 };

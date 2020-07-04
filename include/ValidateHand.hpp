@@ -1,12 +1,14 @@
 #pragma once
 
+#include "Find.hpp"
 #include "Card.hpp"
 #include "HandRank.hpp"
 
+#include <optional>
 #include <vector>
 
 class ValidateHand
 {
     public:
-        static HandRank DetermineHandRank(std::vector<Card>& cards);
+        static std::optional<ValidatedHand> DetermineHandRank(std::vector<Card>& cards);
 };

@@ -12,3 +12,20 @@ std::vector<Hand> PossibleHands::SummarizeAllPossibleHands(Hand hand, Deck deck)
 
     return possibleHands;
 }
+
+std::vector<Hand> PossibleHands::SummarizeAllPossibleHands(Hand playersHand, std::vector<std::vector<Card>> dealerPermutations)
+{
+    std::vector<Hand> possibleHands;
+    for(auto& hand : dealerPermutations)
+    {
+        Hand possibleHand(playersHand);
+        for(auto& card : hand)
+        {
+            possibleHand.addCard(card);
+        }
+        
+        possibleHands.push_back(possibleHand);
+    }
+
+    return possibleHands;
+}

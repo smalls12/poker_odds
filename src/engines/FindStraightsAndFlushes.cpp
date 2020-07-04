@@ -4,13 +4,18 @@
 #include <sstream>
 #include <iostream>
 
-std::optional<HandRank> FindStraightsAndFlushes::Find(std::vector<Card> cards)
+std::optional<ValidatedHand> FindStraightsAndFlushes::Find(std::vector<Card> cards)
 {
-    // default assumes we have a flush
-
-    std::optional<HandRank> currentHandRank = std::optional<HandRank>{HandRank::FLUSH};
+    if( cards.size() < 5 )
+    {
+        return std::nullopt;
+    }
 
     std::vector<Card> temp(cards);
+
+    // default assumes we have a flush
+
+    std::optional<ValidatedHand> currentHandRank = std::optional<ValidatedHand>{{HandRank::FLUSH, temp}};
 
     // see if this hand is a flush
 
@@ -51,18 +56,18 @@ std::optional<HandRank> FindStraightsAndFlushes::Find(std::vector<Card> cards)
 
         if( temp[0].rank == Rank::TEN )
         {
-            currentHandRank = std::optional<HandRank>{HandRank::ROYAL_FLUSH};
+            currentHandRank = std::optional<ValidatedHand>{{HandRank::ROYAL_FLUSH, temp}};
         }
         else
         {
-            currentHandRank = std::optional<HandRank>{HandRank::STRAIGHT_FLUSH};
+            currentHandRank = std::optional<ValidatedHand>{{HandRank::STRAIGHT_FLUSH, temp}};
         }   
     }
     else
     {
         // there was no flush
 
-        currentHandRank = std::optional<HandRank>{HandRank::STRAIGHT};
+        currentHandRank = std::optional<ValidatedHand>{{HandRank::STRAIGHT, temp}};
     }
 
     return currentHandRank;

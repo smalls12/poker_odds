@@ -1,5 +1,6 @@
 #include "CalculateOdds.hpp"
 
+#include "DealerPermutations.hpp"
 #include "PossibleHands.hpp"
 #include "TransposeHands.hpp"
 
@@ -10,14 +11,21 @@
 
 void CalculateOdds::Calculate(Players& players, Deck& deck)
 {
-    std::vector<std::vector<Hand>> hands;
+    // we have the players hands
+    // we have the deck with the remaining cards
+    // build out all the different dealer permutations
+    std::vector<std::vector<Card>> dealerPermutations = DealerPermutations::Simulate(deck, 3);
+
+    // now take the dealer permutations and simulate the possible hands for each player
+    std::vector<std::vector<Hand>> simulatedHands;
     for(auto& player : players)
     {
-        std::vector<Hand> possibleHands = PossibleHands::SummarizeAllPossibleHands(player->GetHand(), deck);
-        hands.push_back(possibleHands);
+        std::vector<Hand> possibleHands = PossibleHands::SummarizeAllPossibleHands(player->GetHand(), dealerPermutations);
+        simulatedHands.push_back(possibleHands);
     }
 
-    std::vector<std::vector<Hand>> transposedHands = TransposeHands::Transpose(hands);
+    // compare each simulated hand between players
+    std::vector<std::vector<Hand>> transposedHands = TransposeHands::Transpose(simulatedHands);
 
     // for(auto& handsForComparison : transposedHands)
     // {
@@ -37,11 +45,11 @@ void CalculateOdds::Calculate(Players& players, Deck& deck)
         winners.push_back(handsForComparison[handsForComparison.size() - 1]);
     }
 
-    for(auto& winner : winners)
-    {
-        std::stringstream ss;
-        ss << winner;
-        std::cout << "Winning hand [ " << ss.str() << " ]" << std::endl;
-    }
+    // for(auto& winner : winners)
+    // {
+    //     std::stringstream ss;
+    //     ss << winner;
+    //     std::cout << "Winning hand [ " << ss.str() << " ]" << std::endl;
+    // }
     
 }

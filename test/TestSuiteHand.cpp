@@ -55,6 +55,13 @@ TEST_F(TestSuiteHand, TestInEquality_Card_SameSuit_DifferentRanks)
 	EXPECT_TRUE(hand1 != hand2);
 }
 
+TEST_F(TestSuiteHand, TestHighHandRank_HighCard_HighCard)
+{
+    Hand hand1( 0, { { Rank::KING, Suit::DIAMOND }, { Rank::QUEEN, Suit::SPADE }, { Rank::JACK, Suit::HEART } } );
+    Hand hand2( 0, { { Rank::ACE, Suit::CLUB }, { Rank::KING, Suit::CLUB }, { Rank::QUEEN, Suit::HEART } } );
+	EXPECT_TRUE(hand1 < hand2);
+}
+
 TEST_F(TestSuiteHand, TestHighHandRank_OnePair_HighCard)
 {
     Hand hand1( 0, { { Rank::ACE, Suit::DIAMOND }, { Rank::ACE, Suit::SPADE }, { Rank::KING, Suit::HEART } } );
@@ -69,48 +76,124 @@ TEST_F(TestSuiteHand, TestHighHandRank_OnePair_OnePair)
 	EXPECT_TRUE(hand1 > hand2);
 }
 
+TEST_F(TestSuiteHand, TestHighHandRank_OnePair_OnePair_SameCardRanks)
+{
+    Hand hand1( 0, { { Rank::ACE, Suit::DIAMOND }, { Rank::ACE, Suit::SPADE }, { Rank::KING, Suit::HEART } } );
+    Hand hand2( 0, { { Rank::ACE, Suit::HEART }, { Rank::ACE, Suit::CLUB }, { Rank::QUEEN, Suit::HEART } } );
+	EXPECT_TRUE(hand1 > hand2); // ???
+}
+
+TEST_F(TestSuiteHand, TestHighHandRank_OnePair_TwoPair)
+{
+    Hand hand1( 0, {
+		{ Rank::ACE, Suit::DIAMOND },
+		{ Rank::ACE, Suit::CLUB },
+		{ Rank::KING, Suit::HEART },
+		{ Rank::QUEEN, Suit::CLUB }
+	});
+
+	Hand hand2( 0, {
+		{ Rank::ACE, Suit::SPADE },
+		{ Rank::ACE, Suit::HEART },
+		{ Rank::QUEEN, Suit::HEART },
+		{ Rank::QUEEN, Suit::SPADE }
+	});
+
+	EXPECT_TRUE(hand1 < hand2);
+}
+
 TEST_F(TestSuiteHand, TestRank_HighCard_OneCard)
 {
     Hand hand1( 0, { { Rank::ACE, Suit::DIAMOND } } );
-	EXPECT_EQ(hand1.getHandRank(), HandRank::HIGH_CARD);
+	EXPECT_EQ(hand1.getHandRank().rank, HandRank::HIGH_CARD);
 }
 
 TEST_F(TestSuiteHand, TestRank_HighCard_TwoCards)
 {
     Hand hand1( 0, { { Rank::ACE, Suit::DIAMOND }, { Rank::KING, Suit::CLUB } } );
-	EXPECT_EQ(hand1.getHandRank(), HandRank::HIGH_CARD);
+	EXPECT_EQ(hand1.getHandRank().rank, HandRank::HIGH_CARD);
 }
 
 TEST_F(TestSuiteHand, TestRank_HighCard_ThreeCards)
 {
     Hand hand1( 0, { { Rank::ACE, Suit::DIAMOND }, { Rank::KING, Suit::CLUB }, { Rank::QUEEN, Suit::HEART } } );
-	EXPECT_EQ(hand1.getHandRank(), HandRank::HIGH_CARD);
+	EXPECT_EQ(hand1.getHandRank().rank, HandRank::HIGH_CARD);
+}
+
+TEST_F(TestSuiteHand, TestRank_HighCard_FourCards)
+{
+    Hand hand1( 0, {
+		{ Rank::ACE, Suit::DIAMOND },
+		{ Rank::KING, Suit::CLUB },
+		{ Rank::QUEEN, Suit::HEART },
+		{ Rank::JACK, Suit::HEART }
+	});
+
+	EXPECT_EQ(hand1.getHandRank().rank, HandRank::HIGH_CARD);
+}
+
+TEST_F(TestSuiteHand, TestRank_HighCard_FiveCards)
+{
+	Hand hand1( 0, {
+		{ Rank::ACE, Suit::DIAMOND },
+		{ Rank::KING, Suit::CLUB },
+		{ Rank::QUEEN, Suit::HEART },
+		{ Rank::JACK, Suit::HEART },
+		{ Rank::NINE, Suit::HEART }
+	});
+
+	EXPECT_EQ(hand1.getHandRank().rank, HandRank::HIGH_CARD);
 }
 
 TEST_F(TestSuiteHand, TestRank_OnePair_TwoCards)
 {
     Hand hand1( 0, { { Rank::ACE, Suit::DIAMOND }, { Rank::ACE, Suit::CLUB } } );
-	EXPECT_EQ(hand1.getHandRank(), HandRank::ONE_PAIR);
+	EXPECT_EQ(hand1.getHandRank().rank, HandRank::ONE_PAIR);
 }
 
 TEST_F(TestSuiteHand, TestRank_OnePair_ThreeCards)
 {
     Hand hand1( 0, { { Rank::ACE, Suit::DIAMOND }, { Rank::ACE, Suit::CLUB }, { Rank::QUEEN, Suit::HEART } } );
-	EXPECT_EQ(hand1.getHandRank(), HandRank::ONE_PAIR);
+	EXPECT_EQ(hand1.getHandRank().rank, HandRank::ONE_PAIR);
+}
+
+TEST_F(TestSuiteHand, TestRank_OnePair_FourCards)
+{
+	Hand hand1( 0, {
+		{ Rank::ACE, Suit::DIAMOND },
+		{ Rank::ACE, Suit::CLUB },
+		{ Rank::QUEEN, Suit::HEART },
+		{ Rank::JACK, Suit::HEART }
+	});
+
+	EXPECT_EQ(hand1.getHandRank().rank, HandRank::ONE_PAIR);
+}
+
+TEST_F(TestSuiteHand, TestRank_OnePair_FiveCards)
+{
+	Hand hand1( 0, {
+		{ Rank::ACE, Suit::DIAMOND },
+		{ Rank::ACE, Suit::CLUB },
+		{ Rank::QUEEN, Suit::HEART },
+		{ Rank::JACK, Suit::HEART },
+		{ Rank::NINE, Suit::HEART }
+	});
+
+	EXPECT_EQ(hand1.getHandRank().rank, HandRank::ONE_PAIR);
 }
 
 TEST_F(TestSuiteHand, TestRank_OnePair_OneCard_AddCard)
 {
     Hand hand( 0, { { Rank::ACE, Suit::DIAMOND } } );
 	hand.addCard({ Rank::ACE, Suit::CLUB });
-	EXPECT_EQ(hand.getHandRank(), HandRank::ONE_PAIR);
+	EXPECT_EQ(hand.getHandRank().rank, HandRank::ONE_PAIR);
 }
 
 TEST_F(TestSuiteHand, TestRank_OnePair_TwoCards_AddCard)
 {
     Hand hand( 0, { { Rank::ACE, Suit::DIAMOND }, { Rank::ACE, Suit::CLUB } } );
 	hand.addCard({ Rank::QUEEN, Suit::HEART });
-	EXPECT_EQ(hand.getHandRank(), HandRank::ONE_PAIR);
+	EXPECT_EQ(hand.getHandRank().rank, HandRank::ONE_PAIR);
 }
 
 // }  // namespace - could surround Project1Test in a namespace

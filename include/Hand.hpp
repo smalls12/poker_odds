@@ -1,8 +1,7 @@
 #pragma once
 
 #include "Card.hpp"
-#include "HandRank.hpp"
-#include "ResolveSameRankWinner.hpp"
+#include "Find.hpp"
 
 #include <vector>
 #include <iostream>
@@ -18,7 +17,7 @@ class Hand
         void addCard(Card card);
         std::vector<Card> getCards();
 
-        HandRank getHandRank();
+        ValidatedHand getHandRank();
 
         bool operator==(const Hand& other)
         {
@@ -32,13 +31,26 @@ class Hand
 
         bool operator<(const Hand& other)
         {
-            if( rank < other.rank )
+            // compare validated ranks first
+            if( rank.rank < other.rank.rank )
             {
+                // other has greater rank
                 return true;
             }
-            else if ( rank == other.rank )
+            else if ( rank.rank == other.rank.rank )
             {
-                ResolveSameRankWinner::Resolve(rank, cards, other.cards);
+                // ranks are the same
+                // compare each card in the validated hands
+                if( rank.cards < other.rank.cards )
+                {
+                    return true;
+                }
+                else
+                {
+                    // gets a bit harder to solve the winner
+                    // ResolveSameRankWinner::Resolve(*this, other);
+                }
+
                 return false;
             }
             else
@@ -49,16 +61,37 @@ class Hand
 
         bool operator>(const Hand& other)
         {
-            if( rank > other.rank )
+            // compare validated ranks first
+            if( rank.rank > other.rank.rank )
             {
+                // other has lesser rank
                 return true;
             }
-
-            return false;
+            else if ( rank.rank == other.rank.rank )
+            {
+                // ranks are the same
+                // compare each card in the validated hands
+                if( rank.cards > other.rank.cards )
+                {
+                    return true;
+                }
+                else
+                {
+                    // gets a bit harder to solve the winner
+                    // ResolveSameRankWinner::Resolve(*this, other);
+                }
+                
+                return false;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         friend class ValidateHand;
         friend class Player;
+        friend class ResolveSameRankWinner;
 
         friend std::ostream& operator<<(std::ostream & os, Hand& hand);
 
@@ -66,5 +99,5 @@ class Hand
         int id;  
 
         std::vector<Card> cards;
-        HandRank rank;
+        ValidatedHand rank;
 };
