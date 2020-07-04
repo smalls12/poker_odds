@@ -20,8 +20,8 @@ void CalculateOdds::Calculate(Players& players, Deck& deck)
     std::vector<std::vector<Hand>> simulatedHands;
     for(auto& player : players)
     {
-        std::vector<Hand> possibleHands = PossibleHands::SummarizeAllPossibleHands(player->GetHand(), dealerPermutations);
-        simulatedHands.push_back(possibleHands);
+        std::vector<Hand> possibleHands = PossibleHands::SummarizeAllPossibleHands(player->m_id, player->m_hand, dealerPermutations);
+        // simulatedHands.push_back(possibleHands);
     }
 
     // compare each simulated hand between players

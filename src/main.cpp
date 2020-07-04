@@ -27,7 +27,7 @@ int main(int argc, const char **argv)
     srand(time(0));
 
     // create color multi threaded logger
-    spdlog::set_level(spdlog::level::debug); // Set global log level to info
+    spdlog::set_level(spdlog::level::info); // Set global log level to info
     auto console = spdlog::stdout_color_mt("console");    
     auto err_logger = spdlog::stderr_color_mt("stderr");
 

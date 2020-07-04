@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Card.hpp"
-#include "Hand.hpp"
+#include "Cards.hpp"
 
 class Player
 {
@@ -16,7 +15,7 @@ class Player
 
     private:
         int                 m_id;
-        std::vector<Card>   m_hand;
+        Cards               m_hand;
 
         Player(const Player&) = delete;
         Player& operator=(const Player&) = delete;

@@ -13,6 +13,9 @@ std::optional<ValidatedHand> FindStraightsAndFlushes::Find(std::vector<Card> car
 
     std::vector<Card> temp(cards);
 
+    // sort first
+    std::sort(temp.begin(), temp.end(), std::greater<Card>());
+
     // default assumes we have a flush
 
     std::optional<ValidatedHand> currentHandRank = std::optional<ValidatedHand>{{HandRank::FLUSH, temp}};
@@ -36,7 +39,7 @@ std::optional<ValidatedHand> FindStraightsAndFlushes::Find(std::vector<Card> car
 
     for (unsigned int i=0; i<temp.size() - 1; i++)
     {
-		if( temp[i+1].rank - temp[i].rank != 1 )
+		if( temp[i].rank - temp[i+1].rank != 1 )
 		{
             // at this point we know we don't have a straight
 
@@ -54,7 +57,7 @@ std::optional<ValidatedHand> FindStraightsAndFlushes::Find(std::vector<Card> car
 
         // check for royal flush
 
-        if( temp[0].rank == Rank::TEN )
+        if( temp[0].rank == Rank::ACE )
         {
             currentHandRank = std::optional<ValidatedHand>{{HandRank::ROYAL_FLUSH, temp}};
         }

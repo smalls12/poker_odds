@@ -11,9 +11,9 @@ void Dealer::DealCards(Players& players, Deck& deck)
         Card card = deck.back();
         std::stringstream ss;
         ss << card;
-        spdlog::get("console")->info("Dealer::DealCards - Dealt card {}", ss.str());
+        spdlog::get("console")->debug("Dealer::DealCards - Dealt card {}", ss.str());
 
         deck.pop_back();
-        player->AddCard(card);
+        player->m_hand.push_back(card);
     }
 }

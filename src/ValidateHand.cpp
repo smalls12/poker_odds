@@ -1,5 +1,6 @@
 #include "ValidateHand.hpp"
- 
+
+#include "FindHighCard.hpp"
 #include "FindPairs.hpp"
 #include "FindStraightsAndFlushes.hpp"
 
@@ -44,5 +45,5 @@ std::optional<ValidatedHand> ValidateHand::DetermineHandRank(std::vector<Card>& 
     }
     
 
-    return std::nullopt;
+    return FindHighCard::Find(cards);
 }

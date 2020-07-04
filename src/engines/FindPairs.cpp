@@ -7,6 +7,10 @@
 std::optional<ValidatedHand> FindPairs::Find(std::vector<Card> cards)
 {
     std::vector<Card> temp(cards);
+
+    // sort first
+    std::sort(temp.begin(), temp.end(), std::greater<Card>());
+
     std::vector<Card>::iterator it1 = std::adjacent_find(temp.begin(), temp.end());
  
     std::vector<Card> output;
@@ -54,17 +58,30 @@ std::optional<ValidatedHand> FindPairs::Find(std::vector<Card> cards)
         output.push_back(*it1);
         it1 = temp.erase(it1);
 
-        // need to check for two pair
+        // need to check for full house and two pair 
 
         std::optional<ValidatedHand> result = FindPairs::Find(temp);
         if( result )
         {
-            if( (*result).rank == HandRank::ONE_PAIR )
+            if ( (*result).rank == HandRank::THREE_OF_A_KIND )
+            {
+                // found three of a kind
+                output.insert(output.begin(), (*result).cards.begin(), (*result).cards.end());
+                return std::optional<ValidatedHand>{{HandRank::FULL_HOUSE, output}};
+
+            }
+            else if( (*result).rank == HandRank::ONE_PAIR )
             {
                 // found another pair
                 output.insert(output.begin(), (*result).cards.begin(), (*result).cards.end());
                 return std::optional<ValidatedHand>{{HandRank::TWO_PAIR, output}};
             }
+            else
+            {
+                std::cout << "what" << std::endl;
+            }
+            
+            
         }
 
         return std::optional<ValidatedHand>{{HandRank::ONE_PAIR, output}};

@@ -75,8 +75,7 @@ void HandDatabase::RankHandsInDatabase()
         
     }
 
-    spdlog::get("console")->info("Total Possible Hands [{}]", m_allPossibleHands.size()); 
-
+    spdlog::get("console")->info("Hands with High Card [{}]",m_highCardHands.size());
     spdlog::get("console")->info("Hands with One Pair [{}]",m_onePairHands.size());
     spdlog::get("console")->info("Hands with Two Pair [{}]", m_twoPairHands.size());
     spdlog::get("console")->info("Hands with Three of a Kind [{}]", m_threeOfAKindHands.size());

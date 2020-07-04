@@ -20,9 +20,6 @@ Hand::Hand(int id, std::vector<Card> cards)
 {
     // cards are provided
 
-    // sort first
-    std::sort(cards.begin(), cards.end(), std::greater<Card>());
-
     // validate and find the highest hand ranking
     std::optional<ValidatedHand> result = ValidateHand::DetermineHandRank(cards);
     if( result )
@@ -36,9 +33,6 @@ void Hand::addCard(Card card)
     cards.push_back(card);
 
     // cards are provided
-
-    // sort first
-    std::sort(cards.begin(), cards.end(), std::greater<Card>());
 
     // validate and find the highest hand ranking
     std::optional<ValidatedHand> result = ValidateHand::DetermineHandRank(cards);
