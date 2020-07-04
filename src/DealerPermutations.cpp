@@ -40,8 +40,6 @@ std::vector<std::vector<Card>> DealerPermutations::Work(Deck& deck, std::string 
 				cards.push_back(deck[i]);
 			}
         }
-        // sort first
-        std::sort(cards.begin(), cards.end());
 
 		allPossibleHands.push_back(cards);
     }

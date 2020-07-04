@@ -29,70 +29,12 @@ class Hand
             return !(*this == other);
         }
 
-        bool operator<(const Hand& other)
-        {
-            // compare validated ranks first
-            if( rank.rank < other.rank.rank )
-            {
-                // other has greater rank
-                return true;
-            }
-            else if ( rank.rank == other.rank.rank )
-            {
-                // ranks are the same
-                // compare each card in the validated hands
-                if( rank.cards < other.rank.cards )
-                {
-                    return true;
-                }
-                else
-                {
-                    // gets a bit harder to solve the winner
-                    // ResolveSameRankWinner::Resolve(*this, other);
-                }
-
-                return false;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        bool operator>(const Hand& other)
-        {
-            // compare validated ranks first
-            if( rank.rank > other.rank.rank )
-            {
-                // other has lesser rank
-                return true;
-            }
-            else if ( rank.rank == other.rank.rank )
-            {
-                // ranks are the same
-                // compare each card in the validated hands
-                if( rank.cards > other.rank.cards )
-                {
-                    return true;
-                }
-                else
-                {
-                    // gets a bit harder to solve the winner
-                    // ResolveSameRankWinner::Resolve(*this, other);
-                }
-                
-                return false;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
         friend class ValidateHand;
         friend class Player;
         friend class ResolveSameRankWinner;
 
+        friend bool operator<(const Hand& lhs, const Hand& rhs);
+        friend bool operator>(const Hand& lhs, const Hand& rhs);
         friend std::ostream& operator<<(std::ostream & os, Hand& hand);
 
     private:

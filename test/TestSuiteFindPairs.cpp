@@ -50,12 +50,27 @@ TEST_F(TestSuiteFindPairs, FindFourOfAKind)
 	EXPECT_TRUE((*result).rank == HandRank::FOUR_OF_A_KIND);
 }
 
-TEST_F(TestSuiteFindPairs, FindFullHouse)
+TEST_F(TestSuiteFindPairs, FindFullHouse_v1)
 {
 	std::vector<Card> cards{{
 		{ Rank::ACE, Suit::DIAMOND },
 		{ Rank::ACE, Suit::CLUB },
 		{ Rank::ACE, Suit::HEART },
+		{ Rank::KING, Suit::DIAMOND },
+		{ Rank::KING, Suit::HEART }
+	}};
+
+	std::optional<ValidatedHand> result = FindPairs::Find(cards);
+	EXPECT_TRUE(result);
+	EXPECT_TRUE((*result).rank == HandRank::FULL_HOUSE);
+}
+
+TEST_F(TestSuiteFindPairs, FindFullHouse_v2)
+{
+	std::vector<Card> cards{{
+		{ Rank::ACE, Suit::DIAMOND },
+		{ Rank::ACE, Suit::CLUB },
+		{ Rank::KING, Suit::CLUB },
 		{ Rank::KING, Suit::DIAMOND },
 		{ Rank::KING, Suit::HEART }
 	}};

@@ -24,6 +24,8 @@ int main(int argc, const char **argv)
     (void)argc;
     (void)argv;
 
+    srand(time(0));
+
     // create color multi threaded logger
     spdlog::set_level(spdlog::level::debug); // Set global log level to info
     auto console = spdlog::stdout_color_mt("console");    
@@ -45,12 +47,18 @@ int main(int argc, const char **argv)
     auto player1 = std::make_shared<Player>(0);
     auto player2 = std::make_shared<Player>(1);
 
-    Dealer dealer;
-
     Players players{player1, player2};
 
-    dealer.DealCards(players, deck);
-    dealer.DealCards(players, deck);
+    Dealer::DealCards(players, deck);
+    Dealer::DealCards(players, deck);
+
+    std::stringstream ss1;
+    ss1 << *player1.get();
+    spdlog::get("console")->info("poker_odds::Player1 Hand {}", ss1.str());
+
+    std::stringstream ss2;
+    ss2 << *player2.get();
+    spdlog::get("console")->info("poker_odds::Player2 Hand {}", ss2.str());
 
     CalculateOdds::Calculate(players, deck);
 
