@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Hand.hpp"
+#include "BaseHand.hpp"
 
 #include <vector>
 
-typedef std::vector<Hand> Hands;
+typedef std::vector<BaseHand> Hands;
 
 inline std::ostream& operator<<(std::ostream & os, Hands& hands)
 {

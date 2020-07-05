@@ -16,7 +16,15 @@ set ( src_files
       src/engines/FindHighCard.cpp
       src/engines/FindPairs.cpp
       src/engines/FindStraightsAndFlushes.cpp
+      src/hands/HandFactory.cpp
       src/hands/HighCardHand.cpp
+      src/hands/OnePairHand.cpp
+      src/hands/TwoPairHand.cpp
+      src/hands/ThreeOfAKindHand.cpp
+      src/hands/StraightHand.cpp
+      src/hands/FlushHand.cpp
+      src/hands/FourOfAKindHand.cpp
+      src/hands/BaseHand.cpp
       src/DealerPermutations.cpp
       src/HandDatabase.cpp
       src/ResolveSameRankWinner.cpp
@@ -25,7 +33,6 @@ set ( src_files
       src/TransposeHands.cpp
       src/ValidateHand.cpp
       src/PossibleHands.cpp
-      src/Hand.cpp
       src/Dealer.cpp
       src/Player.cpp
       src/DeckBuilder.cpp
@@ -49,8 +56,15 @@ set ( src_files_test
       src/engines/FindHighCard.cpp
       src/engines/FindPairs.cpp
       src/engines/FindStraightsAndFlushes.cpp
+      src/hands/HandFactory.cpp
       src/hands/HighCardHand.cpp
-      src/Hand.cpp
+      src/hands/OnePairHand.cpp
+      src/hands/TwoPairHand.cpp
+      src/hands/ThreeOfAKindHand.cpp
+      src/hands/StraightHand.cpp
+      src/hands/FlushHand.cpp
+      src/hands/FourOfAKindHand.cpp
+      src/hands/BaseHand.cpp
       src/TransposeHands.cpp
       src/ValidateHand.cpp
       src/DeckBuilder.cpp
@@ -71,6 +85,8 @@ set ( src_files_test
       test/TestSuiteHandDatabase.cpp
       test/TestSuiteDealerPermutations.cpp
       test/TestSuitePossibleHands.cpp
+      test/TestSuiteHandFactory.cpp
+      test/TestSuiteValidateHand.cpp
       test/main.cpp
 )
 

@@ -1,70 +1,79 @@
-#include "Hand.hpp"
+#include "BaseHand.hpp"
 
 #include "ValidateHand.hpp"
 #include "ResolveSameRankWinner.hpp"
 
 #include <algorithm>
 
-Hand::Hand(int id)
-:   id(id),
-    cards(),
-    rank()
-{
-    // no hand to validate at this point
-}
+// BaseHand::BaseHand(int id)
+// :   id(id),
+//     cards(),
+//     rank()
+// {
+//     // no hand to validate at this point
+// }
 
-Hand::Hand(int id, std::vector<Card> cards)
+// BaseHand::BaseHand(int id, std::vector<Card> cards)
+// :   id(id),
+//     cards(cards),
+//     rank()
+// {
+//     // cards are provided
+
+//     // // validate and find the highest hand ranking
+//     // std::optional<ValidatedHand> result = ValidateHand::DetermineHandRank(cards);
+//     // if( result )
+//     // {
+//     //     rank = *result;
+//     // }
+// }
+
+BaseHand::BaseHand(int id, std::vector<Card> cards, HandRank rank, std::vector<Card> validated)
 :   id(id),
     cards(cards),
-    rank()
+    rank(rank),
+    validated(validated)  
 {
-    // cards are provided
 
-    // validate and find the highest hand ranking
-    std::optional<ValidatedHand> result = ValidateHand::DetermineHandRank(cards);
-    if( result )
-    {
-        rank = *result;
-    }
 }
 
-void Hand::addCard(Card card)
-{
-    cards.push_back(card);
+// void BaseHand::addCard(Card card)
+// {
+//     cards.push_back(card);
 
-    // cards are provided
+//     // cards are provided
 
-    // validate and find the highest hand ranking
-    std::optional<ValidatedHand> result = ValidateHand::DetermineHandRank(cards);
-    if( result )
-    {
-        rank = *result;
-    }
-}
+//     // validate and find the highest hand ranking
+//     std::optional<ValidatedHand> result = ValidateHand::DetermineHandRank(cards);
+//     if( result )
+//     {
+//         rank = *result;
+//     }
+// }
 
-std::vector<Card> Hand::getCards()
-{
-    return cards;
-}
+// std::vector<Card> BaseHand::getCards()
+// {
+//     return cards;
+// }
 
-ValidatedHand Hand::getHandRank()
+HandRank BaseHand::getHandRank()
 {
     return rank;
 }
 
-bool operator<(const Hand& lhs, const Hand& rhs)
+bool operator<(const BaseHand& lhs, const BaseHand& rhs)
 {
     // compare validated ranks first
-    if( lhs.rank.rank < rhs.rank.rank )
+    if( lhs.rank < rhs.rank )
     {
         // rhs has greater rank
         return true;
     }
-    else if ( lhs.rank.rank == rhs.rank.rank )
+    else if ( lhs.rank == rhs.rank )
     {
         // ranks are the same
         // compare each card in the validated hands
-        if( lhs.rank.cards < rhs.rank.cards )
+        if( lhs.cards < rhs.cards )
         {
             return true;
         }
@@ -99,19 +108,19 @@ bool operator<(const Hand& lhs, const Hand& rhs)
     }
 }
 
-bool operator>(const Hand& lhs, const Hand& rhs)
+bool operator>(const BaseHand& lhs, const BaseHand& rhs)
 {
     // compare validated ranks first
-    if( lhs.rank.rank > rhs.rank.rank )
+    if( lhs.rank > rhs.rank )
     {
         // rhs has lesser rank
         return true;
     }
-    else if ( lhs.rank.rank == rhs.rank.rank )
+    else if ( lhs.rank == rhs.rank )
     {
         // ranks are the same
         // compare each card in the validated hands
-        if( lhs.rank.cards > rhs.rank.cards )
+        if( lhs.cards > rhs.cards )
         {
             return true;
         }
@@ -143,14 +152,14 @@ bool operator>(const Hand& lhs, const Hand& rhs)
     }
 }
 
-std::ostream& operator<<(std::ostream & os, Hand& hand)
+std::ostream& operator<<(std::ostream & os, BaseHand& hand)
 {
     os << "[ ";
     os << hand.id;
     os << " ]";
 
     os << "[ ";
-    os << hand.rank.rank;
+    os << hand.rank;
     os << " ]";
 
     for(auto& card : hand.cards)

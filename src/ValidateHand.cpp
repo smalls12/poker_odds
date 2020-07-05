@@ -4,7 +4,7 @@
 #include "FindPairs.hpp"
 #include "FindStraightsAndFlushes.hpp"
 
-std::optional<ValidatedHand> ValidateHand::DetermineHandRank(std::vector<Card>& cards)
+ValidatedHand ValidateHand::DetermineHandRank(std::vector<Card>& cards)
 {
     // searching for different card combinations
     std::optional<ValidatedHand> straightsAndFlushes = FindStraightsAndFlushes::Find(cards);
@@ -34,16 +34,16 @@ std::optional<ValidatedHand> ValidateHand::DetermineHandRank(std::vector<Card>& 
     {
         if( pairs )
         {
-            return (((*straightsAndFlushes).rank > (*pairs).rank) ? straightsAndFlushes : pairs);
+            return (((*straightsAndFlushes).rank > (*pairs).rank) ? *straightsAndFlushes : *pairs);
         }
 
-        return straightsAndFlushes;
+        return *straightsAndFlushes;
     }
     else if( pairs )
     {
-        return pairs;
+        return *pairs;
     }
     
 
-    return FindHighCard::Find(cards);
+    return *FindHighCard::Find(cards);
 }

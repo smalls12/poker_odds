@@ -19,7 +19,7 @@ RankEquality ResolveSameRankWinner::Resolve(Hand hand1, Hand hand2)
         { HandRank::HIGH_CARD, [](Hand hand1, Hand hand2){ (void)hand1; (void)hand2; return RankEquality::EQUAL; } }
     };
 
-    return router[hand1.rank.rank](hand1, hand2);
+    return router[hand1.rank](hand1, hand2);
 }
 
 RankEquality ResolveSameRankWinner::ResolveOnePair(Hand hand1, Hand hand2)
@@ -34,13 +34,13 @@ RankEquality ResolveSameRankWinner::ResolveOnePair(Hand hand1, Hand hand2)
     std::vector<Card> hand2_cards{hand2.cards};
 
     // remove respective one pair cards
-    for(auto& card : hand1.rank.cards)
+    for(auto& card : hand1.validated)
     {
         hand1_cards.erase(std::remove(hand1_cards.begin(), hand1_cards.end(), card), hand1_cards.end());
     }
 
     // remove respective one pair cards
-    for(auto& card : hand2.rank.cards)
+    for(auto& card : hand2.validated)
     {
         hand2_cards.erase(std::remove(hand2_cards.begin(), hand2_cards.end(), card), hand2_cards.end());
     }

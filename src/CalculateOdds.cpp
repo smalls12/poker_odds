@@ -1,5 +1,8 @@
 #include "CalculateOdds.hpp"
 
+#include "Cards.hpp"
+#include "Hands.hpp"
+
 #include "DealerPermutations.hpp"
 #include "PossibleHands.hpp"
 #include "TransposeHands.hpp"
@@ -14,18 +17,18 @@ void CalculateOdds::Calculate(Players& players, Deck& deck)
     // we have the players hands
     // we have the deck with the remaining cards
     // build out all the different dealer permutations
-    std::vector<std::vector<Card>> dealerPermutations = DealerPermutations::Simulate(deck, 3);
+    std::vector<Cards> dealerPermutations = DealerPermutations::Simulate(deck, 3);
 
     // now take the dealer permutations and simulate the possible hands for each player
-    std::vector<std::vector<Hand>> simulatedHands;
+    std::vector<Hands> simulatedHands;
     for(auto& player : players)
     {
-        std::vector<Hand> possibleHands = PossibleHands::SummarizeAllPossibleHands(player->m_id, player->m_hand, dealerPermutations);
+        Hands possibleHands = PossibleHands::SummarizeAllPossibleHands(player->m_id, player->m_hand, dealerPermutations);
         // simulatedHands.push_back(possibleHands);
     }
 
     // compare each simulated hand between players
-    std::vector<std::vector<Hand>> transposedHands = TransposeHands::Transpose(simulatedHands);
+    std::vector<Hands> transposedHands = TransposeHands::Transpose(simulatedHands);
 
     // for(auto& handsForComparison : transposedHands)
     // {
