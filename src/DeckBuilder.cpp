@@ -7,6 +7,9 @@ Deck DeckBuilder::Build()
 {
     Deck deck;
 
+    // always 52 cards
+    deck.reserve(52);
+
     deck.push_back({Rank::ACE,      Suit::DIAMOND});
     deck.push_back({Rank::KING,     Suit::DIAMOND});
     deck.push_back({Rank::QUEEN,    Suit::DIAMOND});

@@ -6,6 +6,10 @@
 #include "DeckBuilder.hpp"
 #include "DealerPermutations.hpp"
 
+#include "spdlog/spdlog.h"
+
+#include <chrono>
+
 class TestSuiteDealerPermutations : public ::testing::Test {
 protected:
 	// You can remove any or all of the following functions if its body
@@ -39,35 +43,61 @@ protected:
 TEST_F(TestSuiteDealerPermutations, TestDealerPermutations_3c2)
 {
 	// Deck deck = DeckBuilder::Build();
-	std::vector<Card> deck{ {Rank::ACE, Suit::CLUB}, {Rank::TEN, Suit::DIAMOND}, {Rank::FOUR, Suit::SPADE} };
-    std::vector<std::vector<Card>> hands = DealerPermutations::Simulate(deck, 2);
+	Cards deck{ {Rank::ACE, Suit::CLUB}, {Rank::TEN, Suit::DIAMOND}, {Rank::FOUR, Suit::SPADE} };
+    std::vector<Cards> hands = DealerPermutations::Simulate(deck, 2);
 
-	for(auto& hand : hands)
-	{
-		std::cout << "=================================" << std::endl;
+	// for(auto& hand : hands)
+	// {
+	// 	std::cout << "=================================" << std::endl;
 
-		for(auto& card : hand)
-		{
-			std::cout << card << std::endl;
-		}
-	}
+	// 	for(auto& card : hand)
+	// 	{
+	// 		std::cout << card << std::endl;
+	// 	}
+	// }
 }
 
 TEST_F(TestSuiteDealerPermutations, TestDealerPermutations_4c3)
 {
 	// Deck deck = DeckBuilder::Build();
-	std::vector<Card> deck{ {Rank::ACE, Suit::CLUB}, {Rank::TEN, Suit::DIAMOND}, {Rank::FOUR, Suit::SPADE}, {Rank::TWO, Suit::HEART} };
-    std::vector<std::vector<Card>> hands = DealerPermutations::Simulate(deck, 3);
+	Cards deck{ {Rank::ACE, Suit::CLUB}, {Rank::TEN, Suit::DIAMOND}, {Rank::FOUR, Suit::SPADE}, {Rank::TWO, Suit::HEART} };
+    std::vector<Cards> hands = DealerPermutations::Simulate(deck, 3);
 
-	for(auto& hand : hands)
-	{
-		std::cout << "=================================" << std::endl;
+	// for(auto& hand : hands)
+	// {
+	// 	std::cout << "=================================" << std::endl;
 
-		for(auto& card : hand)
-		{
-			std::cout << card << std::endl;
-		}
-	}
+	// 	for(auto& card : hand)
+	// 	{
+	// 		std::cout << card << std::endl;
+	// 	}
+	// }
+}
+
+TEST_F(TestSuiteDealerPermutations, TestDealerPermutations_48c5)
+{
+	Deck deck = DeckBuilder::Build();
+
+	deck.pop_back();
+	deck.pop_back();
+	deck.pop_back();
+	deck.pop_back();
+
+	auto start = std::chrono::steady_clock::now();
+    std::vector<Cards> hands = DealerPermutations::Simulate(deck, 5);
+    auto end = std::chrono::steady_clock::now();
+	spdlog::get("console")->info("Finished building database in [{}]ms", std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count());
+
+
+	// for(auto& hand : hands)
+	// {
+	// 	std::cout << "=================================" << std::endl;
+
+	// 	for(auto& card : hand)
+	// 	{
+	// 		std::cout << card << std::endl;
+	// 	}
+	// }
 }
 
 // }  // namespace - could surround Project1Test in a namespace

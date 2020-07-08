@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Find.hpp"
-#include "Card.hpp"
+#include "Cards.hpp"
 
 #include <vector>
 #include <optional>
@@ -9,6 +9,6 @@
 class FindHighCard
 {
     public:
-        static std::optional<ValidatedHand> Find(std::vector<Card> cards);
+        static std::optional<ValidatedHand> Find(Cards& cards);
 
 };

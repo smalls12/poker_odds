@@ -4,9 +4,9 @@
 #include <sstream>
 #include <iostream>
 
-std::optional<ValidatedHand> FindHighCard::Find(std::vector<Card> cards)
+std::optional<ValidatedHand> FindHighCard::Find(Cards& cards)
 {
-    std::vector<Card> temp(cards);
+    Cards temp(cards);
 
     // sort first
     std::sort(temp.begin(), temp.end(), std::greater<Card>());

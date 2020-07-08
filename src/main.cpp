@@ -46,21 +46,17 @@ int main(int argc, const char **argv)
 
     auto player1 = std::make_shared<Player>(0);
     auto player2 = std::make_shared<Player>(1);
+    auto player3 = std::make_shared<Player>(2);
+    auto player4 = std::make_shared<Player>(3);
 
-    Players players{player1, player2};
+    Players players{player1, player2, player3, player4};
 
     Dealer::DealCards(players, deck);
     Dealer::DealCards(players, deck);
 
-    std::stringstream ss1;
-    ss1 << *player1.get();
-    spdlog::get("console")->info("poker_odds::Player1 Hand {}", ss1.str());
-
-    std::stringstream ss2;
-    ss2 << *player2.get();
-    spdlog::get("console")->info("poker_odds::Player2 Hand {}", ss2.str());
-
+    spdlog::get("console")->info("poker_odds::start");
     CalculateOdds::Calculate(players, deck);
+    spdlog::get("console")->info("poker_odds::done");
 
     return 0;
 }

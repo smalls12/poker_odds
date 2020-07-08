@@ -26,10 +26,13 @@ std::vector<std::vector<Hand>> TransposeHands::Transpose(std::vector<std::vector
     */
 
     std::vector<std::vector<Hand>> differentHands;
+    differentHands.reserve(hands[0].size());
 
     for(unsigned int x = 0; x < hands[0].size(); x++)
     {
         std::vector<Hand> temp;
+        temp.reserve(hands.size());
+        
         for(unsigned int y = 0; y < hands.size(); y++)
         {
             temp.push_back(hands[y][x]);

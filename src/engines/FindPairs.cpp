@@ -4,16 +4,17 @@
 #include <sstream>
 #include <iostream>
 
-std::optional<ValidatedHand> FindPairs::Find(std::vector<Card> cards)
+std::optional<ValidatedHand> FindPairs::Find(Cards& cards)
 {
-    std::vector<Card> temp(cards);
+    Cards temp(cards);
 
     // sort first
     std::sort(temp.begin(), temp.end(), std::greater<Card>());
 
-    std::vector<Card>::iterator it1 = std::adjacent_find(temp.begin(), temp.end());
+    Cards::iterator it1 = std::adjacent_find(temp.begin(), temp.end());
  
-    std::vector<Card> output;
+    Cards output;
+    output.reserve(5);
     if (it1 != temp.end())
     {
         // at this point we know we have a pair
@@ -21,7 +22,7 @@ std::optional<ValidatedHand> FindPairs::Find(std::vector<Card> cards)
         it1 = temp.erase(it1);
 
         // need to check for 3 of a kind
-        std::vector<Card>::iterator it2 = std::adjacent_find(it1, temp.end());
+        Cards::iterator it2 = std::adjacent_find(it1, temp.end());
         if (it2 != temp.end() && it2 == it1)
         {
             // at this point we know we have three of a kind
@@ -29,8 +30,8 @@ std::optional<ValidatedHand> FindPairs::Find(std::vector<Card> cards)
             it2 = temp.erase(it2);
 
             // need to check for four of a kind
-            std::vector<Card> possibleFourOfAKind(temp);
-            std::vector<Card>::iterator it3 = std::adjacent_find(it2, temp.end());
+            Cards possibleFourOfAKind(temp);
+            Cards::iterator it3 = std::adjacent_find(it2, temp.end());
             if (it3 != temp.end()  && it3 == it2)
             {
                 return std::optional<ValidatedHand>{{HandRank::FOUR_OF_A_KIND, output}};
@@ -78,10 +79,8 @@ std::optional<ValidatedHand> FindPairs::Find(std::vector<Card> cards)
             }
             else
             {
-                std::cout << "what" << std::endl;
-            }
-            
-            
+                // dunno
+            }            
         }
 
         return std::optional<ValidatedHand>{{HandRank::ONE_PAIR, output}};

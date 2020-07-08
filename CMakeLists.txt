@@ -87,6 +87,7 @@ set ( src_files_test
       test/TestSuitePossibleHands.cpp
       test/TestSuiteHandFactory.cpp
       test/TestSuiteValidateHand.cpp
+      test/TestSuiteWinningHands.cpp
       test/main.cpp
 )
 

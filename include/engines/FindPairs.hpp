@@ -9,6 +9,6 @@
 class FindPairs
 {
     public:
-        static std::optional<ValidatedHand> Find(std::vector<Card> cards);
+        static std::optional<ValidatedHand> Find(Cards& cards);
 
 };

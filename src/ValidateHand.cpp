@@ -4,6 +4,8 @@
 #include "FindPairs.hpp"
 #include "FindStraightsAndFlushes.hpp"
 
+#include "spdlog/spdlog.h"
+
 ValidatedHand ValidateHand::DetermineHandRank(std::vector<Card>& cards)
 {
     // searching for different card combinations

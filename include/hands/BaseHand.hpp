@@ -27,11 +27,13 @@ class BaseHand
         friend class ValidateHand;
         friend class ResolveSameRankWinner;
 
-        friend bool operator<(const BaseHand& lhs, const BaseHand& rhs);
-        friend bool operator>(const BaseHand& lhs, const BaseHand& rhs);
+        bool operator<(const BaseHand& rhs) const;
+        bool operator>(const BaseHand& rhs) const;
+
+        // bool operator<(const BaseHand& lhs, const BaseHand& rhs);
+        // bool operator>(const BaseHand& lhs, const BaseHand& rhs);
         friend std::ostream& operator<<(std::ostream & os, BaseHand& hand);
 
-    protected:
         // void addCard(Card card);
         // std::vector<Card> getCards();
 

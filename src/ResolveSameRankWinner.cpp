@@ -1,5 +1,7 @@
 #include "ResolveSameRankWinner.hpp"
 
+#include "spdlog/spdlog.h"
+
 #include <map>
 #include <functional>
 #include <iostream>
@@ -24,6 +26,8 @@ RankEquality ResolveSameRankWinner::Resolve(Hand hand1, Hand hand2)
 
 RankEquality ResolveSameRankWinner::ResolveOnePair(Hand hand1, Hand hand2)
 {
+    spdlog::get("console")->info("ResolveSameRankWinner::ResolveOnePair()");
+
     if(hand1.cards == hand2.cards)
     {
         return RankEquality::EQUAL;

@@ -4,14 +4,14 @@
 #include <sstream>
 #include <iostream>
 
-std::optional<ValidatedHand> FindStraightsAndFlushes::Find(std::vector<Card> cards)
+std::optional<ValidatedHand> FindStraightsAndFlushes::Find(Cards& cards)
 {
     if( cards.size() < 5 )
     {
         return std::nullopt;
     }
 
-    std::vector<Card> temp(cards);
+    Cards temp(cards);
 
     // sort first
     std::sort(temp.begin(), temp.end(), std::greater<Card>());

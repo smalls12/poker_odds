@@ -3,6 +3,8 @@
 #include "ValidateHand.hpp"
 #include "ResolveSameRankWinner.hpp"
 
+#include "spdlog/spdlog.h"
+
 #include <algorithm>
 
 // BaseHand::BaseHand(int id)
@@ -61,95 +63,29 @@ HandRank BaseHand::getHandRank()
     return rank;
 }
 
-bool operator<(const BaseHand& lhs, const BaseHand& rhs)
+bool BaseHand::operator<(const BaseHand& rhs) const
 {
     // compare validated ranks first
-    if( lhs.rank < rhs.rank )
+    if( rank < rhs.rank )
     {
         // rhs has greater rank
         return true;
     }
-    else if ( lhs.rank == rhs.rank )
-    {
-        // ranks are the same
-        // compare each card in the validated hands
-        if( lhs.cards < rhs.cards )
-        {
-            return true;
-        }
-        else
-        {
-            // gets a bit harder to solve the winner
-            switch(ResolveSameRankWinner::Resolve(lhs, rhs))
-            {
-                case RankEquality::GREATER_THAN:
-                {
-                    return false;
-                    break;
-                }
-                case RankEquality::EQUAL:
-                {
-                    return false;
-                    break;
-                }
-                case RankEquality::LESSER_THAN:
-                { 
-                    return true;
-                    break;
-                }
-            }
-        }
 
-        return false;
-    }
-    else
-    {
-        return false;
-    }
+    return false;
+    
 }
 
-bool operator>(const BaseHand& lhs, const BaseHand& rhs)
+bool BaseHand::operator>(const BaseHand& rhs) const
 {
     // compare validated ranks first
-    if( lhs.rank > rhs.rank )
+    if( rank > rhs.rank )
     {
         // rhs has lesser rank
         return true;
     }
-    else if ( lhs.rank == rhs.rank )
-    {
-        // ranks are the same
-        // compare each card in the validated hands
-        if( lhs.cards > rhs.cards )
-        {
-            return true;
-        }
-        else
-        {
-            // gets a bit harder to solve the winner
-            switch(ResolveSameRankWinner::Resolve(lhs, rhs))
-            {
-                case RankEquality::GREATER_THAN:
-                {
-                    return true;
-                }
-                case RankEquality::EQUAL:
-                {
-                    return false;
-                }
-                case RankEquality::LESSER_THAN:
-                { 
-                    return false;
-                }
-            }
-        }
 
-        return false;
-    }
-    else
-    {
-        return false;
-    }
+    return false;
 }
 
 std::ostream& operator<<(std::ostream & os, BaseHand& hand)
