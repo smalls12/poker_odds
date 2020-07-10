@@ -24,6 +24,9 @@ set ( src_files
       src/hands/StraightHand.cpp
       src/hands/FlushHand.cpp
       src/hands/FourOfAKindHand.cpp
+      src/hands/FullHouseHand.cpp
+      src/hands/StraightFlushHand.cpp
+      src/hands/RoyalFlushHand.cpp
       src/hands/BaseHand.cpp
       src/DealerPermutations.cpp
       src/HandDatabase.cpp
@@ -64,6 +67,9 @@ set ( src_files_test
       src/hands/StraightHand.cpp
       src/hands/FlushHand.cpp
       src/hands/FourOfAKindHand.cpp
+      src/hands/FullHouseHand.cpp
+      src/hands/StraightFlushHand.cpp
+      src/hands/RoyalFlushHand.cpp
       src/hands/BaseHand.cpp
       src/TransposeHands.cpp
       src/ValidateHand.cpp

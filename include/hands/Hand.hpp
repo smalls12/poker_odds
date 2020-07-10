@@ -8,9 +8,9 @@
 #include "ThreeOfAKindHand.hpp"
 #include "StraightHand.hpp"
 #include "FlushHand.hpp"
+#include "FullHouseHand.hpp"
 #include "FourOfAKindHand.hpp"
-// #include "HighCard.hpp"
-// #include "HighCard.hpp"
-// #include "HighCard.hpp"
+#include "StraightFlushHand.hpp"
+#include "RoyalFlushHand.hpp"
 
 typedef BaseHand Hand;

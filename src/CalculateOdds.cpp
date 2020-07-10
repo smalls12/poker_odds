@@ -41,13 +41,14 @@ void CalculateOdds::Calculate(Players& players, Deck& deck)
     //     }
     // }
 
-    // std::vector<Hand> winners;
-    // for(auto& handsForComparison : transposedHands)
-    // {
-    //     // sort first
-    //     std::sort(handsForComparison.begin(), handsForComparison.end());
-    //     winners.push_back(handsForComparison[handsForComparison.size() - 1]);
-    // }
+    std::vector<Hand> winners;
+    winners.reserve(transposedHands.size());
+    for(auto& handsForComparison : transposedHands)
+    {
+        // sort first
+        std::sort(handsForComparison.begin(), handsForComparison.end(), std::greater<Hand>());
+        winners.push_back(handsForComparison[0]);
+    }
 
     // for(auto& winner : winners)
     // {
