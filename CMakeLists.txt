@@ -7,12 +7,12 @@ set( CMAKE_CXX_FLAGS " -Wall -Werror -Wextra -O2 -std=c++17 -DSPDLOG_COMPILED_LI
 include_directories( ${CMAKE_STAGING_PREFIX}/usr/include )
 link_directories( ${CMAKE_STAGING_PREFIX}/usr/lib )
 
-find_package(Boost 1.73.0 REQUIRED COMPONENTS program_options)
-if(Boost_FOUND)
-  include_directories( ${Boost_INCLUDE_DIRS} )
-endif()
+# find_package(Boost 1.73.0 REQUIRED COMPONENTS program_options)
+# if(Boost_FOUND)
+#   include_directories( ${Boost_INCLUDE_DIRS} )
+# endif()
 
-set ( src_files
+set ( lib_src_files
       src/engines/FindHighCard.cpp
       src/engines/FindPairs.cpp
       src/engines/FindStraightsAndFlushes.cpp
@@ -21,13 +21,19 @@ set ( src_files
       src/hands/OnePairHand.cpp
       src/hands/TwoPairHand.cpp
       src/hands/ThreeOfAKindHand.cpp
+      src/hands/StraightAceLowHand.cpp
       src/hands/StraightHand.cpp
       src/hands/FlushHand.cpp
       src/hands/FourOfAKindHand.cpp
       src/hands/FullHouseHand.cpp
+      src/hands/StraightFlushAceLowHand.cpp
       src/hands/StraightFlushHand.cpp
       src/hands/RoyalFlushHand.cpp
       src/hands/BaseHand.cpp
+      src/cards/BaseCard.cpp
+      src/poker/Poker.cpp
+      src/poker/PokerImpl.cpp
+      src/AnalyzeRounds.cpp
       src/DealerPermutations.cpp
       src/HandDatabase.cpp
       src/CalculateOdds.cpp
@@ -39,20 +45,39 @@ set ( src_files
       src/Player.cpp
       src/DeckBuilder.cpp
       src/ShuffleDeck.cpp
-      src/main.cpp
 )
 
-add_executable( ${PROJECT_NAME} ${src_files} )
+add_library( ${PROJECT_NAME} STATIC ${lib_src_files} )
 
 target_include_directories( ${PROJECT_NAME} PRIVATE include )
 target_include_directories( ${PROJECT_NAME} PRIVATE include/engines )
 target_include_directories( ${PROJECT_NAME} PRIVATE include/hands )
+target_include_directories( ${PROJECT_NAME} PRIVATE include/cards )
+target_include_directories( ${PROJECT_NAME} PRIVATE include/poker )
 
-target_link_libraries( ${PROJECT_NAME} ${Boost_LIBRARIES} )
+# target_link_libraries( ${PROJECT_NAME} ${Boost_LIBRARIES} )
 
 target_link_libraries( ${PROJECT_NAME} spdlog )
 
 target_link_libraries( ${PROJECT_NAME} pthread )
+
+set ( exe_src_files
+      src/main.cpp
+)
+
+add_executable( poker ${exe_src_files} )
+
+target_include_directories( poker PRIVATE include )
+target_include_directories( poker PRIVATE include/engines )
+target_include_directories( poker PRIVATE include/hands )
+target_include_directories( poker PRIVATE include/cards )
+target_include_directories( poker PRIVATE include/poker )
+
+target_link_libraries( poker ${PROJECT_NAME} )
+
+target_link_libraries( poker spdlog )
+
+target_link_libraries( poker pthread )
 
 set ( src_files_test
       src/engines/FindHighCard.cpp
@@ -63,13 +88,16 @@ set ( src_files_test
       src/hands/OnePairHand.cpp
       src/hands/TwoPairHand.cpp
       src/hands/ThreeOfAKindHand.cpp
+      src/hands/StraightAceLowHand.cpp
       src/hands/StraightHand.cpp
       src/hands/FlushHand.cpp
       src/hands/FourOfAKindHand.cpp
       src/hands/FullHouseHand.cpp
+      src/hands/StraightFlushAceLowHand.cpp
       src/hands/StraightFlushHand.cpp
       src/hands/RoyalFlushHand.cpp
       src/hands/BaseHand.cpp
+      src/cards/BaseCard.cpp
       src/TransposeHands.cpp
       src/ValidateHand.cpp
       src/DeckBuilder.cpp
@@ -100,6 +128,7 @@ add_executable( test_poker_odds ${src_files_test} )
 target_include_directories( test_poker_odds PRIVATE include )
 target_include_directories( test_poker_odds PRIVATE include/engines )
 target_include_directories( test_poker_odds PRIVATE include/hands )
+target_include_directories( test_poker_odds PRIVATE include/cards )
 
 target_link_libraries( test_poker_odds gtest )
 target_link_libraries( test_poker_odds gtest_main )

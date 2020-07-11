@@ -39,17 +39,31 @@ std::optional<ValidatedHand> FindStraightsAndFlushes::Find(Cards& cards)
 
     // look for a straight
 
-    for (unsigned int i=0; i<temp.size() - 1; i++)
+    if( temp[0]->rank == Rank::ACE )
     {
-		if( temp[i]->rank - temp[i+1]->rank != 1 )
-		{
-            // at this point we know we don't have a straight
-
-            // exit early indicating flush or no flush
-
+        // ace is first
+        // could be ace low or ace high
+        if( !( (temp[1]->rank == Rank::KING && temp[2]->rank == Rank::QUEEN && temp[3]->rank == Rank::JACK && temp[4]->rank == Rank::TEN) ||
+               (temp[1]->rank == Rank::FIVE && temp[2]->rank == Rank::FOUR && temp[3]->rank == Rank::THREE && temp[4]->rank == Rank::TWO) ))
+        {
             return currentHandRank;
-		}
-	}
+        }
+
+    }
+    else
+    {
+        for (unsigned int i=0; i<temp.size() - 1; i++)
+        {
+            if( temp[i]->rank - temp[i+1]->rank != 1 )
+            {
+                // at this point we know we don't have a straight
+
+                // exit early indicating flush or no flush
+
+                return currentHandRank;
+            }
+        }
+    }
 
     // at this point we know we have a straight
 
@@ -59,9 +73,13 @@ std::optional<ValidatedHand> FindStraightsAndFlushes::Find(Cards& cards)
 
         // check for royal flush
 
-        if( temp[0]->rank == Rank::ACE )
+        if( temp[4]->rank == Rank::TEN )
         {
             currentHandRank = std::optional<ValidatedHand>{{HandRank::ROYAL_FLUSH, temp}};
+        }
+        else if( temp[4]->rank == Rank::TWO )
+        {
+            currentHandRank = std::optional<ValidatedHand>{{HandRank::STRAIGHT_FLUSH_ACE_LOW, temp}};
         }
         else
         {
@@ -71,8 +89,14 @@ std::optional<ValidatedHand> FindStraightsAndFlushes::Find(Cards& cards)
     else
     {
         // there was no flush
-
-        currentHandRank = std::optional<ValidatedHand>{{HandRank::STRAIGHT, temp}};
+        if( temp[4]->rank == Rank::TWO )
+        {
+            currentHandRank = std::optional<ValidatedHand>{{HandRank::STRAIGHT_ACE_LOW, temp}};
+        }
+        else
+        {
+            currentHandRank = std::optional<ValidatedHand>{{HandRank::STRAIGHT, temp}};
+        }
     }
 
     return currentHandRank;

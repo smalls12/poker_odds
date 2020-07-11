@@ -4,7 +4,7 @@
 #include "gtest/gtest.h"
 
 #include "Cards.hpp"
-#include "Hands.hpp"
+#include "Hand.hpp"
 #include "HandFactory.hpp"
 #include "ValidateHand.hpp"
 #include "TransposeHands.hpp"

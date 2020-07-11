@@ -2,32 +2,7 @@
 
 #include "ValidateHand.hpp"
 
-#include "spdlog/spdlog.h"
-
 #include <algorithm>
-
-// BaseHand::BaseHand(int id)
-// :   id(id),
-//     cards(),
-//     rank()
-// {
-//     // no hand to validate at this point
-// }
-
-// BaseHand::BaseHand(int id, Cards cards)
-// :   id(id),
-//     cards(cards),
-//     rank()
-// {
-//     // cards are provided
-
-//     // // validate and find the highest hand ranking
-//     // std::optional<ValidatedHand> result = ValidateHand::DetermineHandRank(cards);
-//     // if( result )
-//     // {
-//     //     rank = *result;
-//     // }
-// }
 
 BaseHand::BaseHand(int id, Cards cards, HandRank rank, Cards validated)
 :   id(id),
@@ -38,25 +13,6 @@ BaseHand::BaseHand(int id, Cards cards, HandRank rank, Cards validated)
 
 }
 
-// void BaseHand::addCard(Card card)
-// {
-//     cards.emplace_back(card);
-
-//     // cards are provided
-
-//     // validate and find the highest hand ranking
-//     std::optional<ValidatedHand> result = ValidateHand::DetermineHandRank(cards);
-//     if( result )
-//     {
-//         rank = *result;
-//     }
-// }
-
-// Cards BaseHand::getCards()
-// {
-//     return cards;
-// }
-
 HandRank BaseHand::getHandRank()
 {
     return rank;
@@ -64,8 +20,6 @@ HandRank BaseHand::getHandRank()
 
 bool BaseHand::operator==(const BaseHand& rhs) const
 {
-    spdlog::get("console")->info("BaseHand::==");
-
     return std::equal(  std::begin(cards), std::end(cards),
                         std::begin(rhs.cards), std::end(rhs.cards),
                         [](const Card* lhs, const Card* rhs){ return *lhs == *rhs; });
@@ -118,12 +72,3 @@ std::ostream& operator<<(std::ostream & os, BaseHand& hand)
 
     return os;
 }
-
-
-// BaseHand(BaseHand&& other)
-// {
-// }
-
-// BaseHand& operator=(BaseHand&& other)
-// {
-// }

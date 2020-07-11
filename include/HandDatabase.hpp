@@ -18,10 +18,12 @@ class HandDatabase
 
         std::vector<Cards>  m_royalFlushHands;
         std::vector<Cards>  m_straightFlushHands;
+        std::vector<Cards>  m_straightFlushAceLowHands;
         std::vector<Cards>  m_fourOfAKindHands;
         std::vector<Cards>  m_fullHouseHands;
         std::vector<Cards>  m_flushHands;
         std::vector<Cards>  m_straightHands;
+        std::vector<Cards>  m_straightAceLowHands;
         std::vector<Cards>  m_threeOfAKindHands;
         std::vector<Cards>  m_twoPairHands;
         std::vector<Cards>  m_onePairHands;

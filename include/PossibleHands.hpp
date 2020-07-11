@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Cards.hpp"
-#include "Hands.hpp"
+#include "Hand.hpp"
 #include "Player.hpp"
 #include "Deck.hpp"
 

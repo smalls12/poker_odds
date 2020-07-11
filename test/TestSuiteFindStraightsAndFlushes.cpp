@@ -50,19 +50,21 @@ TEST_F(TestSuiteFindStraightsAndFlushes, FindAStraight_Ace_High)
 	EXPECT_TRUE((*result).rank == HandRank::STRAIGHT);
 }
 
-TEST_F(TestSuiteFindStraightsAndFlushes, FindAStraight_Five_High)
+TEST_F(TestSuiteFindStraightsAndFlushes, FindAStraight_Ace_Low)
 {
 	Cards cards{{
-		new Card{ Rank::FIVE, Suit::DIAMOND },
-		new Card{ Rank::FOUR, Suit::CLUB },
-		new Card{ Rank::QUEEN, Suit::HEART },
-		new Card{ Rank::JACK, Suit::SPADE },
-		new Card{ Rank::TEN, Suit::HEART }
+		new Card{ Rank::ACE, Suit::DIAMOND },
+		new Card{ Rank::FIVE, Suit::CLUB },
+		new Card{ Rank::FOUR, Suit::HEART },
+		new Card{ Rank::THREE, Suit::SPADE },
+		new Card{ Rank::TWO, Suit::HEART }
 	}};
 
 	std::optional<ValidatedHand> result = FindStraightsAndFlushes::Find(cards);
 	EXPECT_TRUE(result);
-	EXPECT_TRUE((*result).rank == HandRank::STRAIGHT);
+	EXPECT_TRUE((*result).rank == HandRank::STRAIGHT_ACE_LOW);
+
+	std::cout << (*result).rank << std::endl;
 }
 
 TEST_F(TestSuiteFindStraightsAndFlushes, FindARoyalFlush)
@@ -93,6 +95,21 @@ TEST_F(TestSuiteFindStraightsAndFlushes, FindAStraightFlush)
 	std::optional<ValidatedHand> result = FindStraightsAndFlushes::Find(cards);
 	EXPECT_TRUE(result);
 	EXPECT_TRUE((*result).rank == HandRank::STRAIGHT_FLUSH);
+}
+
+TEST_F(TestSuiteFindStraightsAndFlushes, FindAStraightFlushAceLow)
+{
+	Cards cards{{
+		new Card{ Rank::ACE, Suit::DIAMOND },
+		new Card{ Rank::FIVE, Suit::DIAMOND },
+		new Card{ Rank::FOUR, Suit::DIAMOND },
+		new Card{ Rank::THREE, Suit::DIAMOND },
+		new Card{ Rank::TWO, Suit::DIAMOND }
+	}};
+
+	std::optional<ValidatedHand> result = FindStraightsAndFlushes::Find(cards);
+	EXPECT_TRUE(result);
+	EXPECT_TRUE((*result).rank == HandRank::STRAIGHT_FLUSH_ACE_LOW);
 }
 
 TEST_F(TestSuiteFindStraightsAndFlushes, FindAFlush)

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "HandRank.hpp"
-#include "Cards.hpp"
+#include "Card.hpp"
 
 #include <vector>
 

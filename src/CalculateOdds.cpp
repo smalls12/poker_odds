@@ -1,11 +1,12 @@
 #include "CalculateOdds.hpp"
 
 #include "Cards.hpp"
-#include "Hands.hpp"
+#include "Hand.hpp"
 
 #include "DealerPermutations.hpp"
 #include "PossibleHands.hpp"
 #include "TransposeHands.hpp"
+#include "AnalyzeRounds.hpp"
 
 #include "spdlog/spdlog.h"
 
@@ -41,20 +42,13 @@ void CalculateOdds::Calculate(Players& players, Deck& deck)
     //     }
     // }
 
-    std::vector<Hand> winners;
-    winners.reserve(transposedHands.size());
-    for(auto& handsForComparison : transposedHands)
-    {
-        // sort first
-        std::sort(handsForComparison.begin(), handsForComparison.end(), std::greater<Hand>());
-        winners.emplace_back(handsForComparison[0]);
-    }
+    Rounds rounds = AnalyzeRounds::Analyze(transposedHands);
 
-    // for(auto& winner : winners)
-    // {
-    //     std::stringstream ss;
-    //     ss << winner;
-    //     std::cout << "Winning hand [ " << ss.str() << " ]" << std::endl;
-    // }
+    for(unsigned i = 0; i < 100; i++)
+    {
+        std::stringstream ss;
+        ss << rounds[i];
+        std::cout << "Round [ " << ss.str() << " ]" << std::endl;
+    }
     
 }
