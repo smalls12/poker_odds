@@ -42,8 +42,27 @@ protected:
 // Also note: use TEST_F instead of TEST to access the test fixture (from google test primer)
 TEST_F(TestSuiteTranspose, TestTransposing_2x3)
 {
-    std::vector<Cards> cards1{ { { Rank::ACE, Suit::DIAMOND }, { Rank::ACE, Suit::CLUB }, { Rank::ACE, Suit::HEART } }, { { Rank::KING, Suit::DIAMOND }, { Rank::KING, Suit::CLUB }, { Rank::KING, Suit::HEART } }, { { Rank::QUEEN, Suit::DIAMOND }, { Rank::QUEEN, Suit::CLUB }, { Rank::QUEEN, Suit::HEART } } };
-    std::vector<Cards> cards2{ { { Rank::JACK, Suit::DIAMOND }, { Rank::JACK, Suit::CLUB }, { Rank::JACK, Suit::HEART } }, { { Rank::TEN, Suit::DIAMOND }, { Rank::TEN, Suit::CLUB }, { Rank::TEN, Suit::HEART } }, { { Rank::NINE, Suit::DIAMOND }, { Rank::NINE, Suit::CLUB }, { Rank::NINE, Suit::HEART } } };
+    std::vector<Cards> cards1{{
+        new Card{ Rank::ACE, Suit::DIAMOND },
+        new Card{ Rank::ACE, Suit::CLUB },
+        new Card{ Rank::ACE, Suit::HEART } }, {
+            new Card{ Rank::KING, Suit::DIAMOND },
+            new Card{ Rank::KING, Suit::CLUB },
+            new Card{ Rank::KING, Suit::HEART } }, {
+                new Card{ Rank::QUEEN, Suit::DIAMOND },
+                new Card{ Rank::QUEEN, Suit::CLUB },
+                new Card{ Rank::QUEEN, Suit::HEART } }};
+    
+    std::vector<Cards> cards2{{
+        new Card{ Rank::JACK, Suit::DIAMOND },
+        new Card{ Rank::JACK, Suit::CLUB },
+        new Card{ Rank::JACK, Suit::HEART } }, { 
+            new Card{ Rank::TEN, Suit::DIAMOND },
+            new Card{ Rank::TEN, Suit::CLUB },
+            new Card{ Rank::TEN, Suit::HEART } }, {
+                new Card{ Rank::NINE, Suit::DIAMOND },
+                new Card{ Rank::NINE, Suit::CLUB },
+                new Card{ Rank::NINE, Suit::HEART } } };
 
     Hands hands1;
     Hands hands2;
@@ -61,14 +80,14 @@ TEST_F(TestSuiteTranspose, TestTransposing_2x3)
     std::vector<Hands> hands{hands1, hands2};
     std::vector<Hands> transposedHands = TransposeHands::Transpose(hands);
 
-	EXPECT_TRUE(transposedHands[0][0] == HighCardHand(0, { { Rank::ACE, Suit::DIAMOND }, { Rank::ACE, Suit::CLUB }, { Rank::ACE, Suit::HEART } }, { { Rank::ACE, Suit::DIAMOND }, { Rank::ACE, Suit::CLUB }, { Rank::ACE, Suit::HEART } }));
-	EXPECT_TRUE(transposedHands[0][1] == HighCardHand(1, { { Rank::JACK, Suit::DIAMOND }, { Rank::JACK, Suit::CLUB }, { Rank::JACK, Suit::HEART } }, { { Rank::JACK, Suit::DIAMOND }, { Rank::JACK, Suit::CLUB }, { Rank::JACK, Suit::HEART } }));
+	EXPECT_TRUE(transposedHands[0][0] == ThreeOfAKindHand(0, { new Card{ Rank::ACE, Suit::DIAMOND }, new Card{ Rank::ACE, Suit::CLUB }, new Card{ Rank::ACE, Suit::HEART } }, { new Card{ Rank::ACE, Suit::DIAMOND }, new Card{ Rank::ACE, Suit::CLUB }, new Card{ Rank::ACE, Suit::HEART } }));
+	EXPECT_TRUE(transposedHands[0][1] == ThreeOfAKindHand(1, { new Card{ Rank::JACK, Suit::DIAMOND }, new Card{ Rank::JACK, Suit::CLUB }, new Card{ Rank::JACK, Suit::HEART } }, { new Card{ Rank::JACK, Suit::DIAMOND }, new Card{ Rank::JACK, Suit::CLUB }, new Card{ Rank::JACK, Suit::HEART } }));
 
-    EXPECT_TRUE(transposedHands[1][0] == HighCardHand(0, { { Rank::KING, Suit::DIAMOND }, { Rank::KING, Suit::CLUB }, { Rank::KING, Suit::HEART } }, { { Rank::KING, Suit::DIAMOND }, { Rank::KING, Suit::CLUB }, { Rank::KING, Suit::HEART } }));
-	EXPECT_TRUE(transposedHands[1][1] == HighCardHand(1, { { Rank::TEN, Suit::DIAMOND }, { Rank::TEN, Suit::CLUB }, { Rank::TEN, Suit::HEART } }, { { Rank::TEN, Suit::DIAMOND }, { Rank::TEN, Suit::CLUB }, { Rank::TEN, Suit::HEART } }));
+    EXPECT_TRUE(transposedHands[1][0] == ThreeOfAKindHand(0, { new Card{ Rank::KING, Suit::DIAMOND }, new Card{ Rank::KING, Suit::CLUB }, new Card{ Rank::KING, Suit::HEART } }, { new Card{ Rank::KING, Suit::DIAMOND }, new Card{ Rank::KING, Suit::CLUB }, new Card{ Rank::KING, Suit::HEART } }));
+	EXPECT_TRUE(transposedHands[1][1] == ThreeOfAKindHand(1, { new Card{ Rank::TEN, Suit::DIAMOND }, new Card{ Rank::TEN, Suit::CLUB }, new Card{ Rank::TEN, Suit::HEART } }, { new Card{ Rank::TEN, Suit::DIAMOND }, new Card{ Rank::TEN, Suit::CLUB }, new Card{ Rank::TEN, Suit::HEART } }));
 
-    EXPECT_TRUE(transposedHands[2][0] == HighCardHand(0, { { Rank::QUEEN, Suit::DIAMOND }, { Rank::QUEEN, Suit::CLUB }, { Rank::QUEEN, Suit::HEART } }, { { Rank::QUEEN, Suit::DIAMOND }, { Rank::QUEEN, Suit::CLUB }, { Rank::QUEEN, Suit::HEART } }));
-	EXPECT_TRUE(transposedHands[2][1] == HighCardHand(1, { { Rank::NINE, Suit::DIAMOND }, { Rank::NINE, Suit::CLUB }, { Rank::NINE, Suit::HEART } }, { { Rank::NINE, Suit::DIAMOND }, { Rank::NINE, Suit::CLUB }, { Rank::NINE, Suit::HEART } }));
+    EXPECT_TRUE(transposedHands[2][0] == ThreeOfAKindHand(0, { new Card{ Rank::QUEEN, Suit::DIAMOND }, new Card{ Rank::QUEEN, Suit::CLUB }, new Card{ Rank::QUEEN, Suit::HEART } }, { new Card{ Rank::QUEEN, Suit::DIAMOND }, new Card{ Rank::QUEEN, Suit::CLUB }, new Card{ Rank::QUEEN, Suit::HEART } }));
+	EXPECT_TRUE(transposedHands[2][1] == ThreeOfAKindHand(1, { new Card{ Rank::NINE, Suit::DIAMOND }, new Card{ Rank::NINE, Suit::CLUB }, new Card{ Rank::NINE, Suit::HEART } }, { new Card{ Rank::NINE, Suit::DIAMOND }, new Card{ Rank::NINE, Suit::CLUB }, new Card{ Rank::NINE, Suit::HEART } }));
 
     for(auto& handsForComparison : transposedHands)
     {

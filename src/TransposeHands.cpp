@@ -39,12 +39,15 @@ std::vector<std::vector<Hand>> TransposeHands::Transpose(std::vector<std::vector
         
         for(unsigned int y = 0; y < hands.size(); y++)
         {
-            temp.push_back(hands[y][x]);
+            temp.emplace_back(hands[y][x]);
         }
-        differentHands.push_back(temp);
+
+        temp.shrink_to_fit();
+        differentHands.emplace_back(temp);
     }
 
     spdlog::get("console")->info("TransposeHands::Transpose - done");
 
+    differentHands.shrink_to_fit();
     return differentHands;
 }

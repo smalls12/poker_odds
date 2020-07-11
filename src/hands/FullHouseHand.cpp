@@ -2,7 +2,7 @@
 
 #include "spdlog/spdlog.h"
 
-FullHouseHand::FullHouseHand(int id, std::vector<Card> hand, std::vector<Card> validated)
+FullHouseHand::FullHouseHand(int id, Cards hand, Cards validated)
 :   BaseHand(id, hand, HandRank::FULL_HOUSE, validated)
 {
 

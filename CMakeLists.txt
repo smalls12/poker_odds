@@ -30,7 +30,6 @@ set ( src_files
       src/hands/BaseHand.cpp
       src/DealerPermutations.cpp
       src/HandDatabase.cpp
-      src/ResolveSameRankWinner.cpp
       src/CalculateOdds.cpp
       src/ComparePlayerHands.cpp
       src/TransposeHands.cpp
@@ -76,7 +75,6 @@ set ( src_files_test
       src/DeckBuilder.cpp
       src/HandDatabase.cpp
       src/DealerPermutations.cpp
-      src/ResolveSameRankWinner.cpp
       src/PossibleHands.cpp
       test/TestSuiteFindHighCard.cpp
       test/TestSuiteFindPairs.cpp

@@ -5,7 +5,7 @@
 class FullHouseHand : public BaseHand
 {
     public:
-        FullHouseHand(int id, std::vector<Card> hand, std::vector<Card> validated);
+        FullHouseHand(int id, Cards hand, Cards validated);
         ~FullHouseHand() = default;
 
         bool operator<(const FullHouseHand& rhs);

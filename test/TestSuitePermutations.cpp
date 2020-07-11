@@ -42,7 +42,7 @@ TEST_F(TestSuitePermutations, TestPermutations_52c5)
 	Deck deck = DeckBuilder::Build();
 
 	// construct output
-	std::vector<std::vector<Card>> outputs;
+	std::vector<Cards> outputs;
 	outputs.reserve(2598960);
 
     std::string bitmask(5, 1); // K leading 1's
@@ -51,7 +51,7 @@ TEST_F(TestSuitePermutations, TestPermutations_52c5)
     // print integers and permute bitmask
     do
 	{
-		std::vector<Card> hand;
+		Cards hand;
 		hand.reserve(5);
         for (int i = 0; i < 52; ++i) // [0..N-1] integers
         {
@@ -83,7 +83,7 @@ TEST_F(TestSuitePermutations, TestPermutations_48c5)
 	deck.pop_back();
 
 	// construct output
-	std::vector<std::vector<Card>> outputs;
+	std::vector<Cards> outputs;
 	outputs.reserve(2598960);
 
     std::string bitmask(5, 1); // K leading 1's
@@ -92,7 +92,7 @@ TEST_F(TestSuitePermutations, TestPermutations_48c5)
     // print integers and permute bitmask
     do
 	{
-		std::vector<Card> hand;
+		Cards hand;
 		hand.reserve(5);
         for (int i = 0; i < 48; ++i) // [0..N-1] integers
         {
@@ -126,7 +126,7 @@ TEST_F(TestSuitePermutations, TestPermutations_46c5)
 	deck.pop_back();
 
 	// construct output
-	std::vector<std::vector<Card>> outputs;
+	std::vector<Cards> outputs;
 	outputs.reserve(2598960);
 
     std::string bitmask(5, 1); // K leading 1's
@@ -135,7 +135,7 @@ TEST_F(TestSuitePermutations, TestPermutations_46c5)
     // print integers and permute bitmask
     do
 	{
-		std::vector<Card> hand;
+		Cards hand;
 		hand.reserve(5);
         for (int i = 0; i < 46; ++i) // [0..N-1] integers
         {

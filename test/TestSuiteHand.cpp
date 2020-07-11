@@ -37,21 +37,66 @@ protected:
 // Also note: use TEST_F instead of TEST to access the test fixture (from google test primer)
 TEST_F(TestSuiteHand, TestEquality)
 {
-    HighCardHand hand( 0, { { Rank::ACE, Suit::DIAMOND }, { Rank::KING, Suit::CLUB }, { Rank::QUEEN, Suit::HEART } }, { { Rank::ACE, Suit::DIAMOND } } );
+    HighCardHand hand( 0,
+        {
+            new Card{ Rank::ACE, Suit::DIAMOND },
+            new Card{ Rank::KING, Suit::CLUB },
+            new Card{ Rank::QUEEN, Suit::HEART }
+        },
+        {
+            new Card{ Rank::ACE, Suit::DIAMOND }
+        });
+    
 	EXPECT_TRUE(hand == hand);
 }
 
 TEST_F(TestSuiteHand, TestEquality_Card_SameRank_DifferentSuits)
 {
-    HighCardHand hand1( 0, { { Rank::ACE, Suit::DIAMOND }, { Rank::KING, Suit::DIAMOND }, { Rank::QUEEN, Suit::DIAMOND } }, { { Rank::ACE, Suit::DIAMOND } } );
-    HighCardHand hand2( 0, { { Rank::ACE, Suit::CLUB }, { Rank::KING, Suit::CLUB }, { Rank::QUEEN, Suit::HEART } }, { { Rank::ACE, Suit::DIAMOND } } );
+    HighCardHand hand1( 0,
+        {
+            new Card{ Rank::ACE, Suit::DIAMOND },
+            new Card{ Rank::KING, Suit::DIAMOND },
+            new Card{ Rank::QUEEN, Suit::DIAMOND }
+            },
+        {
+            new Card{ Rank::ACE, Suit::DIAMOND } 
+        });
+    
+    HighCardHand hand2( 0,
+        {
+            new Card{ Rank::ACE, Suit::CLUB },
+            new Card{ Rank::KING, Suit::CLUB },
+            new Card{ Rank::QUEEN, Suit::HEART }
+        },
+        {
+            new Card{ Rank::ACE, Suit::DIAMOND }
+        });
+    
 	EXPECT_TRUE(hand1 == hand2);
 }
 
 TEST_F(TestSuiteHand, TestInEquality_Card_SameSuit_DifferentRanks)
 {
-    HighCardHand hand1( 0, { { Rank::ACE, Suit::DIAMOND }, { Rank::KING, Suit::DIAMOND }, { Rank::QUEEN, Suit::DIAMOND } }, { { Rank::ACE, Suit::DIAMOND } } );
-    HighCardHand hand2( 0, { { Rank::JACK, Suit::DIAMOND }, { Rank::TEN, Suit::DIAMOND }, { Rank::NINE, Suit::DIAMOND } }, { { Rank::ACE, Suit::DIAMOND } } );
+    HighCardHand hand1( 0,
+        {
+            new Card{ Rank::ACE, Suit::DIAMOND },
+            new Card{ Rank::KING, Suit::DIAMOND },
+            new Card{ Rank::QUEEN, Suit::DIAMOND }
+        },
+        {
+            new Card{ Rank::ACE, Suit::DIAMOND }
+        });
+    
+    HighCardHand hand2( 0,
+        {
+            new Card{ Rank::JACK, Suit::DIAMOND },
+            new Card{ Rank::TEN, Suit::DIAMOND },
+            new Card{ Rank::NINE, Suit::DIAMOND }
+        },
+        {
+            new Card{ Rank::ACE, Suit::DIAMOND }
+        });
+    
 	EXPECT_TRUE(hand1 != hand2);
 }
 
@@ -59,22 +104,22 @@ TEST_F(TestSuiteHand, TestEquality_HighCard_HighCard)
 {
     HighCardHand hand1( 0,
         {
-            { Rank::ACE, Suit::DIAMOND },
-            { Rank::KING, Suit::DIAMOND },
-            { Rank::QUEEN, Suit::DIAMOND }
+            new Card{ Rank::ACE, Suit::DIAMOND },
+            new Card{ Rank::KING, Suit::DIAMOND },
+            new Card{ Rank::QUEEN, Suit::DIAMOND }
         },
         {
-            { Rank::ACE, Suit::DIAMOND }
+            new Card{ Rank::ACE, Suit::DIAMOND }
         });
 
     HighCardHand hand2( 0,
         {
-            { Rank::KING, Suit::CLUB },
-            { Rank::QUEEN, Suit::CLUB },
-            { Rank::JACK, Suit::CLUB }
+            new Card{ Rank::KING, Suit::CLUB },
+            new Card{ Rank::QUEEN, Suit::CLUB },
+            new Card{ Rank::JACK, Suit::CLUB }
         },
         {
-            { Rank::KING, Suit::CLUB }
+            new Card{ Rank::KING, Suit::CLUB }
         });
 
     EXPECT_TRUE(hand1 > hand2);
@@ -84,22 +129,22 @@ TEST_F(TestSuiteHand, TestEquality_HighCard_HighCard_SameValidatedCards_3cards)
 {
     HighCardHand hand1( 0,
         {
-            { Rank::ACE, Suit::DIAMOND },
-            { Rank::KING, Suit::DIAMOND },
-            { Rank::QUEEN, Suit::DIAMOND }
+            new Card{ Rank::ACE, Suit::DIAMOND },
+            new Card{ Rank::KING, Suit::DIAMOND },
+            new Card{ Rank::QUEEN, Suit::DIAMOND }
         },
         {
-            { Rank::ACE, Suit::DIAMOND }
+            new Card{ Rank::ACE, Suit::DIAMOND }
         });
 
     HighCardHand hand2( 0,
         {
-            { Rank::ACE, Suit::CLUB },
-            { Rank::KING, Suit::CLUB },
-            { Rank::JACK, Suit::CLUB }
+            new Card{ Rank::ACE, Suit::CLUB },
+            new Card{ Rank::KING, Suit::CLUB },
+            new Card{ Rank::JACK, Suit::CLUB }
         },
         {
-            { Rank::ACE, Suit::CLUB }
+            new Card{ Rank::ACE, Suit::CLUB }
         });
 
     EXPECT_TRUE(hand1 > hand2);
@@ -109,26 +154,26 @@ TEST_F(TestSuiteHand, TestEquality_HighCard_HighCard_SameValidatedCards_5cards)
 {
     HighCardHand hand1( 0,
         {
-            { Rank::ACE, Suit::DIAMOND },
-            { Rank::KING, Suit::DIAMOND },
-            { Rank::QUEEN, Suit::DIAMOND },
-            { Rank::JACK, Suit::DIAMOND },
-            { Rank::NINE, Suit::CLUB }
+            new Card{ Rank::ACE, Suit::DIAMOND },
+            new Card{ Rank::KING, Suit::DIAMOND },
+            new Card{ Rank::QUEEN, Suit::DIAMOND },
+            new Card{ Rank::JACK, Suit::DIAMOND },
+            new Card{ Rank::NINE, Suit::CLUB }
         },
         {
-            { Rank::ACE, Suit::DIAMOND }
+            new Card{ Rank::ACE, Suit::DIAMOND }
         });
 
     HighCardHand hand2( 0,
         {
-            { Rank::ACE, Suit::CLUB },
-            { Rank::KING, Suit::CLUB },
-            { Rank::QUEEN, Suit::CLUB },
-            { Rank::JACK, Suit::CLUB },
-            { Rank::EIGHT, Suit::HEART }
+            new Card{ Rank::ACE, Suit::CLUB },
+            new Card{ Rank::KING, Suit::CLUB },
+            new Card{ Rank::QUEEN, Suit::CLUB },
+            new Card{ Rank::JACK, Suit::CLUB },
+            new Card{ Rank::EIGHT, Suit::HEART }
         },
         {
-            { Rank::ACE, Suit::CLUB }
+            new Card{ Rank::ACE, Suit::CLUB }
         });
 
     EXPECT_TRUE(hand1 > hand2);
@@ -138,23 +183,23 @@ TEST_F(TestSuiteHand, TestEquality_OnePair_HighCard)
 {
     OnePairHand hand1( 0,
         {
-            { Rank::ACE, Suit::DIAMOND },
-            { Rank::ACE, Suit::SPADE },
-            { Rank::QUEEN, Suit::DIAMOND }
+            new Card{ Rank::ACE, Suit::DIAMOND },
+            new Card{ Rank::ACE, Suit::SPADE },
+            new Card{ Rank::QUEEN, Suit::DIAMOND }
         },
         {
-            { Rank::ACE, Suit::DIAMOND },
-            { Rank::ACE, Suit::SPADE }
+            new Card{ Rank::ACE, Suit::DIAMOND },
+            new Card{ Rank::ACE, Suit::SPADE }
         });
 
     HighCardHand hand2( 0,
         {
-            { Rank::KING, Suit::CLUB },
-            { Rank::QUEEN, Suit::CLUB },
-            { Rank::JACK, Suit::CLUB }
+            new Card{ Rank::KING, Suit::CLUB },
+            new Card{ Rank::QUEEN, Suit::CLUB },
+            new Card{ Rank::JACK, Suit::CLUB }
         },
         {
-            { Rank::KING, Suit::CLUB }
+            new Card{ Rank::KING, Suit::CLUB }
         });
 
     EXPECT_TRUE(hand1 > hand2);
@@ -164,24 +209,24 @@ TEST_F(TestSuiteHand, TestEquality_OnePair_OnePair)
 {
     OnePairHand hand1( 0,
         {
-            { Rank::ACE, Suit::DIAMOND },
-            { Rank::ACE, Suit::SPADE },
-            { Rank::QUEEN, Suit::DIAMOND }
+            new Card{ Rank::ACE, Suit::DIAMOND },
+            new Card{ Rank::ACE, Suit::SPADE },
+            new Card{ Rank::QUEEN, Suit::DIAMOND }
         },
         {
-            { Rank::ACE, Suit::DIAMOND },
-            { Rank::ACE, Suit::SPADE }
+            new Card{ Rank::ACE, Suit::DIAMOND },
+            new Card{ Rank::ACE, Suit::SPADE }
         });
 
     OnePairHand hand2( 0,
         {
-            { Rank::KING, Suit::CLUB },
-            { Rank::KING, Suit::DIAMOND },
-            { Rank::JACK, Suit::CLUB }
+            new Card{ Rank::KING, Suit::CLUB },
+            new Card{ Rank::KING, Suit::DIAMOND },
+            new Card{ Rank::JACK, Suit::CLUB }
         },
         {
-            { Rank::KING, Suit::CLUB },
-            { Rank::KING, Suit::DIAMOND }
+            new Card{ Rank::KING, Suit::CLUB },
+            new Card{ Rank::KING, Suit::DIAMOND }
         });
 
     EXPECT_TRUE(hand1 > hand2);
@@ -191,32 +236,32 @@ TEST_F(TestSuiteHand, TestEquality_OnePair_OnePair_HighCard_LowerPair)
 {
     OnePairHand hand1( 0,
         {
-            { Rank::ACE, Suit::DIAMOND },
-            { Rank::TEN, Suit::SPADE },
-            { Rank::TEN, Suit::DIAMOND },
-            { Rank::EIGHT, Suit::DIAMOND },
-            { Rank::SIX, Suit::SPADE },
-            { Rank::FOUR, Suit::DIAMOND },
-            { Rank::TWO, Suit::CLUB }
+            new Card{ Rank::ACE, Suit::DIAMOND },
+            new Card{ Rank::TEN, Suit::SPADE },
+            new Card{ Rank::TEN, Suit::DIAMOND },
+            new Card{ Rank::EIGHT, Suit::DIAMOND },
+            new Card{ Rank::SIX, Suit::SPADE },
+            new Card{ Rank::FOUR, Suit::DIAMOND },
+            new Card{ Rank::TWO, Suit::CLUB }
         },
         {
-            { Rank::TEN, Suit::SPADE },
-            { Rank::TEN, Suit::DIAMOND }
+            new Card{ Rank::TEN, Suit::SPADE },
+            new Card{ Rank::TEN, Suit::DIAMOND }
         });
 
     OnePairHand hand2( 0,
         {
-            { Rank::KING, Suit::CLUB },
-            { Rank::JACK, Suit::DIAMOND },
-            { Rank::JACK, Suit::CLUB },
-            { Rank::SEVEN, Suit::DIAMOND },
-            { Rank::FOUR, Suit::SPADE },
-            { Rank::THREE, Suit::DIAMOND },
-            { Rank::TWO, Suit::SPADE }
+            new Card{ Rank::KING, Suit::CLUB },
+            new Card{ Rank::JACK, Suit::DIAMOND },
+            new Card{ Rank::JACK, Suit::CLUB },
+            new Card{ Rank::SEVEN, Suit::DIAMOND },
+            new Card{ Rank::FOUR, Suit::SPADE },
+            new Card{ Rank::THREE, Suit::DIAMOND },
+            new Card{ Rank::TWO, Suit::SPADE }
         },
         {
-            { Rank::JACK, Suit::DIAMOND },
-            { Rank::JACK, Suit::CLUB }
+            new Card{ Rank::JACK, Suit::DIAMOND },
+            new Card{ Rank::JACK, Suit::CLUB }
         });
 
     EXPECT_TRUE(hand1 < hand2);
@@ -226,24 +271,24 @@ TEST_F(TestSuiteHand, TestEquality_OnePair_OnePair_SameValidatedCards)
 {
     OnePairHand hand1( 0,
         {
-            { Rank::ACE, Suit::DIAMOND },
-            { Rank::ACE, Suit::SPADE },
-            { Rank::QUEEN, Suit::DIAMOND }
+            new Card{ Rank::ACE, Suit::DIAMOND },
+            new Card{ Rank::ACE, Suit::SPADE },
+            new Card{ Rank::QUEEN, Suit::DIAMOND }
         },
         {
-            { Rank::ACE, Suit::DIAMOND },
-            { Rank::ACE, Suit::SPADE }
+            new Card{ Rank::ACE, Suit::DIAMOND },
+            new Card{ Rank::ACE, Suit::SPADE }
         });
 
     OnePairHand hand2( 0,
         {
-            { Rank::ACE, Suit::CLUB },
-            { Rank::ACE, Suit::HEART },
-            { Rank::JACK, Suit::CLUB }
+            new Card{ Rank::ACE, Suit::CLUB },
+            new Card{ Rank::ACE, Suit::HEART },
+            new Card{ Rank::JACK, Suit::CLUB }
         },
         {
-            { Rank::ACE, Suit::CLUB },
-            { Rank::ACE, Suit::HEART }
+            new Card{ Rank::ACE, Suit::CLUB },
+            new Card{ Rank::ACE, Suit::HEART }
         });
 
     EXPECT_TRUE(hand1 > hand2);
@@ -253,32 +298,32 @@ TEST_F(TestSuiteHand, TestEquality_OnePair_OnePair_SameValidatedCards_7cards_v1)
 {
     OnePairHand hand1( 0,
         {
-            { Rank::ACE, Suit::DIAMOND },
-            { Rank::ACE, Suit::SPADE },
-            { Rank::QUEEN, Suit::DIAMOND },
-            { Rank::JACK, Suit::DIAMOND },
-            { Rank::TEN, Suit::SPADE },
-            { Rank::NINE, Suit::DIAMOND },
-            { Rank::EIGHT, Suit::DIAMOND }
+            new Card{ Rank::ACE, Suit::DIAMOND },
+            new Card{ Rank::ACE, Suit::SPADE },
+            new Card{ Rank::QUEEN, Suit::DIAMOND },
+            new Card{ Rank::JACK, Suit::DIAMOND },
+            new Card{ Rank::TEN, Suit::SPADE },
+            new Card{ Rank::NINE, Suit::DIAMOND },
+            new Card{ Rank::EIGHT, Suit::DIAMOND }
         },
         {
-            { Rank::ACE, Suit::DIAMOND },
-            { Rank::ACE, Suit::SPADE }
+            new Card{ Rank::ACE, Suit::DIAMOND },
+            new Card{ Rank::ACE, Suit::SPADE }
         });
 
     OnePairHand hand2( 0,
         {
-            { Rank::ACE, Suit::CLUB },
-            { Rank::ACE, Suit::HEART },
-            { Rank::QUEEN, Suit::CLUB },
-            { Rank::JACK, Suit::CLUB },
-            { Rank::TEN, Suit::CLUB },
-            { Rank::NINE, Suit::CLUB },
-            { Rank::SEVEN, Suit::CLUB }
+            new Card{ Rank::ACE, Suit::CLUB },
+            new Card{ Rank::ACE, Suit::HEART },
+            new Card{ Rank::QUEEN, Suit::CLUB },
+            new Card{ Rank::JACK, Suit::CLUB },
+            new Card{ Rank::TEN, Suit::CLUB },
+            new Card{ Rank::NINE, Suit::CLUB },
+            new Card{ Rank::SEVEN, Suit::CLUB }
         },
         {
-            { Rank::ACE, Suit::CLUB },
-            { Rank::ACE, Suit::HEART }
+            new Card{ Rank::ACE, Suit::CLUB },
+            new Card{ Rank::ACE, Suit::HEART }
         });
 
     EXPECT_TRUE(hand1 > hand2);
@@ -288,32 +333,32 @@ TEST_F(TestSuiteHand, TestEquality_OnePair_OnePair_SameValidatedCards_7cards_v2)
 {
     OnePairHand hand1( 0,
         {
-            { Rank::ACE, Suit::DIAMOND },
-            { Rank::ACE, Suit::SPADE },
-            { Rank::QUEEN, Suit::DIAMOND },
-            { Rank::FIVE, Suit::DIAMOND },
-            { Rank::FOUR, Suit::SPADE },
-            { Rank::THREE, Suit::DIAMOND },
-            { Rank::TWO, Suit::DIAMOND }
+            new Card{ Rank::ACE, Suit::DIAMOND },
+            new Card{ Rank::ACE, Suit::SPADE },
+            new Card{ Rank::QUEEN, Suit::DIAMOND },
+            new Card{ Rank::FIVE, Suit::DIAMOND },
+            new Card{ Rank::FOUR, Suit::SPADE },
+            new Card{ Rank::THREE, Suit::DIAMOND },
+            new Card{ Rank::TWO, Suit::DIAMOND }
         },
         {
-            { Rank::ACE, Suit::DIAMOND },
-            { Rank::ACE, Suit::SPADE }
+            new Card{ Rank::ACE, Suit::DIAMOND },
+            new Card{ Rank::ACE, Suit::SPADE }
         });
 
     OnePairHand hand2( 0,
         {
-            { Rank::ACE, Suit::CLUB },
-            { Rank::ACE, Suit::HEART },
-            { Rank::JACK, Suit::CLUB },
-            { Rank::TEN, Suit::CLUB },
-            { Rank::NINE, Suit::CLUB },
-            { Rank::EIGHT, Suit::CLUB },
-            { Rank::SEVEN, Suit::CLUB }
+            new Card{ Rank::ACE, Suit::CLUB },
+            new Card{ Rank::ACE, Suit::HEART },
+            new Card{ Rank::JACK, Suit::CLUB },
+            new Card{ Rank::TEN, Suit::CLUB },
+            new Card{ Rank::NINE, Suit::CLUB },
+            new Card{ Rank::EIGHT, Suit::CLUB },
+            new Card{ Rank::SEVEN, Suit::CLUB }
         },
         {
-            { Rank::ACE, Suit::CLUB },
-            { Rank::ACE, Suit::HEART }
+            new Card{ Rank::ACE, Suit::CLUB },
+            new Card{ Rank::ACE, Suit::HEART }
         });
 
     EXPECT_TRUE(hand1 > hand2);
@@ -324,32 +369,32 @@ TEST_F(TestSuiteHand, TestEquality_OnePair_OnePair_SameValidatedCards_7cards_v3)
 {
     OnePairHand hand1( 0,
         {
-            { Rank::ACE, Suit::DIAMOND },
-            { Rank::ACE, Suit::SPADE },
-            { Rank::FIVE, Suit::DIAMOND },
-            { Rank::QUEEN, Suit::DIAMOND },
-            { Rank::FOUR, Suit::SPADE },
-            { Rank::THREE, Suit::DIAMOND },
-            { Rank::TWO, Suit::DIAMOND }
+            new Card{ Rank::ACE, Suit::DIAMOND },
+            new Card{ Rank::ACE, Suit::SPADE },
+            new Card{ Rank::FIVE, Suit::DIAMOND },
+            new Card{ Rank::QUEEN, Suit::DIAMOND },
+            new Card{ Rank::FOUR, Suit::SPADE },
+            new Card{ Rank::THREE, Suit::DIAMOND },
+            new Card{ Rank::TWO, Suit::DIAMOND }
         },
         {
-            { Rank::ACE, Suit::DIAMOND },
-            { Rank::ACE, Suit::SPADE }
+            new Card{ Rank::ACE, Suit::DIAMOND },
+            new Card{ Rank::ACE, Suit::SPADE }
         });
 
     OnePairHand hand2( 0,
         {
-            { Rank::ACE, Suit::CLUB },
-            { Rank::ACE, Suit::HEART },
-            { Rank::JACK, Suit::CLUB },
-            { Rank::TEN, Suit::CLUB },
-            { Rank::NINE, Suit::CLUB },
-            { Rank::EIGHT, Suit::CLUB },
-            { Rank::SEVEN, Suit::CLUB }
+            new Card{ Rank::ACE, Suit::CLUB },
+            new Card{ Rank::ACE, Suit::HEART },
+            new Card{ Rank::JACK, Suit::CLUB },
+            new Card{ Rank::TEN, Suit::CLUB },
+            new Card{ Rank::NINE, Suit::CLUB },
+            new Card{ Rank::EIGHT, Suit::CLUB },
+            new Card{ Rank::SEVEN, Suit::CLUB }
         },
         {
-            { Rank::ACE, Suit::CLUB },
-            { Rank::ACE, Suit::HEART }
+            new Card{ Rank::ACE, Suit::CLUB },
+            new Card{ Rank::ACE, Suit::HEART }
         });
 
     EXPECT_TRUE(hand1 > hand2);
@@ -359,29 +404,29 @@ TEST_F(TestSuiteHand, TestEquality_TwoPair_OnePair)
 {
     TwoPairHand hand1( 0,
         {
-            { Rank::KING, Suit::HEART },
-            { Rank::KING, Suit::SPADE },
-            { Rank::QUEEN, Suit::HEART },
-            { Rank::QUEEN, Suit::CLUB },
-            { Rank::JACK, Suit::DIAMOND }
+            new Card{ Rank::KING, Suit::HEART },
+            new Card{ Rank::KING, Suit::SPADE },
+            new Card{ Rank::QUEEN, Suit::HEART },
+            new Card{ Rank::QUEEN, Suit::CLUB },
+            new Card{ Rank::JACK, Suit::DIAMOND }
         },
         {
-            { Rank::KING, Suit::HEART },
-            { Rank::KING, Suit::SPADE },
-            { Rank::QUEEN, Suit::HEART },
-            { Rank::QUEEN, Suit::CLUB }
+            new Card{ Rank::KING, Suit::HEART },
+            new Card{ Rank::KING, Suit::SPADE },
+            new Card{ Rank::QUEEN, Suit::HEART },
+            new Card{ Rank::QUEEN, Suit::CLUB }
         });
 
     OnePairHand hand2( 0,
         {
-            { Rank::KING, Suit::CLUB },
-            { Rank::KING, Suit::DIAMOND },
-            { Rank::QUEEN, Suit::CLUB },
-            { Rank::JACK, Suit::CLUB }
+            new Card{ Rank::KING, Suit::CLUB },
+            new Card{ Rank::KING, Suit::DIAMOND },
+            new Card{ Rank::QUEEN, Suit::CLUB },
+            new Card{ Rank::JACK, Suit::CLUB }
         },
         {
-            { Rank::KING, Suit::CLUB },
-            { Rank::KING, Suit::DIAMOND }
+            new Card{ Rank::KING, Suit::CLUB },
+            new Card{ Rank::KING, Suit::DIAMOND }
         });
 
     EXPECT_TRUE(hand1 > hand2);
@@ -391,32 +436,32 @@ TEST_F(TestSuiteHand, TestEquality_TwoPair_TwoPair_v1)
 {
     TwoPairHand hand1( 0,
         {
-            { Rank::KING, Suit::HEART },
-            { Rank::KING, Suit::SPADE },
-            { Rank::QUEEN, Suit::HEART },
-            { Rank::QUEEN, Suit::CLUB },
-            { Rank::JACK, Suit::DIAMOND }
+            new Card{ Rank::KING, Suit::HEART },
+            new Card{ Rank::KING, Suit::SPADE },
+            new Card{ Rank::QUEEN, Suit::HEART },
+            new Card{ Rank::QUEEN, Suit::CLUB },
+            new Card{ Rank::JACK, Suit::DIAMOND }
         },
         {
-            { Rank::KING, Suit::HEART },
-            { Rank::KING, Suit::SPADE },
-            { Rank::QUEEN, Suit::HEART },
-            { Rank::QUEEN, Suit::CLUB }
+            new Card{ Rank::KING, Suit::HEART },
+            new Card{ Rank::KING, Suit::SPADE },
+            new Card{ Rank::QUEEN, Suit::HEART },
+            new Card{ Rank::QUEEN, Suit::CLUB }
         });
 
     TwoPairHand hand2( 0,
         {
-            { Rank::QUEEN, Suit::DIAMOND },
-            { Rank::QUEEN, Suit::SPADE },
-            { Rank::JACK, Suit::HEART },
-            { Rank::JACK, Suit::CLUB },
-            { Rank::TEN, Suit::DIAMOND }
+            new Card{ Rank::QUEEN, Suit::DIAMOND },
+            new Card{ Rank::QUEEN, Suit::SPADE },
+            new Card{ Rank::JACK, Suit::HEART },
+            new Card{ Rank::JACK, Suit::CLUB },
+            new Card{ Rank::TEN, Suit::DIAMOND }
         },
         {
-            { Rank::QUEEN, Suit::DIAMOND },
-            { Rank::QUEEN, Suit::SPADE },
-            { Rank::JACK, Suit::HEART },
-            { Rank::JACK, Suit::CLUB }
+            new Card{ Rank::QUEEN, Suit::DIAMOND },
+            new Card{ Rank::QUEEN, Suit::SPADE },
+            new Card{ Rank::JACK, Suit::HEART },
+            new Card{ Rank::JACK, Suit::CLUB }
         });
 
     EXPECT_TRUE(hand1 > hand2);
@@ -426,32 +471,32 @@ TEST_F(TestSuiteHand, TestEquality_TwoPair_TwoPair_v2)
 {
     TwoPairHand hand1( 0,
         {
-            { Rank::THREE, Suit::HEART },
-            { Rank::THREE, Suit::SPADE },
-            { Rank::FOUR, Suit::HEART },
-            { Rank::FOUR, Suit::CLUB },
-            { Rank::JACK, Suit::DIAMOND }
+            new Card{ Rank::THREE, Suit::HEART },
+            new Card{ Rank::THREE, Suit::SPADE },
+            new Card{ Rank::FOUR, Suit::HEART },
+            new Card{ Rank::FOUR, Suit::CLUB },
+            new Card{ Rank::JACK, Suit::DIAMOND }
         },
         {
-            { Rank::THREE, Suit::HEART },
-            { Rank::THREE, Suit::SPADE },
-            { Rank::FOUR, Suit::HEART },
-            { Rank::FOUR, Suit::CLUB }
+            new Card{ Rank::THREE, Suit::HEART },
+            new Card{ Rank::THREE, Suit::SPADE },
+            new Card{ Rank::FOUR, Suit::HEART },
+            new Card{ Rank::FOUR, Suit::CLUB }
         });
 
     TwoPairHand hand2( 0,
         {
-            { Rank::TWO, Suit::CLUB },
-            { Rank::TWO, Suit::DIAMOND },
-            { Rank::QUEEN, Suit::DIAMOND },
-            { Rank::QUEEN, Suit::SPADE },
-            { Rank::TEN, Suit::DIAMOND }
+            new Card{ Rank::TWO, Suit::CLUB },
+            new Card{ Rank::TWO, Suit::DIAMOND },
+            new Card{ Rank::QUEEN, Suit::DIAMOND },
+            new Card{ Rank::QUEEN, Suit::SPADE },
+            new Card{ Rank::TEN, Suit::DIAMOND }
         },
         {
-            { Rank::TWO, Suit::CLUB },
-            { Rank::TWO, Suit::DIAMOND },
-            { Rank::QUEEN, Suit::DIAMOND },
-            { Rank::QUEEN, Suit::SPADE }
+            new Card{ Rank::TWO, Suit::CLUB },
+            new Card{ Rank::TWO, Suit::DIAMOND },
+            new Card{ Rank::QUEEN, Suit::DIAMOND },
+            new Card{ Rank::QUEEN, Suit::SPADE }
         });
 
     EXPECT_TRUE(hand1 < hand2);
@@ -461,32 +506,32 @@ TEST_F(TestSuiteHand, TestEquality_TwoPair_TwoPair_SameValidatedCards)
 {
     TwoPairHand hand1( 0,
         {
-            { Rank::KING, Suit::HEART },
-            { Rank::KING, Suit::SPADE },
-            { Rank::QUEEN, Suit::HEART },
-            { Rank::QUEEN, Suit::CLUB },
-            { Rank::JACK, Suit::DIAMOND }
+            new Card{ Rank::KING, Suit::HEART },
+            new Card{ Rank::KING, Suit::SPADE },
+            new Card{ Rank::QUEEN, Suit::HEART },
+            new Card{ Rank::QUEEN, Suit::CLUB },
+            new Card{ Rank::JACK, Suit::DIAMOND }
         },
         {
-            { Rank::KING, Suit::HEART },
-            { Rank::KING, Suit::SPADE },
-            { Rank::QUEEN, Suit::HEART },
-            { Rank::QUEEN, Suit::CLUB }
+            new Card{ Rank::KING, Suit::HEART },
+            new Card{ Rank::KING, Suit::SPADE },
+            new Card{ Rank::QUEEN, Suit::HEART },
+            new Card{ Rank::QUEEN, Suit::CLUB }
         });
 
     TwoPairHand hand2( 0,
         {
-            { Rank::KING, Suit::CLUB },
-            { Rank::KING, Suit::DIAMOND },
-            { Rank::QUEEN, Suit::DIAMOND },
-            { Rank::QUEEN, Suit::SPADE },
-            { Rank::TEN, Suit::DIAMOND }
+            new Card{ Rank::KING, Suit::CLUB },
+            new Card{ Rank::KING, Suit::DIAMOND },
+            new Card{ Rank::QUEEN, Suit::DIAMOND },
+            new Card{ Rank::QUEEN, Suit::SPADE },
+            new Card{ Rank::TEN, Suit::DIAMOND }
         },
         {
-            { Rank::KING, Suit::CLUB },
-            { Rank::KING, Suit::DIAMOND },
-            { Rank::QUEEN, Suit::DIAMOND },
-            { Rank::QUEEN, Suit::SPADE }
+            new Card{ Rank::KING, Suit::CLUB },
+            new Card{ Rank::KING, Suit::DIAMOND },
+            new Card{ Rank::QUEEN, Suit::DIAMOND },
+            new Card{ Rank::QUEEN, Suit::SPADE }
         });
 
     EXPECT_TRUE(hand1 > hand2);
@@ -496,31 +541,31 @@ TEST_F(TestSuiteHand, TestEquality_ThreeOfAKind_TwoPair)
 {
     ThreeOfAKindHand hand1( 0,
         {
-            { Rank::ACE, Suit::DIAMOND },
-            { Rank::ACE, Suit::CLUB },
-            { Rank::ACE, Suit::HEART },
-            { Rank::KING, Suit::DIAMOND },
-            { Rank::QUEEN, Suit::DIAMOND }
+            new Card{ Rank::ACE, Suit::DIAMOND },
+            new Card{ Rank::ACE, Suit::CLUB },
+            new Card{ Rank::ACE, Suit::HEART },
+            new Card{ Rank::KING, Suit::DIAMOND },
+            new Card{ Rank::QUEEN, Suit::DIAMOND }
         },
         {
-            { Rank::ACE, Suit::DIAMOND },
-            { Rank::ACE, Suit::CLUB },
-            { Rank::ACE, Suit::HEART } 
+            new Card{ Rank::ACE, Suit::DIAMOND },
+            new Card{ Rank::ACE, Suit::CLUB },
+            new Card{ Rank::ACE, Suit::HEART } 
         });
 
     TwoPairHand hand2( 0,
         {
-            { Rank::KING, Suit::HEART },
-            { Rank::KING, Suit::SPADE },
-            { Rank::QUEEN, Suit::HEART },
-            { Rank::QUEEN, Suit::CLUB },
-            { Rank::JACK, Suit::DIAMOND }
+            new Card{ Rank::KING, Suit::HEART },
+            new Card{ Rank::KING, Suit::SPADE },
+            new Card{ Rank::QUEEN, Suit::HEART },
+            new Card{ Rank::QUEEN, Suit::CLUB },
+            new Card{ Rank::JACK, Suit::DIAMOND }
         },
         {
-            { Rank::KING, Suit::HEART },
-            { Rank::KING, Suit::SPADE },
-            { Rank::QUEEN, Suit::HEART },
-            { Rank::QUEEN, Suit::CLUB }
+            new Card{ Rank::KING, Suit::HEART },
+            new Card{ Rank::KING, Suit::SPADE },
+            new Card{ Rank::QUEEN, Suit::HEART },
+            new Card{ Rank::QUEEN, Suit::CLUB }
         });
 
 	EXPECT_TRUE(hand1 > hand2);
@@ -530,30 +575,30 @@ TEST_F(TestSuiteHand, TestEquality_ThreeOfAKind_ThreeOfAKind_v1)
 {
     ThreeOfAKindHand hand1( 0,
         {
-            { Rank::ACE, Suit::DIAMOND },
-            { Rank::ACE, Suit::CLUB },
-            { Rank::ACE, Suit::HEART },
-            { Rank::KING, Suit::DIAMOND },
-            { Rank::QUEEN, Suit::DIAMOND }
+            new Card{ Rank::ACE, Suit::DIAMOND },
+            new Card{ Rank::ACE, Suit::CLUB },
+            new Card{ Rank::ACE, Suit::HEART },
+            new Card{ Rank::KING, Suit::DIAMOND },
+            new Card{ Rank::QUEEN, Suit::DIAMOND }
         },
         {
-            { Rank::ACE, Suit::DIAMOND },
-            { Rank::ACE, Suit::CLUB },
-            { Rank::ACE, Suit::HEART } 
+            new Card{ Rank::ACE, Suit::DIAMOND },
+            new Card{ Rank::ACE, Suit::CLUB },
+            new Card{ Rank::ACE, Suit::HEART } 
         });
 
     ThreeOfAKindHand hand2( 0,
         {
-            { Rank::KING, Suit::DIAMOND },
-            { Rank::KING, Suit::CLUB },
-            { Rank::KING, Suit::HEART },
-            { Rank::QUEEN, Suit::DIAMOND },
-            { Rank::JACK, Suit::DIAMOND }
+            new Card{ Rank::KING, Suit::DIAMOND },
+            new Card{ Rank::KING, Suit::CLUB },
+            new Card{ Rank::KING, Suit::HEART },
+            new Card{ Rank::QUEEN, Suit::DIAMOND },
+            new Card{ Rank::JACK, Suit::DIAMOND }
         },
         {
-            { Rank::KING, Suit::DIAMOND },
-            { Rank::KING, Suit::CLUB },
-            { Rank::KING, Suit::HEART } 
+            new Card{ Rank::KING, Suit::DIAMOND },
+            new Card{ Rank::KING, Suit::CLUB },
+            new Card{ Rank::KING, Suit::HEART } 
         });
 
 	EXPECT_TRUE(hand1 > hand2);
@@ -563,30 +608,30 @@ TEST_F(TestSuiteHand, TestEquality_ThreeOfAKind_ThreeOfAKind_v2)
 {
     ThreeOfAKindHand hand1( 0,
         {
-            { Rank::ACE, Suit::DIAMOND },
-            { Rank::KING, Suit::CLUB },
-            { Rank::SEVEN, Suit::HEART },
-            { Rank::SEVEN, Suit::DIAMOND },
-            { Rank::SEVEN, Suit::CLUB }
+            new Card{ Rank::ACE, Suit::DIAMOND },
+            new Card{ Rank::KING, Suit::CLUB },
+            new Card{ Rank::SEVEN, Suit::HEART },
+            new Card{ Rank::SEVEN, Suit::DIAMOND },
+            new Card{ Rank::SEVEN, Suit::CLUB }
         },
         {
-            { Rank::SEVEN, Suit::HEART },
-            { Rank::SEVEN, Suit::DIAMOND },
-            { Rank::SEVEN, Suit::CLUB }
+            new Card{ Rank::SEVEN, Suit::HEART },
+            new Card{ Rank::SEVEN, Suit::DIAMOND },
+            new Card{ Rank::SEVEN, Suit::CLUB }
         });
 
     ThreeOfAKindHand hand2( 0,
         {
-            { Rank::ACE, Suit::DIAMOND },
-            { Rank::EIGHT, Suit::CLUB },
-            { Rank::SEVEN, Suit::HEART },
-            { Rank::SEVEN, Suit::DIAMOND },
-            { Rank::SEVEN, Suit::CLUB }
+            new Card{ Rank::ACE, Suit::DIAMOND },
+            new Card{ Rank::EIGHT, Suit::CLUB },
+            new Card{ Rank::SEVEN, Suit::HEART },
+            new Card{ Rank::SEVEN, Suit::DIAMOND },
+            new Card{ Rank::SEVEN, Suit::CLUB }
         },
         {
-            { Rank::SEVEN, Suit::HEART },
-            { Rank::SEVEN, Suit::DIAMOND },
-            { Rank::SEVEN, Suit::CLUB }
+            new Card{ Rank::SEVEN, Suit::HEART },
+            new Card{ Rank::SEVEN, Suit::DIAMOND },
+            new Card{ Rank::SEVEN, Suit::CLUB }
         });
 
 	EXPECT_TRUE(hand1 > hand2);
@@ -596,30 +641,30 @@ TEST_F(TestSuiteHand, TestEquality_ThreeOfAKind_ThreeOfAKind_v3)
 {
     ThreeOfAKindHand hand1( 0,
         {
-            { Rank::ACE, Suit::DIAMOND },
-            { Rank::KING, Suit::CLUB },
-            { Rank::SEVEN, Suit::HEART },
-            { Rank::SEVEN, Suit::DIAMOND },
-            { Rank::SEVEN, Suit::CLUB }
+            new Card{ Rank::ACE, Suit::DIAMOND },
+            new Card{ Rank::KING, Suit::CLUB },
+            new Card{ Rank::SEVEN, Suit::HEART },
+            new Card{ Rank::SEVEN, Suit::DIAMOND },
+            new Card{ Rank::SEVEN, Suit::CLUB }
         },
         {
-            { Rank::SEVEN, Suit::HEART },
-            { Rank::SEVEN, Suit::DIAMOND },
-            { Rank::SEVEN, Suit::CLUB }
+            new Card{ Rank::SEVEN, Suit::HEART },
+            new Card{ Rank::SEVEN, Suit::DIAMOND },
+            new Card{ Rank::SEVEN, Suit::CLUB }
         });
 
     ThreeOfAKindHand hand2( 0,
         {
-            { Rank::ACE, Suit::DIAMOND },
-            { Rank::TWO, Suit::CLUB },
-            { Rank::SEVEN, Suit::HEART },
-            { Rank::SEVEN, Suit::DIAMOND },
-            { Rank::SEVEN, Suit::CLUB }
+            new Card{ Rank::ACE, Suit::DIAMOND },
+            new Card{ Rank::TWO, Suit::CLUB },
+            new Card{ Rank::SEVEN, Suit::HEART },
+            new Card{ Rank::SEVEN, Suit::DIAMOND },
+            new Card{ Rank::SEVEN, Suit::CLUB }
         },
         {
-            { Rank::SEVEN, Suit::HEART },
-            { Rank::SEVEN, Suit::DIAMOND },
-            { Rank::SEVEN, Suit::CLUB }
+            new Card{ Rank::SEVEN, Suit::HEART },
+            new Card{ Rank::SEVEN, Suit::DIAMOND },
+            new Card{ Rank::SEVEN, Suit::CLUB }
         });
 
 	EXPECT_TRUE(hand1 > hand2);

@@ -5,7 +5,7 @@
 class HighCardHand : public BaseHand
 {
     public:
-        HighCardHand(int id, std::vector<Card> hand, std::vector<Card> validated);
+        HighCardHand(int id, Cards hand, Cards validated);
         ~HighCardHand() = default;
 
         bool operator<(const HighCardHand& rhs);

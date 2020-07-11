@@ -33,7 +33,7 @@ inline bool operator!=(const Card& lhs, const Card& rhs)
 }
 
 inline bool operator<(const Card& lhs, const Card& rhs)
-{
+{   
     // suits are ranked equally
     // only compare the rank
     if( lhs.rank < rhs.rank )

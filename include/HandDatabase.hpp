@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Card.hpp"
+#include "Cards.hpp"
 
 #include <vector>
 
@@ -14,16 +14,16 @@ class HandDatabase
         void BuildDatabase();
         void RankHandsInDatabase();
 
-        std::vector<std::vector<Card>>  m_allPossibleHands;
+        std::vector<Cards>  m_allPossibleHands;
 
-        std::vector<std::vector<Card>>  m_royalFlushHands;
-        std::vector<std::vector<Card>>  m_straightFlushHands;
-        std::vector<std::vector<Card>>  m_fourOfAKindHands;
-        std::vector<std::vector<Card>>  m_fullHouseHands;
-        std::vector<std::vector<Card>>  m_flushHands;
-        std::vector<std::vector<Card>>  m_straightHands;
-        std::vector<std::vector<Card>>  m_threeOfAKindHands;
-        std::vector<std::vector<Card>>  m_twoPairHands;
-        std::vector<std::vector<Card>>  m_onePairHands;
-        std::vector<std::vector<Card>>  m_highCardHands;
+        std::vector<Cards>  m_royalFlushHands;
+        std::vector<Cards>  m_straightFlushHands;
+        std::vector<Cards>  m_fourOfAKindHands;
+        std::vector<Cards>  m_fullHouseHands;
+        std::vector<Cards>  m_flushHands;
+        std::vector<Cards>  m_straightHands;
+        std::vector<Cards>  m_threeOfAKindHands;
+        std::vector<Cards>  m_twoPairHands;
+        std::vector<Cards>  m_onePairHands;
+        std::vector<Cards>  m_highCardHands;
 };

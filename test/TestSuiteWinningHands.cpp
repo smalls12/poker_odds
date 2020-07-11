@@ -39,46 +39,46 @@ TEST_F(TestSuiteWinningHands, TestEquality)
 {
     OnePairHand hand1( 0,
         {
-            { Rank::ACE, Suit::DIAMOND },
-            { Rank::TEN, Suit::SPADE },
-            { Rank::TEN, Suit::DIAMOND },
-            { Rank::EIGHT, Suit::DIAMOND },
-            { Rank::SIX, Suit::SPADE },
-            { Rank::FOUR, Suit::DIAMOND },
-            { Rank::TWO, Suit::CLUB }
+            new Card{ Rank::ACE, Suit::DIAMOND },
+            new Card{ Rank::TEN, Suit::SPADE },
+            new Card{ Rank::TEN, Suit::DIAMOND },
+            new Card{ Rank::EIGHT, Suit::DIAMOND },
+            new Card{ Rank::SIX, Suit::SPADE },
+            new Card{ Rank::FOUR, Suit::DIAMOND },
+            new Card{ Rank::TWO, Suit::CLUB }
         },
         {
-            { Rank::TEN, Suit::SPADE },
-            { Rank::TEN, Suit::DIAMOND }
+            new Card{ Rank::TEN, Suit::SPADE },
+            new Card{ Rank::TEN, Suit::DIAMOND }
         });
     
     OnePairHand hand2( 1,
         {
-            { Rank::ACE, Suit::CLUB },
-            { Rank::TEN, Suit::HEART },
-            { Rank::TEN, Suit::CLUB },
-            { Rank::EIGHT, Suit::SPADE },
-            { Rank::SIX, Suit::DIAMOND },
-            { Rank::FOUR, Suit::CLUB },
-            { Rank::TWO, Suit::SPADE }
+            new Card{ Rank::ACE, Suit::CLUB },
+            new Card{ Rank::TEN, Suit::HEART },
+            new Card{ Rank::TEN, Suit::CLUB },
+            new Card{ Rank::EIGHT, Suit::SPADE },
+            new Card{ Rank::SIX, Suit::DIAMOND },
+            new Card{ Rank::FOUR, Suit::CLUB },
+            new Card{ Rank::TWO, Suit::SPADE }
         },
         {
-            { Rank::TEN, Suit::SPADE },
-            { Rank::TEN, Suit::DIAMOND }
+            new Card{ Rank::TEN, Suit::SPADE },
+            new Card{ Rank::TEN, Suit::DIAMOND }
         });
     
     HighCardHand hand3( 2,
         {
-            { Rank::QUEEN, Suit::DIAMOND },
-            { Rank::JACK, Suit::SPADE },
-            { Rank::NINE, Suit::DIAMOND },
-            { Rank::SEVEN, Suit::HEART },
-            { Rank::FIVE, Suit::SPADE },
-            { Rank::THREE, Suit::DIAMOND },
-            { Rank::TWO, Suit::HEART }
+            new Card{ Rank::QUEEN, Suit::DIAMOND },
+            new Card{ Rank::JACK, Suit::SPADE },
+            new Card{ Rank::NINE, Suit::DIAMOND },
+            new Card{ Rank::SEVEN, Suit::HEART },
+            new Card{ Rank::FIVE, Suit::SPADE },
+            new Card{ Rank::THREE, Suit::DIAMOND },
+            new Card{ Rank::TWO, Suit::HEART }
         },
         {
-            { Rank::ACE, Suit::DIAMOND }
+            new Card{ Rank::ACE, Suit::DIAMOND }
         });
 
 	Hands hands{ hand3, hand1, hand2 };

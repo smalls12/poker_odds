@@ -13,20 +13,22 @@ std::optional<ValidatedHand> FindStraightsAndFlushes::Find(Cards& cards)
 
     Cards temp(cards);
 
-    // sort first
-    std::sort(temp.begin(), temp.end(), std::greater<Card>());
-
     // default assumes we have a flush
 
     std::optional<ValidatedHand> currentHandRank = std::optional<ValidatedHand>{{HandRank::FLUSH, temp}};
 
     // see if this hand is a flush
 
-    Suit initialCardSuit = temp[0].suit;
+    Suit initialCardSuit = temp[0]->suit;
 
     for(auto& card : temp)
     {
-        if( card.suit != initialCardSuit)
+        // if( card == nullptr )
+        // {
+        //     spdlog::get("console")->info("FindStraightsAndFlushes::Find - nullptr");
+        // }
+
+        if( card->suit != initialCardSuit)
         {
             // at this point we know we don't have a flush
 
@@ -39,7 +41,7 @@ std::optional<ValidatedHand> FindStraightsAndFlushes::Find(Cards& cards)
 
     for (unsigned int i=0; i<temp.size() - 1; i++)
     {
-		if( temp[i].rank - temp[i+1].rank != 1 )
+		if( temp[i]->rank - temp[i+1]->rank != 1 )
 		{
             // at this point we know we don't have a straight
 
@@ -57,7 +59,7 @@ std::optional<ValidatedHand> FindStraightsAndFlushes::Find(Cards& cards)
 
         // check for royal flush
 
-        if( temp[0].rank == Rank::ACE )
+        if( temp[0]->rank == Rank::ACE )
         {
             currentHandRank = std::optional<ValidatedHand>{{HandRank::ROYAL_FLUSH, temp}};
         }

@@ -2,7 +2,7 @@
 
 #include "spdlog/spdlog.h"
 
-OnePairHand::OnePairHand(int id, std::vector<Card> hand, std::vector<Card> validated)
+OnePairHand::OnePairHand(int id, Cards hand, Cards validated)
 :   BaseHand(id, hand, HandRank::ONE_PAIR, validated)
 {
 
@@ -14,20 +14,38 @@ bool OnePairHand::operator<(const OnePairHand& rhs)
 
     // ranks are the same
     // compare each card in the validated hands
-    if( validated < rhs.validated )
+
+    bool result = false;
+    result = std::equal(    std::begin(validated), std::end(validated),
+                            std::begin(rhs.validated), std::end(rhs.validated),
+                            [](const Card* lhs, const Card* rhs){ return *lhs < *rhs; });
+    if( result )
     {
         // rhs is the higher one pair
         return true;
     }
-    else if( validated == rhs.validated )
+
+    result = std::equal(    std::begin(validated), std::end(validated),
+                            std::begin(rhs.validated), std::end(rhs.validated),
+                            [](const Card* lhs, const Card* rhs){ return *lhs == *rhs; });
+
+    if( result )
     {
+        result = std::equal(    std::begin(cards), std::end(cards),
+                                std::begin(rhs.cards), std::end(rhs.cards),
+                                [](const Card* lhs, const Card* rhs){ return *lhs < *rhs; });
         // same pair
-        if( cards < rhs.cards )
+        if( result )
         {
             // rhs has higher kicker cards
             return true;
         }
-        else if( cards == rhs.cards )
+
+        result = std::equal(    std::begin(cards), std::end(cards),
+                                std::begin(rhs.cards), std::end(rhs.cards),
+                                [](const Card* lhs, const Card* rhs){ return *lhs == *rhs; });
+
+        if( result )
         {
             // hands match perfectly
         }        
@@ -40,11 +58,40 @@ bool OnePairHand::operator>(const OnePairHand& rhs)
 {
     spdlog::get("console")->info("OnePairHand::OnePairHand >");
 
-    // ranks are the same
-    // compare each card in the validated hands
-    if( cards > rhs.cards )
+    bool result = false;
+    result = std::equal(    std::begin(validated), std::end(validated),
+                            std::begin(rhs.validated), std::end(rhs.validated),
+                            [](const Card* lhs, const Card* rhs){ return *lhs > *rhs; });
+    if( result )
     {
+        // lhs is the higher one pair
         return true;
+    }
+
+    result = std::equal(    std::begin(validated), std::end(validated),
+                            std::begin(rhs.validated), std::end(rhs.validated),
+                            [](const Card* lhs, const Card* rhs){ return *lhs == *rhs; });
+
+    if( result )
+    {
+        result = std::equal(    std::begin(cards), std::end(cards),
+                                std::begin(rhs.cards), std::end(rhs.cards),
+                                [](const Card* lhs, const Card* rhs){ return *lhs > *rhs; });
+        // same pair
+        if( result )
+        {
+            // lhs has higher kicker cards
+            return true;
+        }
+
+        result = std::equal(    std::begin(cards), std::end(cards),
+                                std::begin(rhs.cards), std::end(rhs.cards),
+                                [](const Card* lhs, const Card* rhs){ return *lhs == *rhs; });
+
+        if( result )
+        {
+            // hands match perfectly
+        }        
     }
 
     return false;

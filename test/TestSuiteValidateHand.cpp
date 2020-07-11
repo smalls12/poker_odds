@@ -39,81 +39,106 @@ protected:
 TEST_F(TestSuiteValidateHand, Validate_HighCard)
 {
     Cards cards({
-        { Rank::ACE, Suit::DIAMOND },
-        { Rank::KING, Suit::CLUB },
-        { Rank::QUEEN, Suit::HEART },
-        { Rank::JACK, Suit::HEART },
-        { Rank::NINE, Suit::HEART }
+        new Card{ Rank::ACE, Suit::DIAMOND },
+        new Card{ Rank::KING, Suit::CLUB },
+        new Card{ Rank::QUEEN, Suit::HEART },
+        new Card{ Rank::JACK, Suit::HEART },
+        new Card{ Rank::NINE, Suit::HEART }
     });
 
     ValidatedHand results = ValidateHand::DetermineHandRank(cards);
 
     EXPECT_TRUE(results.rank == HandRank::HIGH_CARD);
-    EXPECT_TRUE(results.cards == Cards({ { Rank::ACE, Suit::DIAMOND } }));
+
+    Cards temp({ new Card{ Rank::ACE, Suit::DIAMOND } });
+
+    EXPECT_TRUE(std::equal( std::begin(results.cards), std::end(results.cards),
+                            std::begin(temp), std::end(temp),
+                            [](const Card* lhs, const Card* rhs){ return *lhs == *rhs; }));
 }
 
 TEST_F(TestSuiteValidateHand, Validate_OnePair)
 {
     Cards cards({
-        { Rank::ACE, Suit::DIAMOND },
-        { Rank::ACE, Suit::CLUB },
-        { Rank::QUEEN, Suit::HEART },
-        { Rank::JACK, Suit::HEART },
-        { Rank::NINE, Suit::HEART }
+        new Card{ Rank::ACE, Suit::DIAMOND },
+        new Card{ Rank::ACE, Suit::CLUB },
+        new Card{ Rank::QUEEN, Suit::HEART },
+        new Card{ Rank::JACK, Suit::HEART },
+        new Card{ Rank::NINE, Suit::HEART }
     });
 
     ValidatedHand results = ValidateHand::DetermineHandRank(cards);
 
     EXPECT_TRUE(results.rank == HandRank::ONE_PAIR);
-    EXPECT_TRUE(results.cards == Cards({ { Rank::ACE, Suit::DIAMOND }, { Rank::ACE, Suit::CLUB } }));
+
+    Cards temp({ new Card{ Rank::ACE, Suit::DIAMOND }, new Card{ Rank::ACE, Suit::CLUB } });
+
+    EXPECT_TRUE(std::equal( std::begin(results.cards), std::end(results.cards),
+                            std::begin(temp), std::end(temp),
+                            [](const Card* lhs, const Card* rhs){ return *lhs == *rhs; }));
 }
 
 TEST_F(TestSuiteValidateHand, Validate_TwoPair)
 {
     Cards cards({
-        { Rank::ACE, Suit::DIAMOND },
-        { Rank::ACE, Suit::CLUB },
-        { Rank::JACK, Suit::CLUB },
-        { Rank::JACK, Suit::HEART },
-        { Rank::NINE, Suit::HEART }
+        new Card{ Rank::ACE, Suit::DIAMOND },
+        new Card{ Rank::ACE, Suit::CLUB },
+        new Card{ Rank::JACK, Suit::CLUB },
+        new Card{ Rank::JACK, Suit::HEART },
+        new Card{ Rank::NINE, Suit::HEART }
     });
 
     ValidatedHand results = ValidateHand::DetermineHandRank(cards);
 
     EXPECT_TRUE(results.rank == HandRank::TWO_PAIR);
-    EXPECT_TRUE(results.cards == Cards({ { Rank::ACE, Suit::DIAMOND }, { Rank::ACE, Suit::CLUB }, { Rank::JACK, Suit::CLUB }, { Rank::JACK, Suit::HEART } }));
+
+    Cards temp({ new Card{ Rank::ACE, Suit::DIAMOND }, new Card{ Rank::ACE, Suit::CLUB }, new Card{ Rank::JACK, Suit::CLUB }, new Card{ Rank::JACK, Suit::HEART } });
+
+    EXPECT_TRUE(std::equal( std::begin(results.cards), std::end(results.cards),
+                            std::begin(temp), std::end(temp),
+                            [](const Card* lhs, const Card* rhs){ return *lhs == *rhs; }));
 }
 
 TEST_F(TestSuiteValidateHand, Validate_ThreeOfAKind)
 {
     Cards cards({
-        { Rank::ACE, Suit::DIAMOND },
-        { Rank::KING, Suit::CLUB },
-        { Rank::JACK, Suit::CLUB },
-        { Rank::JACK, Suit::HEART },
-        { Rank::JACK, Suit::DIAMOND }
+        new Card{ Rank::ACE, Suit::DIAMOND },
+        new Card{ Rank::KING, Suit::CLUB },
+        new Card{ Rank::JACK, Suit::CLUB },
+        new Card{ Rank::JACK, Suit::HEART },
+        new Card{ Rank::JACK, Suit::DIAMOND }
     });
 
     ValidatedHand results = ValidateHand::DetermineHandRank(cards);
 
     EXPECT_TRUE(results.rank == HandRank::THREE_OF_A_KIND);
-    EXPECT_TRUE(results.cards == Cards({ { Rank::JACK, Suit::CLUB }, { Rank::JACK, Suit::HEART },{ Rank::JACK, Suit::DIAMOND } }));
+
+    Cards temp({ new Card{ Rank::JACK, Suit::CLUB }, new Card{ Rank::JACK, Suit::HEART },new Card{ Rank::JACK, Suit::DIAMOND } });
+
+    EXPECT_TRUE(std::equal( std::begin(results.cards), std::end(results.cards),
+                            std::begin(temp), std::end(temp),
+                            [](const Card* lhs, const Card* rhs){ return *lhs == *rhs; }));
 }
 
 TEST_F(TestSuiteValidateHand, Validate_Straight)
 {
     Cards cards({
-        { Rank::KING, Suit::DIAMOND },
-        { Rank::QUEEN, Suit::CLUB },
-        { Rank::JACK, Suit::CLUB },
-        { Rank::TEN, Suit::HEART },
-        { Rank::NINE, Suit::DIAMOND }
+        new Card{ Rank::KING, Suit::DIAMOND },
+        new Card{ Rank::QUEEN, Suit::CLUB },
+        new Card{ Rank::JACK, Suit::CLUB },
+        new Card{ Rank::TEN, Suit::HEART },
+        new Card{ Rank::NINE, Suit::DIAMOND }
     });
 
     ValidatedHand results = ValidateHand::DetermineHandRank(cards);
 
     EXPECT_TRUE(results.rank == HandRank::STRAIGHT);
-    EXPECT_TRUE(results.cards == Cards({ { Rank::KING, Suit::DIAMOND }, { Rank::QUEEN, Suit::CLUB },{ Rank::JACK, Suit::CLUB }, { Rank::TEN, Suit::HEART }, { Rank::NINE, Suit::DIAMOND } }));
+    
+    Cards temp({ new Card{ Rank::KING, Suit::DIAMOND }, new Card{ Rank::QUEEN, Suit::CLUB },new Card{ Rank::JACK, Suit::CLUB }, new Card{ Rank::TEN, Suit::HEART }, new Card{ Rank::NINE, Suit::DIAMOND } });
+
+    EXPECT_TRUE(std::equal( std::begin(results.cards), std::end(results.cards),
+                            std::begin(temp), std::end(temp),
+                            [](const Card* lhs, const Card* rhs){ return *lhs == *rhs; }));
 }
 
 // }  // namespace - could surround Project1Test in a namespace

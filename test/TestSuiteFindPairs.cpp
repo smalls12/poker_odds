@@ -37,12 +37,12 @@ protected:
 // Also note: use TEST_F instead of TEST to access the test fixture (from google test primer)
 TEST_F(TestSuiteFindPairs, FindFourOfAKind)
 {
-	std::vector<Card> cards{{
-		{ Rank::ACE, Suit::DIAMOND },
-		{ Rank::ACE, Suit::CLUB },
-		{ Rank::ACE, Suit::HEART },
-		{ Rank::ACE, Suit::SPADE },
-		{ Rank::KING, Suit::HEART }
+	Cards cards{{
+		new Card{ Rank::ACE, Suit::DIAMOND },
+		new Card{ Rank::ACE, Suit::CLUB },
+		new Card{ Rank::ACE, Suit::HEART },
+		new Card{ Rank::ACE, Suit::SPADE },
+		new Card{ Rank::KING, Suit::HEART }
 	}};
 
 	std::optional<ValidatedHand> result = FindPairs::Find(cards);
@@ -52,12 +52,12 @@ TEST_F(TestSuiteFindPairs, FindFourOfAKind)
 
 TEST_F(TestSuiteFindPairs, FindFullHouse_v1)
 {
-	std::vector<Card> cards{{
-		{ Rank::ACE, Suit::DIAMOND },
-		{ Rank::ACE, Suit::CLUB },
-		{ Rank::ACE, Suit::HEART },
-		{ Rank::KING, Suit::DIAMOND },
-		{ Rank::KING, Suit::HEART }
+	Cards cards{{
+		new Card{ Rank::ACE, Suit::DIAMOND },
+		new Card{ Rank::ACE, Suit::CLUB },
+		new Card{ Rank::ACE, Suit::HEART },
+		new Card{ Rank::KING, Suit::DIAMOND },
+		new Card{ Rank::KING, Suit::HEART }
 	}};
 
 	std::optional<ValidatedHand> result = FindPairs::Find(cards);
@@ -67,12 +67,12 @@ TEST_F(TestSuiteFindPairs, FindFullHouse_v1)
 
 TEST_F(TestSuiteFindPairs, FindFullHouse_v2)
 {
-	std::vector<Card> cards{{
-		{ Rank::ACE, Suit::DIAMOND },
-		{ Rank::ACE, Suit::CLUB },
-		{ Rank::KING, Suit::CLUB },
-		{ Rank::KING, Suit::DIAMOND },
-		{ Rank::KING, Suit::HEART }
+	Cards cards{{
+		new Card{ Rank::ACE, Suit::DIAMOND },
+		new Card{ Rank::ACE, Suit::CLUB },
+		new Card{ Rank::KING, Suit::CLUB },
+		new Card{ Rank::KING, Suit::DIAMOND },
+		new Card{ Rank::KING, Suit::HEART }
 	}};
 
 	std::optional<ValidatedHand> result = FindPairs::Find(cards);
@@ -87,28 +87,38 @@ TEST_F(TestSuiteFindPairs, FindFullHouse_v2)
 
 TEST_F(TestSuiteFindPairs, FindThreeOfAKind)
 {
-	std::vector<Card> cards{{
-		{ Rank::ACE, Suit::DIAMOND },
-		{ Rank::ACE, Suit::CLUB },
-		{ Rank::ACE, Suit::HEART },
-		{ Rank::KING, Suit::DIAMOND },
-		{ Rank::QUEEN, Suit::DIAMOND }
+	Cards cards{{
+		new Card{ Rank::ACE, Suit::DIAMOND },
+		new Card{ Rank::ACE, Suit::CLUB },
+		new Card{ Rank::ACE, Suit::HEART },
+		new Card{ Rank::KING, Suit::DIAMOND },
+		new Card{ Rank::QUEEN, Suit::DIAMOND }
 	}};
 
 	std::optional<ValidatedHand> result = FindPairs::Find(cards);
 	EXPECT_TRUE(result);
 	EXPECT_TRUE((*result).rank == HandRank::THREE_OF_A_KIND);
-	EXPECT_TRUE((*result).cards == std::vector<Card>( { { Rank::ACE, Suit::DIAMOND }, { Rank::ACE, Suit::CLUB }, { Rank::ACE, Suit::HEART } } ));
+
+
+	Cards temp({
+		new Card{ Rank::ACE, Suit::DIAMOND }, 
+		new Card{ Rank::ACE, Suit::CLUB }, 
+		new Card{ Rank::ACE, Suit::HEART }
+	});
+	
+	EXPECT_TRUE(std::equal(std::begin((*result).cards), std::end((*result).cards),
+                std::begin(temp), std::end(temp),
+                [](const Card* lhs, const Card* rhs){ return *lhs == *rhs; }));
 }
 
 TEST_F(TestSuiteFindPairs, FindTwoPair)
 {
-	std::vector<Card> cards{{
-		{ Rank::ACE, Suit::DIAMOND },
-		{ Rank::ACE, Suit::CLUB },
-		{ Rank::KING, Suit::HEART },
-		{ Rank::KING, Suit::DIAMOND },
-		{ Rank::QUEEN, Suit::DIAMOND }
+	Cards cards{{
+		new Card{ Rank::ACE, Suit::DIAMOND },
+		new Card{ Rank::ACE, Suit::CLUB },
+		new Card{ Rank::KING, Suit::HEART },
+		new Card{ Rank::KING, Suit::DIAMOND },
+		new Card{ Rank::QUEEN, Suit::DIAMOND }
 	}};
 
 	std::optional<ValidatedHand> result = FindPairs::Find(cards);
@@ -118,12 +128,12 @@ TEST_F(TestSuiteFindPairs, FindTwoPair)
 
 TEST_F(TestSuiteFindPairs, FindOnePair)
 {
-	std::vector<Card> cards{{
-		{ Rank::TWO, Suit::DIAMOND },
-		{ Rank::ACE, Suit::CLUB },
-		{ Rank::ACE, Suit::HEART },
-		{ Rank::KING, Suit::DIAMOND },
-		{ Rank::QUEEN, Suit::DIAMOND }
+	Cards cards{{
+		new Card{ Rank::TWO, Suit::DIAMOND },
+		new Card{ Rank::ACE, Suit::CLUB },
+		new Card{ Rank::ACE, Suit::HEART },
+		new Card{ Rank::KING, Suit::DIAMOND },
+		new Card{ Rank::QUEEN, Suit::DIAMOND }
 	}};
 
 	std::optional<ValidatedHand> result = FindPairs::Find(cards);

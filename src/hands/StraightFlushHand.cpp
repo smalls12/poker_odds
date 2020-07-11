@@ -2,7 +2,7 @@
 
 #include "spdlog/spdlog.h"
 
-StraightFlushHand::StraightFlushHand(int id, std::vector<Card> hand, std::vector<Card> validated)
+StraightFlushHand::StraightFlushHand(int id, Cards hand, Cards validated)
 :   BaseHand(id, hand, HandRank::STRAIGHT_FLUSH, validated)
 {
 

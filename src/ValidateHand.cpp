@@ -4,10 +4,10 @@
 #include "FindPairs.hpp"
 #include "FindStraightsAndFlushes.hpp"
 
-#include "spdlog/spdlog.h"
-
-ValidatedHand ValidateHand::DetermineHandRank(std::vector<Card>& cards)
+ValidatedHand ValidateHand::DetermineHandRank(Cards& cards)
 {
+    // spdlog::get("console")->debug("ValidateHand::DetermineHandRank - start");
+
     // searching for different card combinations
     std::optional<ValidatedHand> straightsAndFlushes = FindStraightsAndFlushes::Find(cards);
 
@@ -47,5 +47,9 @@ ValidatedHand ValidateHand::DetermineHandRank(std::vector<Card>& cards)
     }
     
 
-    return *FindHighCard::Find(cards);
+    std::optional<ValidatedHand> highCard = *FindHighCard::Find(cards);
+
+    // spdlog::get("console")->debug("ValidateHand::DetermineHandRank - done");
+
+    return *highCard;
 }

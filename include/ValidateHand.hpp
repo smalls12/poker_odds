@@ -10,5 +10,5 @@
 class ValidateHand
 {
     public:
-        static ValidatedHand DetermineHandRank(std::vector<Card>& cards);
+        static ValidatedHand DetermineHandRank(Cards& cards);
 };

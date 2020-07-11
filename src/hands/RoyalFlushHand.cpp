@@ -2,7 +2,7 @@
 
 #include "spdlog/spdlog.h"
 
-RoyalFlushHand::RoyalFlushHand(int id, std::vector<Card> hand, std::vector<Card> validated)
+RoyalFlushHand::RoyalFlushHand(int id, Cards hand, Cards validated)
 :   BaseHand(id, hand, HandRank::ROYAL_FLUSH, validated)
 {
 

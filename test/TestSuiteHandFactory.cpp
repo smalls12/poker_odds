@@ -38,16 +38,16 @@ protected:
 TEST_F(TestSuiteHandFactory, TestEquality)
 {
     Cards cards({
-        { Rank::ACE, Suit::DIAMOND },
-        { Rank::KING, Suit::CLUB },
-        { Rank::QUEEN, Suit::HEART },
-        { Rank::JACK, Suit::HEART },
-        { Rank::NINE, Suit::HEART }
+        new Card{ Rank::ACE, Suit::DIAMOND },
+        new Card{ Rank::KING, Suit::CLUB },
+        new Card{ Rank::QUEEN, Suit::HEART },
+        new Card{ Rank::JACK, Suit::HEART },
+        new Card{ Rank::NINE, Suit::HEART }
     });
 
     ValidatedHand validatedHand(
         { HandRank::HIGH_CARD, {
-            { Rank::KING, Suit::DIAMOND }
+            new Card{ Rank::KING, Suit::DIAMOND }
         }
     });
 

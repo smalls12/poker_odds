@@ -5,7 +5,7 @@
 class RoyalFlushHand : public BaseHand
 {
     public:
-        RoyalFlushHand(int id, std::vector<Card> hand, std::vector<Card> validated);
+        RoyalFlushHand(int id, Cards hand, Cards validated);
         ~RoyalFlushHand() = default;
 
         bool operator<(const RoyalFlushHand& rhs);

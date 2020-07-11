@@ -5,23 +5,29 @@
 
 #include "spdlog/spdlog.h"
 
-std::vector<Hand> PossibleHands::SummarizeAllPossibleHands(int id, Cards cards, std::vector<Cards>& dealerPermutations)
+#include <sstream>
+
+std::vector<Hand> PossibleHands::SummarizeAllPossibleHands(int id, Cards& cards, std::vector<Cards>& dealerPermutations)
 {
     spdlog::get("console")->info("PossibleHands::SummarizeAllPossibleHands - start");
 
     std::vector<Hand> possibleHands;
     possibleHands.reserve(dealerPermutations.size());
-    for(auto& hand : dealerPermutations)
+    for(auto hand : dealerPermutations)
     {
-        std::vector<Card> simulatedHand;
-        simulatedHand.reserve(7);
+        // Cards simulatedHand;
+        // simulatedHand.reserve(7);
 
-        simulatedHand.insert( simulatedHand.end(), cards.begin(), cards.end() );
-        simulatedHand.insert( simulatedHand.end(), hand.begin(), hand.end() );
+        hand.insert( hand.end(), cards.begin(), cards.end() );
+        // simulatedHand.insert( simulatedHand.end(), hand.begin(), hand.end() );
+
+        // sort first
+        std::sort(hand.begin(), hand.end(),
+        [](const Card* lhs, const Card* rhs){ return *lhs > *rhs; });
 
         // validate and find the highest hand ranking
-        ValidatedHand result = ValidateHand::DetermineHandRank(simulatedHand);
-        possibleHands.push_back(HandFactory::Build(id, simulatedHand, result));      
+        ValidatedHand result = ValidateHand::DetermineHandRank(hand);
+        possibleHands.emplace_back(HandFactory::Build(id, hand, result));
     }
 
     spdlog::get("console")->info("PossibleHands::SummarizeAllPossibleHands - done");

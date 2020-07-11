@@ -2,7 +2,7 @@
 
 #include "spdlog/spdlog.h"
 
-TwoPairHand::TwoPairHand(int id, std::vector<Card> hand, std::vector<Card> validated)
+TwoPairHand::TwoPairHand(int id, Cards hand, Cards validated)
 :   BaseHand(id, hand, HandRank::TWO_PAIR, validated)
 {
 
@@ -14,12 +14,9 @@ bool TwoPairHand::operator<(TwoPairHand rhs)
 
     // ranks are the same
     // compare each card in the validated hands
-    if( cards < rhs.cards )
-    {
-        return true;
-    }
-
-    return false;
+    return std::equal(  std::begin(cards), std::end(cards),
+                        std::begin(rhs.cards), std::end(rhs.cards),
+                        [](const Card* lhs, const Card* rhs){ return *lhs < *rhs; });
 }
 
 bool TwoPairHand::operator>(TwoPairHand rhs)
@@ -28,12 +25,9 @@ bool TwoPairHand::operator>(TwoPairHand rhs)
 
     // ranks are the same
     // compare each card in the validated hands
-    if( cards > rhs.cards )
-    {
-        return true;
-    }
-
-    return false;
+    return std::equal(  std::begin(cards), std::end(cards),
+                        std::begin(rhs.cards), std::end(rhs.cards),
+                        [](const Card* lhs, const Card* rhs){ return *lhs > *rhs; });
 }
 
 bool TwoPairHand::operator<(BaseHand rhs)

@@ -5,7 +5,7 @@
 class OnePairHand : public BaseHand
 {
     public:
-        OnePairHand(int id, std::vector<Card> hand, std::vector<Card> validated);
+        OnePairHand(int id, Cards hand, Cards validated);
         ~OnePairHand() = default;
 
         bool operator<(const OnePairHand& rhs);

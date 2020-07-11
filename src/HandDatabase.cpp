@@ -51,17 +51,17 @@ void HandDatabase::BuildDatabase()
 
 void HandDatabase::RankHandsInDatabase()
 {
-    std::map<HandRank, std::function<void(std::vector<Card> hand)>> router{
-        { HandRank::ROYAL_FLUSH, [this](std::vector<Card> hand){ m_royalFlushHands.push_back(hand); } },
-        { HandRank::STRAIGHT_FLUSH, [this](std::vector<Card> hand){ m_straightFlushHands.push_back(hand); } },
-        { HandRank::FOUR_OF_A_KIND, [this](std::vector<Card> hand){ m_fourOfAKindHands.push_back(hand); } },
-        { HandRank::FULL_HOUSE, [this](std::vector<Card> hand){ m_fullHouseHands.push_back(hand); } },
-        { HandRank::FLUSH, [this](std::vector<Card> hand){ m_flushHands.push_back(hand); } },
-        { HandRank::STRAIGHT, [this](std::vector<Card> hand){ m_straightHands.push_back(hand); } },
-        { HandRank::THREE_OF_A_KIND, [this](std::vector<Card> hand){ m_threeOfAKindHands.push_back(hand); } },
-        { HandRank::TWO_PAIR, [this](std::vector<Card> hand){ m_twoPairHands.push_back(hand); } },
-        { HandRank::ONE_PAIR, [this](std::vector<Card> hand){ m_onePairHands.push_back(hand); } },
-        { HandRank::HIGH_CARD, [this](std::vector<Card> hand){ m_highCardHands.push_back(hand); } }
+    std::map<HandRank, std::function<void(Cards hand)>> router{
+        { HandRank::ROYAL_FLUSH, [this](Cards hand){ m_royalFlushHands.emplace_back(hand); } },
+        { HandRank::STRAIGHT_FLUSH, [this](Cards hand){ m_straightFlushHands.emplace_back(hand); } },
+        { HandRank::FOUR_OF_A_KIND, [this](Cards hand){ m_fourOfAKindHands.emplace_back(hand); } },
+        { HandRank::FULL_HOUSE, [this](Cards hand){ m_fullHouseHands.emplace_back(hand); } },
+        { HandRank::FLUSH, [this](Cards hand){ m_flushHands.emplace_back(hand); } },
+        { HandRank::STRAIGHT, [this](Cards hand){ m_straightHands.emplace_back(hand); } },
+        { HandRank::THREE_OF_A_KIND, [this](Cards hand){ m_threeOfAKindHands.emplace_back(hand); } },
+        { HandRank::TWO_PAIR, [this](Cards hand){ m_twoPairHands.emplace_back(hand); } },
+        { HandRank::ONE_PAIR, [this](Cards hand){ m_onePairHands.emplace_back(hand); } },
+        { HandRank::HIGH_CARD, [this](Cards hand){ m_highCardHands.emplace_back(hand); } }
     };
 
     for(auto& hand : m_allPossibleHands)

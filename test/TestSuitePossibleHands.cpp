@@ -40,20 +40,20 @@ TEST_F(TestSuitePossibleHands, TestEquality)
 	Hands possibleHands;
 
 	Cards cards({
-		{ Rank::ACE, Suit::SPADE },
-		{ Rank::ACE, Suit::HEART }
+		new Card{ Rank::ACE, Suit::SPADE },
+		new Card{ Rank::ACE, Suit::HEART }
 	});
 
 	std::vector<Cards> permutations({{
-			{ Rank::KING, Suit::SPADE },
-			{ Rank::QUEEN, Suit::HEART },
-			{ Rank::JACK, Suit::SPADE }},{
-			{ Rank::TEN, Suit::SPADE },
-			{ Rank::NINE, Suit::HEART },
-			{ Rank::EIGHT, Suit::SPADE }},{
-			{ Rank::SEVEN, Suit::SPADE },
-			{ Rank::SIX, Suit::HEART },
-			{ Rank::FIVE, Suit::SPADE }}});
+			new Card{ Rank::KING, Suit::SPADE },
+			new Card{ Rank::QUEEN, Suit::HEART },
+			new Card{ Rank::JACK, Suit::SPADE }},{
+			new Card{ Rank::TEN, Suit::SPADE },
+			new Card{ Rank::NINE, Suit::HEART },
+			new Card{ Rank::EIGHT, Suit::SPADE }},{
+			new Card{ Rank::SEVEN, Suit::SPADE },
+			new Card{ Rank::SIX, Suit::HEART },
+			new Card{ Rank::FIVE, Suit::SPADE }}});
 
 	possibleHands = PossibleHands::SummarizeAllPossibleHands(0, cards, permutations);
 

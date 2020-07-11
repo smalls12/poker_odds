@@ -38,7 +38,7 @@ std::vector<Cards> DealerPermutations::Work(Deck& deck, int cardsToDraw)
     spdlog::get("console")->info("DealerPermutations::Work - start");
 
     std::vector<Cards> allPossibleHands;
-    allPossibleHands.reserve(1712304);
+    allPossibleHands.reserve(2598960);
 
     std::string bitmask(cardsToDraw, 1); // K leading 1's
     bitmask.resize(deck.size(), 0); // N-K trailing 0's
@@ -47,20 +47,22 @@ std::vector<Cards> DealerPermutations::Work(Deck& deck, int cardsToDraw)
     do
 	{
 		Cards cards;
-        cards.reserve(cardsToDraw);
+        cards.reserve(cardsToDraw + 2);
         for (unsigned int i = 0; i < deck.size(); ++i) // [0..N-1] integers
         {
             if (bitmask[i])
 			{
-				cards.push_back(deck[i]);
+				cards.emplace_back(deck[i]);
 			}
         }
 
-		allPossibleHands.push_back(cards);
+        // cards.shrink_to_fit();
+		allPossibleHands.emplace_back(cards);
     }
 	while (std::prev_permutation(bitmask.begin(), bitmask.end()));
 
     spdlog::get("console")->info("DealerPermutations::Work - done");
 
+    allPossibleHands.shrink_to_fit();
     return allPossibleHands;
 }

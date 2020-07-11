@@ -5,7 +5,7 @@
 class ThreeOfAKindHand : public BaseHand
 {
     public:
-        ThreeOfAKindHand(int id, std::vector<Card> hand, std::vector<Card> validated);
+        ThreeOfAKindHand(int id, Cards hand, Cards validated);
         ~ThreeOfAKindHand() = default;
 
         bool operator<(ThreeOfAKindHand rhs);

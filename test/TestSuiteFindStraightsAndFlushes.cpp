@@ -37,12 +37,12 @@ protected:
 // Also note: use TEST_F instead of TEST to access the test fixture (from google test primer)
 TEST_F(TestSuiteFindStraightsAndFlushes, FindAStraight_Ace_High)
 {
-	std::vector<Card> cards{{
-		{ Rank::ACE, Suit::DIAMOND },
-		{ Rank::KING, Suit::CLUB },
-		{ Rank::QUEEN, Suit::HEART },
-		{ Rank::JACK, Suit::SPADE },
-		{ Rank::TEN, Suit::HEART }
+	Cards cards{{
+		new Card{ Rank::ACE, Suit::DIAMOND },
+		new Card{ Rank::KING, Suit::CLUB },
+		new Card{ Rank::QUEEN, Suit::HEART },
+		new Card{ Rank::JACK, Suit::SPADE },
+		new Card{ Rank::TEN, Suit::HEART }
 	}};
 
 	std::optional<ValidatedHand> result = FindStraightsAndFlushes::Find(cards);
@@ -52,12 +52,12 @@ TEST_F(TestSuiteFindStraightsAndFlushes, FindAStraight_Ace_High)
 
 TEST_F(TestSuiteFindStraightsAndFlushes, FindAStraight_Five_High)
 {
-	std::vector<Card> cards{{
-		{ Rank::FIVE, Suit::DIAMOND },
-		{ Rank::FOUR, Suit::CLUB },
-		{ Rank::QUEEN, Suit::HEART },
-		{ Rank::JACK, Suit::SPADE },
-		{ Rank::TEN, Suit::HEART }
+	Cards cards{{
+		new Card{ Rank::FIVE, Suit::DIAMOND },
+		new Card{ Rank::FOUR, Suit::CLUB },
+		new Card{ Rank::QUEEN, Suit::HEART },
+		new Card{ Rank::JACK, Suit::SPADE },
+		new Card{ Rank::TEN, Suit::HEART }
 	}};
 
 	std::optional<ValidatedHand> result = FindStraightsAndFlushes::Find(cards);
@@ -67,12 +67,12 @@ TEST_F(TestSuiteFindStraightsAndFlushes, FindAStraight_Five_High)
 
 TEST_F(TestSuiteFindStraightsAndFlushes, FindARoyalFlush)
 {
-	std::vector<Card> cards{{
-		{ Rank::ACE, Suit::DIAMOND },
-		{ Rank::KING, Suit::DIAMOND },
-		{ Rank::QUEEN, Suit::DIAMOND },
-		{ Rank::JACK, Suit::DIAMOND },
-		{ Rank::TEN, Suit::DIAMOND }
+	Cards cards{{
+		new Card{ Rank::ACE, Suit::DIAMOND },
+		new Card{ Rank::KING, Suit::DIAMOND },
+		new Card{ Rank::QUEEN, Suit::DIAMOND },
+		new Card{ Rank::JACK, Suit::DIAMOND },
+		new Card{ Rank::TEN, Suit::DIAMOND }
 	}};
 
 	std::optional<ValidatedHand> result = FindStraightsAndFlushes::Find(cards);
@@ -82,12 +82,12 @@ TEST_F(TestSuiteFindStraightsAndFlushes, FindARoyalFlush)
 
 TEST_F(TestSuiteFindStraightsAndFlushes, FindAStraightFlush)
 {
-	std::vector<Card> cards{{
-		{ Rank::KING, Suit::DIAMOND },
-		{ Rank::QUEEN, Suit::DIAMOND },
-		{ Rank::JACK, Suit::DIAMOND },
-		{ Rank::TEN, Suit::DIAMOND },
-		{ Rank::NINE, Suit::DIAMOND }
+	Cards cards{{
+		new Card{ Rank::KING, Suit::DIAMOND },
+		new Card{ Rank::QUEEN, Suit::DIAMOND },
+		new Card{ Rank::JACK, Suit::DIAMOND },
+		new Card{ Rank::TEN, Suit::DIAMOND },
+		new Card{ Rank::NINE, Suit::DIAMOND }
 	}};
 
 	std::optional<ValidatedHand> result = FindStraightsAndFlushes::Find(cards);
@@ -97,12 +97,12 @@ TEST_F(TestSuiteFindStraightsAndFlushes, FindAStraightFlush)
 
 TEST_F(TestSuiteFindStraightsAndFlushes, FindAFlush)
 {
-	std::vector<Card> cards{{
-		{ Rank::ACE, Suit::DIAMOND },
-		{ Rank::KING, Suit::DIAMOND },
-		{ Rank::QUEEN, Suit::DIAMOND },
-		{ Rank::JACK, Suit::DIAMOND },
-		{ Rank::NINE, Suit::DIAMOND }
+	Cards cards{{
+		new Card{ Rank::ACE, Suit::DIAMOND },
+		new Card{ Rank::KING, Suit::DIAMOND },
+		new Card{ Rank::QUEEN, Suit::DIAMOND },
+		new Card{ Rank::JACK, Suit::DIAMOND },
+		new Card{ Rank::NINE, Suit::DIAMOND }
 	}};
 
 	// sort first

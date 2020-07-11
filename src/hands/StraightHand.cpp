@@ -2,7 +2,7 @@
 
 #include "spdlog/spdlog.h"
 
-StraightHand::StraightHand(int id, std::vector<Card> hand, std::vector<Card> validated)
+StraightHand::StraightHand(int id, Cards hand, Cards validated)
 :   BaseHand(id, hand, HandRank::STRAIGHT, validated)
 {
 

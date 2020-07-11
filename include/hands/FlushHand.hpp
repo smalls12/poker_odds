@@ -5,7 +5,7 @@
 class FlushHand : public BaseHand
 {
     public:
-        FlushHand(int id, std::vector<Card> hand, std::vector<Card> validated);
+        FlushHand(int id, Cards hand, Cards validated);
         ~FlushHand() = default;
 
         bool operator<(FlushHand rhs);

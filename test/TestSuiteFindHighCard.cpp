@@ -38,18 +38,25 @@ protected:
 // Also note: use TEST_F instead of TEST to access the test fixture (from google test primer)
 TEST_F(TestSuiteFindHighCard, FindHighCard)
 {
-	std::vector<Card> cards{{
-		{ Rank::ACE, Suit::DIAMOND },
-		{ Rank::KING, Suit::CLUB },
-		{ Rank::QUEEN, Suit::HEART },
-		{ Rank::JACK, Suit::SPADE },
-		{ Rank::TEN, Suit::HEART }
+	Cards cards{{
+		new Card{ Rank::ACE, Suit::DIAMOND },
+		new Card{ Rank::KING, Suit::CLUB },
+		new Card{ Rank::QUEEN, Suit::HEART },
+		new Card{ Rank::JACK, Suit::SPADE },
+		new Card{ Rank::TEN, Suit::HEART }
 	}};
 
 	std::optional<ValidatedHand> result = FindHighCard::Find(cards);
 	EXPECT_TRUE(result);
 	EXPECT_TRUE((*result).rank == HandRank::HIGH_CARD);
-	EXPECT_TRUE(CardExactMatch( { (*result).cards[0] }) == CardExactMatch( { { Rank::ACE, Suit::DIAMOND } } ));
+
+	Cards temp({
+		new Card{ Rank::ACE, Suit::DIAMOND }
+	});
+	
+	EXPECT_TRUE(std::equal(std::begin((*result).cards), std::begin((*result).cards)+1,
+                std::begin(temp), std::end(temp),
+                [](const Card* lhs, const Card* rhs){ return *lhs == *rhs; }));
 }
 
 // }  // namespace - could surround Project1Test in a namespace

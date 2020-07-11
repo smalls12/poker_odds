@@ -2,7 +2,7 @@
 
 #include "spdlog/spdlog.h"
 
-ThreeOfAKindHand::ThreeOfAKindHand(int id, std::vector<Card> hand, std::vector<Card> validated)
+ThreeOfAKindHand::ThreeOfAKindHand(int id, Cards hand, Cards validated)
 :   BaseHand(id, hand, HandRank::THREE_OF_A_KIND, validated)
 {
 
@@ -14,12 +14,9 @@ bool ThreeOfAKindHand::operator<(ThreeOfAKindHand rhs)
 
     // ranks are the same
     // compare each card in the validated hands
-    if( cards < rhs.cards )
-    {
-        return true;
-    }
-
-    return false;
+    return std::equal(  std::begin(cards), std::end(cards),
+                        std::begin(rhs.cards), std::end(rhs.cards),
+                        [](const Card* lhs, const Card* rhs){ return *lhs < *rhs; });
 }
 
 bool ThreeOfAKindHand::operator>(ThreeOfAKindHand rhs)
@@ -28,12 +25,9 @@ bool ThreeOfAKindHand::operator>(ThreeOfAKindHand rhs)
 
     // ranks are the same
     // compare each card in the validated hands
-    if( cards > rhs.cards )
-    {
-        return true;
-    }
-
-    return false;
+    return std::equal(  std::begin(cards), std::end(cards),
+                        std::begin(rhs.cards), std::end(rhs.cards),
+                        [](const Card* lhs, const Card* rhs){ return *lhs > *rhs; });
 }
 
 bool ThreeOfAKindHand::operator<(BaseHand rhs)

@@ -35,7 +35,7 @@ protected:
 
 // Test case must be called the class above
 // Also note: use TEST_F instead of TEST to access the test fixture (from google test primer)
-TEST_F(TestSuiteHandDatabase, Testing)
+TEST_F(TestSuiteHandDatabase, DISABLED_Testing)
 {
     HandDatabase handDatabase;
 }

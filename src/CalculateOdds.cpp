@@ -25,7 +25,7 @@ void CalculateOdds::Calculate(Players& players, Deck& deck)
     for(auto& player : players)
     {
         Hands possibleHands = PossibleHands::SummarizeAllPossibleHands(player->m_id, player->m_hand, dealerPermutations);
-        simulatedHands.push_back(possibleHands);
+        simulatedHands.emplace_back(possibleHands);
     }
 
     // compare each simulated hand between players
@@ -47,7 +47,7 @@ void CalculateOdds::Calculate(Players& players, Deck& deck)
     {
         // sort first
         std::sort(handsForComparison.begin(), handsForComparison.end(), std::greater<Hand>());
-        winners.push_back(handsForComparison[0]);
+        winners.emplace_back(handsForComparison[0]);
     }
 
     // for(auto& winner : winners)

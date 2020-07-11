@@ -49,6 +49,7 @@ int main(int argc, const char **argv)
     auto player3 = std::make_shared<Player>(2);
     auto player4 = std::make_shared<Player>(3);
 
+    // Players players{player1, player2};
     Players players{player1, player2, player3, player4};
 
     Dealer::DealCards(players, deck);

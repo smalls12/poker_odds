@@ -5,7 +5,7 @@
 class StraightFlushHand : public BaseHand
 {
     public:
-        StraightFlushHand(int id, std::vector<Card> hand, std::vector<Card> validated);
+        StraightFlushHand(int id, Cards hand, Cards validated);
         ~StraightFlushHand() = default;
 
         bool operator<(const StraightFlushHand& rhs);

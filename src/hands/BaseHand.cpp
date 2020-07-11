@@ -1,7 +1,6 @@
 #include "BaseHand.hpp"
 
 #include "ValidateHand.hpp"
-#include "ResolveSameRankWinner.hpp"
 
 #include "spdlog/spdlog.h"
 
@@ -15,7 +14,7 @@
 //     // no hand to validate at this point
 // }
 
-// BaseHand::BaseHand(int id, std::vector<Card> cards)
+// BaseHand::BaseHand(int id, Cards cards)
 // :   id(id),
 //     cards(cards),
 //     rank()
@@ -30,7 +29,7 @@
 //     // }
 // }
 
-BaseHand::BaseHand(int id, std::vector<Card> cards, HandRank rank, std::vector<Card> validated)
+BaseHand::BaseHand(int id, Cards cards, HandRank rank, Cards validated)
 :   id(id),
     cards(cards),
     rank(rank),
@@ -41,7 +40,7 @@ BaseHand::BaseHand(int id, std::vector<Card> cards, HandRank rank, std::vector<C
 
 // void BaseHand::addCard(Card card)
 // {
-//     cards.push_back(card);
+//     cards.emplace_back(card);
 
 //     // cards are provided
 
@@ -53,7 +52,7 @@ BaseHand::BaseHand(int id, std::vector<Card> cards, HandRank rank, std::vector<C
 //     }
 // }
 
-// std::vector<Card> BaseHand::getCards()
+// Cards BaseHand::getCards()
 // {
 //     return cards;
 // }
@@ -61,6 +60,20 @@ BaseHand::BaseHand(int id, std::vector<Card> cards, HandRank rank, std::vector<C
 HandRank BaseHand::getHandRank()
 {
     return rank;
+}
+
+bool BaseHand::operator==(const BaseHand& rhs) const
+{
+    spdlog::get("console")->info("BaseHand::==");
+
+    return std::equal(  std::begin(cards), std::end(cards),
+                        std::begin(rhs.cards), std::end(rhs.cards),
+                        [](const Card* lhs, const Card* rhs){ return *lhs == *rhs; });
+}
+
+bool BaseHand::operator!=(const BaseHand& rhs) const
+{
+    return !(*this == rhs);
 }
 
 bool BaseHand::operator<(const BaseHand& rhs) const
@@ -100,8 +113,17 @@ std::ostream& operator<<(std::ostream & os, BaseHand& hand)
 
     for(auto& card : hand.cards)
     {
-        os << card;
+        os << *card;
     }
 
     return os;
 }
+
+
+// BaseHand(BaseHand&& other)
+// {
+// }
+
+// BaseHand& operator=(BaseHand&& other)
+// {
+// }

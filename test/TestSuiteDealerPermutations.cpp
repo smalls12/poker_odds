@@ -43,7 +43,12 @@ protected:
 TEST_F(TestSuiteDealerPermutations, TestDealerPermutations_3c2)
 {
 	// Deck deck = DeckBuilder::Build();
-	Cards deck{ {Rank::ACE, Suit::CLUB}, {Rank::TEN, Suit::DIAMOND}, {Rank::FOUR, Suit::SPADE} };
+	Cards deck{
+		new Card{ Rank::ACE, Suit::CLUB},
+		new Card{ Rank::TEN, Suit::DIAMOND},
+		new Card{ Rank::FOUR, Suit::SPADE}
+	};
+
     std::vector<Cards> hands = DealerPermutations::Simulate(deck, 2);
 
 	// for(auto& hand : hands)
@@ -60,7 +65,13 @@ TEST_F(TestSuiteDealerPermutations, TestDealerPermutations_3c2)
 TEST_F(TestSuiteDealerPermutations, TestDealerPermutations_4c3)
 {
 	// Deck deck = DeckBuilder::Build();
-	Cards deck{ {Rank::ACE, Suit::CLUB}, {Rank::TEN, Suit::DIAMOND}, {Rank::FOUR, Suit::SPADE}, {Rank::TWO, Suit::HEART} };
+	Cards deck{
+		new Card{ Rank::ACE, Suit::CLUB},
+		new Card{ Rank::TEN, Suit::DIAMOND},
+		new Card{ Rank::FOUR, Suit::SPADE},
+		new Card{ Rank::TWO, Suit::HEART}
+	};
+
     std::vector<Cards> hands = DealerPermutations::Simulate(deck, 3);
 
 	// for(auto& hand : hands)

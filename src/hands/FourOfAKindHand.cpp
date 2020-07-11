@@ -2,7 +2,7 @@
 
 #include "spdlog/spdlog.h"
 
-FourOfAKindHand::FourOfAKindHand(int id, std::vector<Card> hand, std::vector<Card> validated)
+FourOfAKindHand::FourOfAKindHand(int id, Cards hand, Cards validated)
 :   BaseHand(id, hand, HandRank::FOUR_OF_A_KIND, validated)
 {
 
