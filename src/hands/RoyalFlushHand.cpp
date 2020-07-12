@@ -1,7 +1,5 @@
 #include "RoyalFlushHand.hpp"
 
-#include "spdlog/spdlog.h"
-
 RoyalFlushHand::RoyalFlushHand(int id, Cards hand, Cards validated)
 :   BaseHand(id, hand, HandRank::ROYAL_FLUSH, validated)
 {
@@ -10,8 +8,6 @@ RoyalFlushHand::RoyalFlushHand(int id, Cards hand, Cards validated)
 
 bool RoyalFlushHand::operator<(const RoyalFlushHand& rhs)
 {
-    spdlog::get("console")->info("RoyalFlushHand::RoyalFlushHand <");
-
     // ranks are the same
     // compare each card in the validated hands
     if( cards < rhs.cards )
@@ -24,8 +20,6 @@ bool RoyalFlushHand::operator<(const RoyalFlushHand& rhs)
 
 bool RoyalFlushHand::operator>(const RoyalFlushHand& rhs)
 {
-    spdlog::get("console")->info("RoyalFlushHand::RoyalFlushHand >");
-
     // ranks are the same
     // compare each card in the validated hands
     if( cards > rhs.cards )

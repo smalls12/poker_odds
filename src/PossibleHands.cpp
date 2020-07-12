@@ -3,14 +3,10 @@
 #include "ValidateHand.hpp"
 #include "HandFactory.hpp"
 
-#include "spdlog/spdlog.h"
-
 #include <sstream>
 
 std::vector<Hand> PossibleHands::SummarizeAllPossibleHands(int id, Cards& cards, std::vector<Cards>& dealerPermutations)
 {
-    spdlog::get("console")->info("PossibleHands::SummarizeAllPossibleHands - start");
-
     std::vector<Hand> possibleHands;
     possibleHands.reserve(dealerPermutations.size());
     for(auto hand : dealerPermutations)
@@ -29,8 +25,6 @@ std::vector<Hand> PossibleHands::SummarizeAllPossibleHands(int id, Cards& cards,
         ValidatedHand result = ValidateHand::DetermineHandRank(hand);
         possibleHands.emplace_back(HandFactory::Build(id, hand, result));
     }
-
-    spdlog::get("console")->info("PossibleHands::SummarizeAllPossibleHands - done");
 
     return possibleHands;
 }

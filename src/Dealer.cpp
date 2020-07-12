@@ -1,7 +1,5 @@
 #include "Dealer.hpp"
 
-#include "spdlog/spdlog.h"
-
 #include <sstream>
 
 void Dealer::DealCards(Players& players, Deck& deck)

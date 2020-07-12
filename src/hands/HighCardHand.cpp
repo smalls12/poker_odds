@@ -1,7 +1,5 @@
 #include "HighCardHand.hpp"
 
-#include "spdlog/spdlog.h"
-
 HighCardHand::HighCardHand(int id, Cards hand, Cards validated)
 :   BaseHand(id, hand, HandRank::HIGH_CARD, validated)
 {
@@ -10,8 +8,6 @@ HighCardHand::HighCardHand(int id, Cards hand, Cards validated)
 
 bool HighCardHand::operator<(const HighCardHand& rhs)
 {
-    spdlog::get("console")->info("HighCardHand::HighCardHand <");
-
     // ranks are the same
     // compare each card in the validated hands
     return std::equal(  std::begin(cards), std::end(cards),
@@ -21,8 +17,6 @@ bool HighCardHand::operator<(const HighCardHand& rhs)
 
 bool HighCardHand::operator>(const HighCardHand& rhs)
 {
-    spdlog::get("console")->info("HighCardHand::HighCardHand >");
-
     // ranks are the same
     // compare each card in the validated hands
     return std::equal(  std::begin(cards), std::end(cards),

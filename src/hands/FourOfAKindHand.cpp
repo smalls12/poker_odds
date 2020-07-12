@@ -1,7 +1,5 @@
 #include "FourOfAKindHand.hpp"
 
-#include "spdlog/spdlog.h"
-
 FourOfAKindHand::FourOfAKindHand(int id, Cards hand, Cards validated)
 :   BaseHand(id, hand, HandRank::FOUR_OF_A_KIND, validated)
 {
@@ -10,8 +8,6 @@ FourOfAKindHand::FourOfAKindHand(int id, Cards hand, Cards validated)
 
 bool FourOfAKindHand::operator<(FourOfAKindHand rhs)
 {
-    spdlog::get("console")->info("FourOfAKindHand::FourOfAKindHand <");
-
     // ranks are the same
     // compare each card in the validated hands
     if( cards < rhs.cards )
@@ -24,8 +20,6 @@ bool FourOfAKindHand::operator<(FourOfAKindHand rhs)
 
 bool FourOfAKindHand::operator>(FourOfAKindHand rhs)
 {
-    spdlog::get("console")->info("FourOfAKindHand::FourOfAKindHand >");
-
     // ranks are the same
     // compare each card in the validated hands
     if( cards > rhs.cards )

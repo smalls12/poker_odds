@@ -1,7 +1,5 @@
 #include "OnePairHand.hpp"
 
-#include "spdlog/spdlog.h"
-
 OnePairHand::OnePairHand(int id, Cards hand, Cards validated)
 :   BaseHand(id, hand, HandRank::ONE_PAIR, validated)
 {
@@ -10,8 +8,6 @@ OnePairHand::OnePairHand(int id, Cards hand, Cards validated)
 
 bool OnePairHand::operator<(const OnePairHand& rhs)
 {
-    spdlog::get("console")->info("OnePairHand::OnePairHand <");
-
     // ranks are the same
     // compare each card in the validated hands
 
@@ -56,8 +52,6 @@ bool OnePairHand::operator<(const OnePairHand& rhs)
 
 bool OnePairHand::operator>(const OnePairHand& rhs)
 {
-    spdlog::get("console")->info("OnePairHand::OnePairHand >");
-
     bool result = false;
     result = std::equal(    std::begin(validated), std::end(validated),
                             std::begin(rhs.validated), std::end(rhs.validated),

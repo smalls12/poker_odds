@@ -1,11 +1,7 @@
 #include "AnalyzeRounds.hpp"
 
-#include "spdlog/spdlog.h"
-
 Rounds AnalyzeRounds::Analyze(std::vector<Hands>& roundHands)
 {
-    spdlog::get("console")->info("AnalyzeRounds::Analyze - start");
-
     Rounds winners;
     winners.reserve(roundHands.size());
     for(auto& handsForComparison : roundHands)
@@ -39,8 +35,6 @@ Rounds AnalyzeRounds::Analyze(std::vector<Hands>& roundHands)
 
         winners.emplace_back(round);
     }
-
-    spdlog::get("console")->info("AnalyzeRounds::Analyze - start");
 
     return winners;
 }

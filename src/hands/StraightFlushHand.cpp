@@ -1,7 +1,5 @@
 #include "StraightFlushHand.hpp"
 
-#include "spdlog/spdlog.h"
-
 StraightFlushHand::StraightFlushHand(int id, Cards hand, Cards validated)
 :   BaseHand(id, hand, HandRank::STRAIGHT_FLUSH, validated)
 {
@@ -10,8 +8,6 @@ StraightFlushHand::StraightFlushHand(int id, Cards hand, Cards validated)
 
 bool StraightFlushHand::operator<(const StraightFlushHand& rhs)
 {
-    spdlog::get("console")->info("StraightFlushHand::StraightFlushHand <");
-
     // ranks are the same
     // compare each card in the validated hands
     if( cards < rhs.cards )
@@ -24,8 +20,6 @@ bool StraightFlushHand::operator<(const StraightFlushHand& rhs)
 
 bool StraightFlushHand::operator>(const StraightFlushHand& rhs)
 {
-    spdlog::get("console")->info("StraightFlushHand::StraightFlushHand >");
-
     // ranks are the same
     // compare each card in the validated hands
     if( cards > rhs.cards )

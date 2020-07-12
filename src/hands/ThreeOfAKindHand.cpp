@@ -1,7 +1,5 @@
 #include "ThreeOfAKindHand.hpp"
 
-#include "spdlog/spdlog.h"
-
 ThreeOfAKindHand::ThreeOfAKindHand(int id, Cards hand, Cards validated)
 :   BaseHand(id, hand, HandRank::THREE_OF_A_KIND, validated)
 {
@@ -10,8 +8,6 @@ ThreeOfAKindHand::ThreeOfAKindHand(int id, Cards hand, Cards validated)
 
 bool ThreeOfAKindHand::operator<(ThreeOfAKindHand rhs)
 {
-    spdlog::get("console")->info("ThreeOfAKindHand::ThreeOfAKindHand <");
-
     // ranks are the same
     // compare each card in the validated hands
     return std::equal(  std::begin(cards), std::end(cards),
@@ -21,8 +17,6 @@ bool ThreeOfAKindHand::operator<(ThreeOfAKindHand rhs)
 
 bool ThreeOfAKindHand::operator>(ThreeOfAKindHand rhs)
 {
-    spdlog::get("console")->info("ThreeOfAKindHand::ThreeOfAKindHand >");
-
     // ranks are the same
     // compare each card in the validated hands
     return std::equal(  std::begin(cards), std::end(cards),

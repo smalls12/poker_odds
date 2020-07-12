@@ -8,8 +8,6 @@
 #include "TransposeHands.hpp"
 #include "AnalyzeRounds.hpp"
 
-#include "spdlog/spdlog.h"
-
 #include <iostream>
 #include <sstream>
 

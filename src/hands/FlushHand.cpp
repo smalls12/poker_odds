@@ -1,7 +1,5 @@
 #include "FlushHand.hpp"
 
-#include "spdlog/spdlog.h"
-
 FlushHand::FlushHand(int id, Cards hand, Cards validated)
 :   BaseHand(id, hand, HandRank::FLUSH, validated)
 {
@@ -10,8 +8,6 @@ FlushHand::FlushHand(int id, Cards hand, Cards validated)
 
 bool FlushHand::operator<(FlushHand rhs)
 {
-    spdlog::get("console")->info("FlushHand::FlushHand <");
-
     // ranks are the same
     // compare each card in the validated hands
     if( cards < rhs.cards )
@@ -24,8 +20,6 @@ bool FlushHand::operator<(FlushHand rhs)
 
 bool FlushHand::operator>(FlushHand rhs)
 {
-    spdlog::get("console")->info("FlushHand::FlushHand >");
-
     // ranks are the same
     // compare each card in the validated hands
     if( cards > rhs.cards )

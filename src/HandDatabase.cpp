@@ -7,13 +7,12 @@
 #include "ValidateHand.hpp"
 #include "DealerPermutations.hpp"
 
-#include "spdlog/spdlog.h"
-
 #include <algorithm>
 #include <map>
 #include <functional>
 #include <sstream>
 #include <iostream>
+#include <chrono>
 
 HandDatabase::HandDatabase()
 :   m_allPossibleHands(),
@@ -33,12 +32,10 @@ HandDatabase::HandDatabase()
     auto start = std::chrono::steady_clock::now();
     BuildDatabase();
     auto end = std::chrono::steady_clock::now();
-	spdlog::get("console")->info("Finished building database in [{}]ms", std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count());
 
     start = std::chrono::steady_clock::now();
     RankHandsInDatabase();
     end = std::chrono::steady_clock::now();
-	spdlog::get("console")->info("Finished ranking database in [{}]ms", std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count());
 }
 
 void HandDatabase::BuildDatabase()
@@ -47,8 +44,6 @@ void HandDatabase::BuildDatabase()
 	Deck deck = DeckBuilder::Build();
 
     m_allPossibleHands = DealerPermutations::Simulate(deck, 5);
-
-    spdlog::get("console")->info("Total Possible Hands [{}]", m_allPossibleHands.size()); 
 }
 
 void HandDatabase::RankHandsInDatabase()
@@ -83,18 +78,18 @@ void HandDatabase::RankHandsInDatabase()
         
     }
 
-    spdlog::get("console")->info("Hands with High Card [{}]",m_highCardHands.size());
-    spdlog::get("console")->info("Hands with One Pair [{}]",m_onePairHands.size());
-    spdlog::get("console")->info("Hands with Two Pair [{}]", m_twoPairHands.size());
-    spdlog::get("console")->info("Hands with Three of a Kind [{}]", m_threeOfAKindHands.size());
-    spdlog::get("console")->info("Hands with Straight Ace Low [{}]", m_straightAceLowHands.size());
-    spdlog::get("console")->info("Hands with Straight [{}]", m_straightHands.size());
-    spdlog::get("console")->info("Hands with Flush [{}]", m_flushHands.size());
-    spdlog::get("console")->info("Hands with Full House [{}]", m_fullHouseHands.size());
-    spdlog::get("console")->info("Hands with Four of a Kind [{}]", m_fourOfAKindHands.size());
-    spdlog::get("console")->info("Hands with Straight Flush Ace Low [{}]", m_straightFlushAceLowHands.size());
-    spdlog::get("console")->info("Hands with Straight Flush [{}]", m_straightFlushHands.size());
-    spdlog::get("console")->info("Hands with Royal Flush [{}]", m_royalFlushHands.size());
+    // spdlog::get("console")->info("Hands with High Card [{}]",m_highCardHands.size());
+    // spdlog::get("console")->info("Hands with One Pair [{}]",m_onePairHands.size());
+    // spdlog::get("console")->info("Hands with Two Pair [{}]", m_twoPairHands.size());
+    // spdlog::get("console")->info("Hands with Three of a Kind [{}]", m_threeOfAKindHands.size());
+    // spdlog::get("console")->info("Hands with Straight Ace Low [{}]", m_straightAceLowHands.size());
+    // spdlog::get("console")->info("Hands with Straight [{}]", m_straightHands.size());
+    // spdlog::get("console")->info("Hands with Flush [{}]", m_flushHands.size());
+    // spdlog::get("console")->info("Hands with Full House [{}]", m_fullHouseHands.size());
+    // spdlog::get("console")->info("Hands with Four of a Kind [{}]", m_fourOfAKindHands.size());
+    // spdlog::get("console")->info("Hands with Straight Flush Ace Low [{}]", m_straightFlushAceLowHands.size());
+    // spdlog::get("console")->info("Hands with Straight Flush [{}]", m_straightFlushHands.size());
+    // spdlog::get("console")->info("Hands with Royal Flush [{}]", m_royalFlushHands.size());
 
     // for(auto& hand : m_onePairHands)
     // {

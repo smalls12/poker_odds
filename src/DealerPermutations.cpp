@@ -1,7 +1,5 @@
 #include "DealerPermutations.hpp"
 
-#include "spdlog/spdlog.h"
-
 #include <algorithm>
 
 std::vector<Cards> DealerPermutations::Simulate(Deck& deck, int cardsToDraw)
@@ -35,8 +33,6 @@ std::vector<Cards> DealerPermutations::Simulate(Deck& deck, int cardsToDraw)
 
 std::vector<Cards> DealerPermutations::Work(Deck& deck, int cardsToDraw)
 {
-    spdlog::get("console")->info("DealerPermutations::Work - start");
-
     std::vector<Cards> allPossibleHands;
     allPossibleHands.reserve(2598960);
 
@@ -60,8 +56,6 @@ std::vector<Cards> DealerPermutations::Work(Deck& deck, int cardsToDraw)
 		allPossibleHands.emplace_back(cards);
     }
 	while (std::prev_permutation(bitmask.begin(), bitmask.end()));
-
-    spdlog::get("console")->info("DealerPermutations::Work - done");
 
     allPossibleHands.shrink_to_fit();
     return allPossibleHands;

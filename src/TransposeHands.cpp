@@ -1,13 +1,9 @@
 #include "TransposeHands.hpp"
 
-#include "spdlog/spdlog.h"
-
 #include <iostream>
 
 std::vector<std::vector<Hand>> TransposeHands::Transpose(std::vector<std::vector<Hand>>& hands)
 {
-    spdlog::get("console")->info("TransposeHands::Transpose - start");
-
     /* the hands coming in are as follows
 
         {
@@ -45,8 +41,6 @@ std::vector<std::vector<Hand>> TransposeHands::Transpose(std::vector<std::vector
         temp.shrink_to_fit();
         differentHands.emplace_back(temp);
     }
-
-    spdlog::get("console")->info("TransposeHands::Transpose - done");
 
     differentHands.shrink_to_fit();
     return differentHands;

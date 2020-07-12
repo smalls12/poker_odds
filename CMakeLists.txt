@@ -2,7 +2,7 @@ cmake_minimum_required( VERSION 3.5 )
 
 project( poker_odds )
 
-set( CMAKE_CXX_FLAGS " -Wall -Werror -Wextra -O2 -std=c++17 -DSPDLOG_COMPILED_LIB " )
+set( CMAKE_CXX_FLAGS " -Wall -Werror -Wextra -O2 -std=c++17 " )
 
 include_directories( ${CMAKE_STAGING_PREFIX}/usr/include )
 link_directories( ${CMAKE_STAGING_PREFIX}/usr/lib )
@@ -11,6 +11,12 @@ link_directories( ${CMAKE_STAGING_PREFIX}/usr/lib )
 # if(Boost_FOUND)
 #   include_directories( ${Boost_INCLUDE_DIRS} )
 # endif()
+
+option(SPDLOG_LOGGING "Use spdlog for logging" ON)
+
+if( SPDLOG_LOGGING )
+add_definitions("-DSPGLOG_LOGGING_ENABLED -DSPDLOG_COMPILED_LIB")
+endif()
 
 set ( lib_src_files
       src/engines/FindHighCard.cpp
@@ -54,12 +60,14 @@ target_include_directories( ${PROJECT_NAME} PRIVATE include/engines )
 target_include_directories( ${PROJECT_NAME} PRIVATE include/hands )
 target_include_directories( ${PROJECT_NAME} PRIVATE include/cards )
 target_include_directories( ${PROJECT_NAME} PRIVATE include/poker )
+target_include_directories( ${PROJECT_NAME} PRIVATE include/logging )
 
 # target_link_libraries( ${PROJECT_NAME} ${Boost_LIBRARIES} )
 
+if( SPDLOG_LOGGING )
 target_link_libraries( ${PROJECT_NAME} spdlog )
-
 target_link_libraries( ${PROJECT_NAME} pthread )
+endif()
 
 set ( exe_src_files
       src/main.cpp
@@ -72,12 +80,16 @@ target_include_directories( poker PRIVATE include/engines )
 target_include_directories( poker PRIVATE include/hands )
 target_include_directories( poker PRIVATE include/cards )
 target_include_directories( poker PRIVATE include/poker )
+target_include_directories( poker PRIVATE include/logging )
 
 target_link_libraries( poker ${PROJECT_NAME} )
 
+if( SPDLOG_LOGGING )
 target_link_libraries( poker spdlog )
-
 target_link_libraries( poker pthread )
+endif()
+
+option(ENABLE_UNIT_TESTS "Enable unit tests" ON)
 
 set ( src_files_test
       src/engines/FindHighCard.cpp
@@ -123,6 +135,7 @@ set ( src_files_test
       test/main.cpp
 )
 
+if( ENABLE_UNIT_TESTS )
 add_executable( test_poker_odds ${src_files_test} )
 
 target_include_directories( test_poker_odds PRIVATE include )
@@ -134,6 +147,9 @@ target_link_libraries( test_poker_odds gtest )
 target_link_libraries( test_poker_odds gtest_main )
 target_link_libraries( test_poker_odds gmock )
 
+if( SPDLOG_LOGGING )
 target_link_libraries( test_poker_odds spdlog )
-
 target_link_libraries( test_poker_odds pthread )
+endif()
+
+endif()
