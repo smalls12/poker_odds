@@ -22,6 +22,8 @@ class Logger
             {
                 spdlog::set_level(spdlog::level::info); // Set global log level to info
                 spdlog::stdout_color_mt("console");
+
+                spdlog::get("console")->set_pattern("*** [%H:%M:%S.%F] [thread %t] %v ***");
             }
 
             spdlog::get("console")->info(message);

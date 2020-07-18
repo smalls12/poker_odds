@@ -9,4 +9,6 @@ class AnalyzeRounds
 {
     public:
         static Rounds Analyze(std::vector<Hands>& roundHands);
+        static Round Analyze(Hands& roundHand);
+
 };

@@ -28,3 +28,28 @@ std::vector<Hand> PossibleHands::SummarizeAllPossibleHands(int id, Cards& cards,
 
     return possibleHands;
 }
+
+Hands PossibleHands::SummarizeRoundHands(Players& players, Cards& cards)
+{
+    std::vector<Hand> roundHands;
+    roundHands.reserve(players.size());
+    for(auto& player : players)
+    {
+        // build the hand for the player
+        Cards playersPossibleHand;
+        playersPossibleHand.reserve(7);
+        playersPossibleHand.insert( playersPossibleHand.end(), player->m_hand.begin(), player->m_hand.end() );
+        playersPossibleHand.insert( playersPossibleHand.end(), cards.begin(), cards.end() );
+
+        // sort first
+        std::sort(playersPossibleHand.begin(), playersPossibleHand.end(),
+        [](const Card* lhs, const Card* rhs){ return *lhs > *rhs; });
+
+        // validate and find the highest hand ranking
+        ValidatedHand result = ValidateHand::DetermineHandRank(playersPossibleHand);
+
+        roundHands.emplace_back(HandFactory::Build(player->m_id, playersPossibleHand, result));
+    }
+    
+    return roundHands;
+}

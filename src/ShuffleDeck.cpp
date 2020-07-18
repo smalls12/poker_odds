@@ -5,7 +5,6 @@
 
 void ShuffleDeck::Shuffle(Deck& deck)
 {
-    (void)deck;
     // std::stringstream before;
     // before << deck;
     // spdlog::get("console")->info("Dealer::DealCards - Before shuffling {}", before.str());

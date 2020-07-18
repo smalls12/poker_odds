@@ -6,7 +6,5 @@
 
 std::optional<ValidatedHand> FindHighCard::Find(Cards& cards)
 {
-    Cards temp(cards);
-
-    return std::optional<ValidatedHand>{{HandRank::HIGH_CARD, { temp[0] }}};
+    return std::optional<ValidatedHand>{{HandRank::HIGH_CARD, { cards[0] }}};
 }

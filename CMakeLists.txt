@@ -41,7 +41,6 @@ set ( lib_src_files
       src/poker/PokerImpl.cpp
       src/AnalyzeRounds.cpp
       src/DealerPermutations.cpp
-      src/HandDatabase.cpp
       src/CalculateOdds.cpp
       src/ComparePlayerHands.cpp
       src/TransposeHands.cpp
@@ -63,6 +62,7 @@ target_include_directories( ${PROJECT_NAME} PRIVATE include/poker )
 target_include_directories( ${PROJECT_NAME} PRIVATE include/logging )
 
 # target_link_libraries( ${PROJECT_NAME} ${Boost_LIBRARIES} )
+target_link_libraries( ${PROJECT_NAME} tcmalloc )
 
 if( SPDLOG_LOGGING )
 target_link_libraries( ${PROJECT_NAME} spdlog )
@@ -83,6 +83,7 @@ target_include_directories( poker PRIVATE include/poker )
 target_include_directories( poker PRIVATE include/logging )
 
 target_link_libraries( poker ${PROJECT_NAME} )
+target_link_libraries( poker tcmalloc )
 
 if( SPDLOG_LOGGING )
 target_link_libraries( poker spdlog )

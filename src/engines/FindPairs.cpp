@@ -12,7 +12,6 @@ std::optional<ValidatedHand> FindPairs::Find(Cards& cards)
     [](const Card* lhs, const Card* rhs){ return *lhs == *rhs; });
  
     Cards output;
-    output.reserve(5);
     if (it1 != temp.end())
     {
         // at this point we know we have a pair
@@ -29,10 +28,9 @@ std::optional<ValidatedHand> FindPairs::Find(Cards& cards)
             it2 = temp.erase(it2);
 
             // need to check for four of a kind
-            Cards possibleFourOfAKind(temp);
             Cards::iterator it3 = std::adjacent_find(it2, temp.end(),
             [](const Card* lhs, const Card* rhs){ return *lhs == *rhs; });
-            if (it3 != temp.end()  && it3 == it2)
+            if (it3 != temp.end() && it3 == it2)
             {
                 return std::optional<ValidatedHand>{{HandRank::FOUR_OF_A_KIND, output}};
             }

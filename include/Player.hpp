@@ -10,6 +10,7 @@ class Player
 
         friend class Dealer;
         friend class CalculateOdds;
+        friend class PossibleHands;
 
         friend std::ostream& operator<<(std::ostream & os, Player& player);
 

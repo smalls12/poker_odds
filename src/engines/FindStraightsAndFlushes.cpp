@@ -1,8 +1,6 @@
 #include "FindStraightsAndFlushes.hpp"
 
 #include <algorithm>
-#include <sstream>
-#include <iostream>
 
 std::optional<ValidatedHand> FindStraightsAndFlushes::Find(Cards& cards)
 {

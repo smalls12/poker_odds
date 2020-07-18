@@ -38,3 +38,35 @@ Rounds AnalyzeRounds::Analyze(std::vector<Hands>& roundHands)
 
     return winners;
 }
+
+Round AnalyzeRounds::Analyze(Hands& roundHand)
+{
+    // sort first
+    std::sort(roundHand.begin(), roundHand.end(), std::greater<Hand>());
+
+    Round round;
+    Hands::iterator it = std::adjacent_find(roundHand.begin(), roundHand.end());
+    if( it != roundHand.begin() )
+    {
+        // this means that there was only one winner
+        it = roundHand.begin();
+        round.emplace_back(PlayerRound{(*it).id, PlayerRoundOutcome::WIN, (*it).rank});
+    }
+    else
+    {
+        round.emplace_back(PlayerRound{(*it).id, PlayerRoundOutcome::TIE, (*it++).rank});
+        round.emplace_back(PlayerRound{(*it).id, PlayerRoundOutcome::TIE, (*it).rank});
+        while(it++ != roundHand.end())
+        {
+            round.emplace_back(PlayerRound{(*it).id, PlayerRoundOutcome::TIE, (*it).rank});
+        }
+    }
+
+    while(++it != roundHand.end())
+    {
+        round.emplace_back(PlayerRound{(*it).id, PlayerRoundOutcome::LOSE, (*it).rank});
+    }
+
+
+    return round;
+}
