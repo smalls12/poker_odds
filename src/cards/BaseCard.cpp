@@ -1,35 +1,27 @@
 #include "BaseCard.hpp"
 
-bool BaseCard::operator==(const BaseCard& rhs) const
+bool BaseCard::operator==(const BaseCard& rhs) const noexcept
 {
-    if( rank == rhs.rank )
-    {
-        return true;
-    }
-
-    return false;
+    return rank == rhs.rank;
 }
 
-bool BaseCard::operator!=(const BaseCard& rhs) const
+bool BaseCard::operator!=(const BaseCard& rhs) const noexcept
 {
     return !(*this == rhs);
 }
 
-bool BaseCard::operator<(const BaseCard& rhs) const
+bool BaseCard::operator<(const BaseCard& rhs) const noexcept
 {   
     // suits are ranked equally
     // only compare the rank
-    if( rank < rhs.rank )
-    {
-        return true;
-    }
-
-    return false;
+    return rank < rhs.rank;
 }
 
-bool BaseCard::operator>(const BaseCard& rhs) const
+bool BaseCard::operator>(const BaseCard& rhs) const noexcept
 {
-    return !(*this < rhs);
+    // suits are ranked equally
+    // only compare the rank
+    return rank > rhs.rank;
 }
 
 std::ostream& operator<<(std::ostream & os, BaseCard& card)

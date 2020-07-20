@@ -168,4 +168,144 @@ TEST_F(TestSuiteWinningHands, TwoPairMatch)
     }
 }
 
+TEST_F(TestSuiteWinningHands, FlushMatch)
+{
+    FlushHand hand1( 0,
+        {
+            new Card{ Rank::ACE, Suit::HEART },
+            new Card{ Rank::TEN, Suit::DIAMOND },
+            new Card{ Rank::EIGHT, Suit::DIAMOND },
+            new Card{ Rank::SIX, Suit::DIAMOND },
+            new Card{ Rank::FOUR, Suit::DIAMOND },
+            new Card{ Rank::THREE, Suit::DIAMOND },
+            new Card{ Rank::TWO, Suit::CLUB }
+        },
+        {
+            new Card{ Rank::TEN, Suit::DIAMOND },
+            new Card{ Rank::EIGHT, Suit::DIAMOND },
+            new Card{ Rank::SIX, Suit::DIAMOND },
+            new Card{ Rank::FOUR, Suit::DIAMOND },
+            new Card{ Rank::THREE, Suit::DIAMOND }
+        });
+    
+    FlushHand hand2( 1,
+        {
+            new Card{ Rank::KING, Suit::CLUB },
+            new Card{ Rank::JACK, Suit::CLUB },
+            new Card{ Rank::NINE, Suit::CLUB },
+            new Card{ Rank::SEVEN, Suit::CLUB },
+            new Card{ Rank::FIVE, Suit::CLUB },
+            new Card{ Rank::THREE, Suit::CLUB },
+            new Card{ Rank::TWO, Suit::SPADE }
+        },
+        {
+            new Card{ Rank::KING, Suit::CLUB },
+            new Card{ Rank::JACK, Suit::CLUB },
+            new Card{ Rank::NINE, Suit::CLUB },
+            new Card{ Rank::SEVEN, Suit::CLUB },
+            new Card{ Rank::FIVE, Suit::CLUB }
+        });
+    
+    OnePairHand hand3( 2,
+        {
+            new Card{ Rank::QUEEN, Suit::DIAMOND },
+            new Card{ Rank::JACK, Suit::SPADE },
+            new Card{ Rank::NINE, Suit::DIAMOND },
+            new Card{ Rank::SEVEN, Suit::HEART },
+            new Card{ Rank::FIVE, Suit::SPADE },
+            new Card{ Rank::THREE, Suit::DIAMOND },
+            new Card{ Rank::TWO, Suit::HEART }
+        },
+        {
+            new Card{ Rank::ACE, Suit::DIAMOND }
+        });
+
+	Hands hands{ hand3, hand1, hand2 };
+
+    EXPECT_TRUE(hand2 > hand1);
+    EXPECT_TRUE(hand1 > hand3);
+
+    std::sort(hands.begin(), hands.end(), std::greater<Hand>());
+    Hands::iterator it1 = std::adjacent_find(hands.begin(), hands.end());
+    if( it1 != hands.begin() )
+    {
+        // this means that there was only one winner
+        
+    }
+    else
+    {
+        std::cout << "multiple winners" << std::endl;
+    }
+}
+
+TEST_F(TestSuiteWinningHands, StraightMatch)
+{
+    StraightHand hand1( 0,
+        {
+            new Card{ Rank::ACE, Suit::HEART },
+            new Card{ Rank::TEN, Suit::DIAMOND },
+            new Card{ Rank::NINE, Suit::HEART },
+            new Card{ Rank::EIGHT, Suit::CLUB },
+            new Card{ Rank::SEVEN, Suit::DIAMOND },
+            new Card{ Rank::SIX, Suit::DIAMOND },
+            new Card{ Rank::TWO, Suit::CLUB }
+        },
+        {
+            new Card{ Rank::TEN, Suit::DIAMOND },
+            new Card{ Rank::NINE, Suit::HEART },
+            new Card{ Rank::EIGHT, Suit::CLUB },
+            new Card{ Rank::SEVEN, Suit::DIAMOND },
+            new Card{ Rank::SIX, Suit::DIAMOND }
+        });
+    
+    StraightHand hand2( 1,
+        {
+            new Card{ Rank::KING, Suit::CLUB },
+            new Card{ Rank::QUEEN, Suit::CLUB },
+            new Card{ Rank::TEN, Suit::CLUB },
+            new Card{ Rank::NINE, Suit::SPADE },
+            new Card{ Rank::EIGHT, Suit::DIAMOND },
+            new Card{ Rank::SEVEN, Suit::CLUB },
+            new Card{ Rank::SIX, Suit::SPADE }
+        },
+        {
+            new Card{ Rank::TEN, Suit::CLUB },
+            new Card{ Rank::NINE, Suit::SPADE },
+            new Card{ Rank::EIGHT, Suit::DIAMOND },
+            new Card{ Rank::SEVEN, Suit::CLUB },
+            new Card{ Rank::SIX, Suit::CLUB }
+        });
+    
+    OnePairHand hand3( 2,
+        {
+            new Card{ Rank::QUEEN, Suit::DIAMOND },
+            new Card{ Rank::JACK, Suit::SPADE },
+            new Card{ Rank::NINE, Suit::DIAMOND },
+            new Card{ Rank::SEVEN, Suit::HEART },
+            new Card{ Rank::FIVE, Suit::SPADE },
+            new Card{ Rank::THREE, Suit::DIAMOND },
+            new Card{ Rank::TWO, Suit::HEART }
+        },
+        {
+            new Card{ Rank::ACE, Suit::DIAMOND }
+        });
+
+	Hands hands{ hand3, hand1, hand2 };
+
+    EXPECT_TRUE(hand1 > hand2);
+    EXPECT_TRUE(hand1 > hand3);
+
+    std::sort(hands.begin(), hands.end(), std::greater<Hand>());
+    Hands::iterator it1 = std::adjacent_find(hands.begin(), hands.end());
+    if( it1 != hands.begin() )
+    {
+        // this means that there was only one winner
+        
+    }
+    else
+    {
+        std::cout << "multiple winners" << std::endl;
+    }
+}
+
 // }  // namespace - could surround Project1Test in a namespace

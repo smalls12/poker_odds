@@ -19,11 +19,7 @@ bool ThreeOfAKindHand::operator<(const ThreeOfAKindHand& rhs) const noexcept
         {
             return true;
         }
-        else if( *cards[x] == *rhs.cards[x] )
-        {
-            continue;
-        }
-        else
+        else if( *cards[x] > *rhs.cards[x] )
         {
             return false;
         }
@@ -45,11 +41,7 @@ bool ThreeOfAKindHand::operator>(const ThreeOfAKindHand& rhs) const noexcept
         {
             return true;
         }
-        else if( *cards[x] == *rhs.cards[x] )
-        {
-            continue;
-        }
-        else
+        else if( *cards[x] < *rhs.cards[x] )
         {
             return false;
         }

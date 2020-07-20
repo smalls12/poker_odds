@@ -14,10 +14,10 @@
 class BaseCard
 {
     public:
-        bool operator==(const BaseCard& rhs) const;
-        bool operator!=(const BaseCard& rhs) const;
-        bool operator<(const BaseCard& rhs) const;
-        bool operator>(const BaseCard& rhs) const;
+        bool operator==(const BaseCard& rhs) const noexcept;
+        bool operator!=(const BaseCard& rhs) const noexcept;
+        bool operator<(const BaseCard& rhs) const noexcept;
+        bool operator>(const BaseCard& rhs) const noexcept;
 
         friend std::ostream& operator<<(std::ostream & os, BaseCard& hand);
 

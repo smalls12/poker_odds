@@ -8,6 +8,7 @@ FullHouseHand::FullHouseHand(int id, const Cards& hand, const Cards& validated)
 
 bool FullHouseHand::operator<(const FullHouseHand& rhs) const noexcept
 {
+    // check the 3 of a kind
     if( *validated[0] < *rhs.validated[0] )
     {
        return true;
@@ -17,6 +18,7 @@ bool FullHouseHand::operator<(const FullHouseHand& rhs) const noexcept
         return false;
     }
 
+    // check the pair
     if( *validated[3] < *rhs.validated[3] )
     {
         return true;
@@ -26,17 +28,14 @@ bool FullHouseHand::operator<(const FullHouseHand& rhs) const noexcept
         return false;
     }
 
+    // check remaining cards
     for(size_t x = 0; x < cards.size(); x++)
     {
         if( *cards[x] < *rhs.cards[x] )
         {
             return true;
         }
-        else if( *cards[x] == *rhs.cards[x] )
-        {
-            continue;
-        }
-        else
+        else if( *cards[x] > *rhs.cards[x] )
         {
             return false;
         }
@@ -47,6 +46,7 @@ bool FullHouseHand::operator<(const FullHouseHand& rhs) const noexcept
 
 bool FullHouseHand::operator>(const FullHouseHand& rhs) const noexcept
 {
+    // check the 3 of a kind
     if( *validated[0] > *rhs.validated[0] )
     {
        return true;
@@ -56,6 +56,7 @@ bool FullHouseHand::operator>(const FullHouseHand& rhs) const noexcept
         return false;
     }
 
+    // check the pair
     if( *validated[3] > *rhs.validated[3] )
     {
         return true;
@@ -65,17 +66,14 @@ bool FullHouseHand::operator>(const FullHouseHand& rhs) const noexcept
         return false;
     }
 
+    // check remaining cards
     for(size_t x = 0; x < cards.size(); x++)
     {
         if( *cards[x] > *rhs.cards[x] )
         {
             return true;
         }
-        else if( *cards[x] == *rhs.cards[x] )
-        {
-            continue;
-        }
-        else
+        else if( *cards[x] < *rhs.cards[x] )
         {
             return false;
         }

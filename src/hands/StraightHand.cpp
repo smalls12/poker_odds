@@ -8,9 +8,25 @@ StraightHand::StraightHand(int id, const Cards& hand, const Cards& validated)
 
 bool StraightHand::operator<(const StraightHand& rhs) const noexcept
 {
-    if( *cards[0] < *rhs.cards[0] )
+    if( *validated[0] < *rhs.validated[0] )
     {
         return true;
+    }
+    else if( *validated[0] > *rhs.validated[0] )
+    {
+        return false;
+    }
+
+    for(size_t x = 0; x < cards.size(); x++)
+    {
+        if( *cards[x] < *rhs.cards[x] )
+        {
+            return true;
+        }
+        else if( *cards[x] > *rhs.cards[x] )
+        {
+            return false;
+        }
     }
 
     return false;
@@ -18,9 +34,25 @@ bool StraightHand::operator<(const StraightHand& rhs) const noexcept
 
 bool StraightHand::operator>(const StraightHand& rhs) const noexcept
 {
-    if( *cards[0] > *rhs.cards[0] )
+    if( *validated[0] > *rhs.validated[0] )
     {
         return true;
+    }
+    else if( *validated[0] < *rhs.validated[0] )
+    {
+        return false;
+    }
+
+    for(size_t x = 0; x < cards.size(); x++)
+    {
+        if( *cards[x] > *rhs.cards[x] )
+        {
+            return true;
+        }
+        else if( *cards[x] < *rhs.cards[x] )
+        {
+            return false;
+        }
     }
 
     return false;

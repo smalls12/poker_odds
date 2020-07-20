@@ -8,9 +8,25 @@ StraightFlushHand::StraightFlushHand(int id, const Cards& hand, const Cards& val
 
 bool StraightFlushHand::operator<(const StraightFlushHand& rhs) const noexcept
 {
-    if( *cards[0] < *rhs.cards[0] )
+    if( *validated[0] < *rhs.validated[0] )
     {
         return true;
+    }
+    else if( *validated[0] > *rhs.validated[0] )
+    {
+        return false;
+    }
+
+    for(size_t x = 0; x < cards.size(); x++)
+    {
+        if( *cards[x] < *rhs.cards[x] )
+        {
+            return true;
+        }
+        else if( *cards[x] > *rhs.cards[x] )
+        {
+            return false;
+        }
     }
 
     return false;
@@ -18,9 +34,25 @@ bool StraightFlushHand::operator<(const StraightFlushHand& rhs) const noexcept
 
 bool StraightFlushHand::operator>(const StraightFlushHand& rhs) const noexcept
 {
-    if( *cards[0] > *rhs.cards[0] )
+    if( *validated[0] > *rhs.validated[0] )
     {
         return true;
+    }
+    else if( *validated[0] < *rhs.validated[0] )
+    {
+        return false;
+    }
+
+    for(size_t x = 0; x < cards.size(); x++)
+    {
+        if( *cards[x] > *rhs.cards[x] )
+        {
+            return true;
+        }
+        else if( *cards[x] < *rhs.cards[x] )
+        {
+            return false;
+        }
     }
 
     return false;
