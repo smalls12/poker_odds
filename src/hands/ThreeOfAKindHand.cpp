@@ -1,35 +1,69 @@
 #include "ThreeOfAKindHand.hpp"
 
-ThreeOfAKindHand::ThreeOfAKindHand(int id, Cards hand, Cards validated)
+ThreeOfAKindHand::ThreeOfAKindHand(int id, const Cards& hand, const Cards& validated)
 :   BaseHand(id, hand, HandRank::THREE_OF_A_KIND, validated)
 {
 
 }
 
-bool ThreeOfAKindHand::operator<(ThreeOfAKindHand rhs)
+bool ThreeOfAKindHand::operator<(const ThreeOfAKindHand& rhs) const noexcept
 {
-    // ranks are the same
-    // compare each card in the validated hands
-    return std::equal(  std::begin(cards), std::end(cards),
-                        std::begin(rhs.cards), std::end(rhs.cards),
-                        [](const Card* lhs, const Card* rhs){ return *lhs < *rhs; });
+    if( *validated[0] < *rhs.validated[0] )
+    {
+        return true;
+    }
+    
+    for(size_t x = 0; x < cards.size(); x++)
+    {
+        if( *cards[x] < *rhs.cards[x] )
+        {
+            return true;
+        }
+        else if( *cards[x] == *rhs.cards[x] )
+        {
+            continue;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    return false;
 }
 
-bool ThreeOfAKindHand::operator>(ThreeOfAKindHand rhs)
+bool ThreeOfAKindHand::operator>(const ThreeOfAKindHand& rhs) const noexcept
 {
-    // ranks are the same
-    // compare each card in the validated hands
-    return std::equal(  std::begin(cards), std::end(cards),
-                        std::begin(rhs.cards), std::end(rhs.cards),
-                        [](const Card* lhs, const Card* rhs){ return *lhs > *rhs; });
+    if( *validated[0] > *rhs.validated[0] )
+    {
+        return true;
+    }
+    
+    for(size_t x = 0; x < cards.size(); x++)
+    {
+        if( *cards[x] > *rhs.cards[x] )
+        {
+            return true;
+        }
+        else if( *cards[x] == *rhs.cards[x] )
+        {
+            continue;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    return false;
 }
 
-bool ThreeOfAKindHand::operator<(BaseHand rhs)
+bool ThreeOfAKindHand::operator<(const BaseHand& rhs) const noexcept
 {
     return BaseHand::operator<(rhs);
 }
 
-bool ThreeOfAKindHand::operator>(BaseHand rhs)
+bool ThreeOfAKindHand::operator>(const BaseHand& rhs) const noexcept
 {
     return BaseHand::operator>(rhs);
 }

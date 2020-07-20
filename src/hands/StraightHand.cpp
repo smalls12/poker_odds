@@ -1,16 +1,14 @@
 #include "StraightHand.hpp"
 
-StraightHand::StraightHand(int id, Cards hand, Cards validated)
+StraightHand::StraightHand(int id, const Cards& hand, const Cards& validated)
 :   BaseHand(id, hand, HandRank::STRAIGHT, validated)
 {
 
 }
 
-bool StraightHand::operator<(StraightHand rhs)
+bool StraightHand::operator<(const StraightHand& rhs) const noexcept
 {
-    // ranks are the same
-    // compare each card in the validated hands
-    if( cards < rhs.cards )
+    if( *cards[0] < *rhs.cards[0] )
     {
         return true;
     }
@@ -18,11 +16,9 @@ bool StraightHand::operator<(StraightHand rhs)
     return false;
 }
 
-bool StraightHand::operator>(StraightHand rhs)
+bool StraightHand::operator>(const StraightHand& rhs) const noexcept
 {
-    // ranks are the same
-    // compare each card in the validated hands
-    if( cards > rhs.cards )
+    if( *cards[0] > *rhs.cards[0] )
     {
         return true;
     }
@@ -30,12 +26,12 @@ bool StraightHand::operator>(StraightHand rhs)
     return false;
 }
 
-bool StraightHand::operator<(BaseHand rhs)
+bool StraightHand::operator<(const BaseHand& rhs) const noexcept
 {
     return BaseHand::operator<(rhs);
 }
 
-bool StraightHand::operator>(BaseHand rhs)
+bool StraightHand::operator>(const BaseHand& rhs) const noexcept
 {
     return BaseHand::operator>(rhs);
 }

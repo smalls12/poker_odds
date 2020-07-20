@@ -5,12 +5,12 @@
 class FlushHand : public BaseHand
 {
     public:
-        FlushHand(int id, Cards hand, Cards validated);
+        FlushHand(int id, const Cards& hand, const Cards& validated);
         ~FlushHand() = default;
 
-        bool operator<(FlushHand rhs);
-        bool operator>(FlushHand rhs);
+        bool operator<(const FlushHand& rhs) const noexcept;
+        bool operator>(const FlushHand& rhs) const noexcept;
 
-        bool operator<(BaseHand rhs);
-        bool operator>(BaseHand rhs);
+        bool operator<(const BaseHand& rhs) const noexcept;
+        bool operator>(const BaseHand& rhs) const noexcept;
 };

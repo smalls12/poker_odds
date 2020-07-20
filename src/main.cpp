@@ -27,7 +27,6 @@ int main(int argc, const char **argv)
 
     Poker poker;
     poker.Initialize(4);
-    // poker.Initialize(2);
     poker.DealCard();
     poker.DealCard();
 

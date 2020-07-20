@@ -3,7 +3,6 @@
 #include "Cards.hpp"
 #include "Hand.hpp"
 
-#include "DealerPermutations.hpp"
 #include "PossibleHands.hpp"
 #include "TransposeHands.hpp"
 #include "AnalyzeRounds.hpp"
@@ -33,16 +32,23 @@ void CalculateOdds::Calculate(Players& players, Deck& deck)
         }
 
         Hands roundHands = PossibleHands::SummarizeRoundHands(players, cards);
+
+        // sort first
+        std::sort(roundHands.begin(), roundHands.end(), std::greater<Hand>());
+
         winners.emplace_back(AnalyzeRounds::Analyze(roundHands));
     }
 	while (std::prev_permutation(bitmask.begin(), bitmask.end()));
 
-    std::cout << "Size [ " << winners.size() << " ]" << std::endl;
+    // std::cout << "Size [ " << winners.size() << " ]" << std::endl;
 
-    for(unsigned i = 0; i < 100; i++)
-    {
-        std::stringstream ss;
-        ss << winners[i];
-        std::cout << "Round [ " << ss.str() << " ]" << std::endl;
-    }  
+    // for(unsigned i = 0; i < winners.size(); i++)
+    // {
+    //     if( winners[i][0].playerRoundOutcome == PlayerRoundOutcome::TIE )
+    //     {
+    //         std::stringstream ss;
+    //         ss << winners[i];
+    //         std::cout << "Round [ " << ss.str() << " ]" << std::endl;
+    //     }
+    // }  
 }

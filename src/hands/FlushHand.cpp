@@ -1,12 +1,12 @@
 #include "FlushHand.hpp"
 
-FlushHand::FlushHand(int id, Cards hand, Cards validated)
+FlushHand::FlushHand(int id, const Cards& hand, const Cards& validated)
 :   BaseHand(id, hand, HandRank::FLUSH, validated)
 {
 
 }
 
-bool FlushHand::operator<(FlushHand rhs)
+bool FlushHand::operator<(const FlushHand& rhs) const noexcept
 {
     // ranks are the same
     // compare each card in the validated hands
@@ -18,7 +18,7 @@ bool FlushHand::operator<(FlushHand rhs)
     return false;
 }
 
-bool FlushHand::operator>(FlushHand rhs)
+bool FlushHand::operator>(const FlushHand& rhs) const noexcept
 {
     // ranks are the same
     // compare each card in the validated hands
@@ -30,12 +30,12 @@ bool FlushHand::operator>(FlushHand rhs)
     return false;
 }
 
-bool FlushHand::operator<(BaseHand rhs)
+bool FlushHand::operator<(const BaseHand& rhs) const noexcept
 {
     return BaseHand::operator<(rhs);
 }
 
-bool FlushHand::operator>(BaseHand rhs)
+bool FlushHand::operator>(const BaseHand& rhs) const noexcept
 {
     return BaseHand::operator>(rhs);
 }

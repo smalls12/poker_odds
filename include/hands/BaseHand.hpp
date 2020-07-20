@@ -9,16 +9,16 @@
 class BaseHand
 {
     public:
-        BaseHand(int id, Cards cards, HandRank rank, Cards validated);
+        BaseHand(int id, const Cards& cards, HandRank rank, const Cards& validated);
         ~BaseHand() = default;
         
         friend class ValidateHand;
         friend class AnalyzeRounds;
 
-        bool operator==(const BaseHand& rhs) const;
-        bool operator!=(const BaseHand& rhs) const;
-        bool operator<(const BaseHand& rhs) const;
-        bool operator>(const BaseHand& rhs) const;
+        bool operator==(const BaseHand& rhs) const noexcept;
+        bool operator!=(const BaseHand& rhs) const noexcept;
+        bool operator<(const BaseHand& rhs) const noexcept;
+        bool operator>(const BaseHand& rhs) const noexcept;
 
         friend std::ostream& operator<<(std::ostream & os, BaseHand& hand);
 

@@ -5,12 +5,12 @@
 class FourOfAKindHand : public BaseHand
 {
     public:
-        FourOfAKindHand(int id, Cards hand, Cards validated);
+        FourOfAKindHand(int id, const Cards& hand, const Cards& validated);
         ~FourOfAKindHand() = default;
 
-        bool operator<(FourOfAKindHand rhs);
-        bool operator>(FourOfAKindHand rhs);
+        bool operator<(const FourOfAKindHand& rhs) const noexcept;
+        bool operator>(const FourOfAKindHand& rhs) const noexcept;
 
-        bool operator<(BaseHand rhs);
-        bool operator>(BaseHand rhs);
+        bool operator<(const BaseHand& rhs) const noexcept;
+        bool operator>(const BaseHand& rhs) const noexcept;
 };

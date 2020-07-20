@@ -4,7 +4,7 @@
 #include "FindPairs.hpp"
 #include "FindStraightsAndFlushes.hpp"
 
-ValidatedHand ValidateHand::DetermineHandRank(Cards& cards)
+ValidatedHand ValidateHand::DetermineHandRank(const Cards& cards) noexcept
 {
     // spdlog::get("console")->debug("ValidateHand::DetermineHandRank - start");
 

@@ -2,7 +2,7 @@ cmake_minimum_required( VERSION 3.5 )
 
 project( poker_odds )
 
-set( CMAKE_CXX_FLAGS " -Wall -Werror -Wextra -O2 -std=c++17 " )
+set( CMAKE_CXX_FLAGS " -Wall -Werror -O2 -Wextra -std=c++17 " )
 
 include_directories( ${CMAKE_STAGING_PREFIX}/usr/include )
 link_directories( ${CMAKE_STAGING_PREFIX}/usr/lib )
@@ -40,9 +40,7 @@ set ( lib_src_files
       src/poker/Poker.cpp
       src/poker/PokerImpl.cpp
       src/AnalyzeRounds.cpp
-      src/DealerPermutations.cpp
       src/CalculateOdds.cpp
-      src/ComparePlayerHands.cpp
       src/TransposeHands.cpp
       src/ValidateHand.cpp
       src/PossibleHands.cpp
@@ -114,8 +112,6 @@ set ( src_files_test
       src/TransposeHands.cpp
       src/ValidateHand.cpp
       src/DeckBuilder.cpp
-      src/HandDatabase.cpp
-      src/DealerPermutations.cpp
       src/PossibleHands.cpp
       test/TestSuiteFindHighCard.cpp
       test/TestSuiteFindPairs.cpp
@@ -127,8 +123,6 @@ set ( src_files_test
       test/TestSuiteCard.cpp
       test/TestSuiteHand.cpp
       test/TestSuitePermutations.cpp
-      test/TestSuiteHandDatabase.cpp
-      test/TestSuiteDealerPermutations.cpp
       test/TestSuitePossibleHands.cpp
       test/TestSuiteHandFactory.cpp
       test/TestSuiteValidateHand.cpp

@@ -1,16 +1,14 @@
 #include "StraightFlushHand.hpp"
 
-StraightFlushHand::StraightFlushHand(int id, Cards hand, Cards validated)
+StraightFlushHand::StraightFlushHand(int id, const Cards& hand, const Cards& validated)
 :   BaseHand(id, hand, HandRank::STRAIGHT_FLUSH, validated)
 {
 
 }
 
-bool StraightFlushHand::operator<(const StraightFlushHand& rhs)
+bool StraightFlushHand::operator<(const StraightFlushHand& rhs) const noexcept
 {
-    // ranks are the same
-    // compare each card in the validated hands
-    if( cards < rhs.cards )
+    if( *cards[0] < *rhs.cards[0] )
     {
         return true;
     }
@@ -18,11 +16,9 @@ bool StraightFlushHand::operator<(const StraightFlushHand& rhs)
     return false;
 }
 
-bool StraightFlushHand::operator>(const StraightFlushHand& rhs)
+bool StraightFlushHand::operator>(const StraightFlushHand& rhs) const noexcept
 {
-    // ranks are the same
-    // compare each card in the validated hands
-    if( cards > rhs.cards )
+    if( *cards[0] > *rhs.cards[0] )
     {
         return true;
     }
@@ -30,12 +26,12 @@ bool StraightFlushHand::operator>(const StraightFlushHand& rhs)
     return false;
 }
 
-bool StraightFlushHand::operator<(const BaseHand& rhs)
+bool StraightFlushHand::operator<(const BaseHand& rhs) const noexcept
 {
     return BaseHand::operator<(rhs);
 }
 
-bool StraightFlushHand::operator>(const BaseHand& rhs)
+bool StraightFlushHand::operator>(const BaseHand& rhs) const noexcept
 {
     return BaseHand::operator>(rhs);
 }

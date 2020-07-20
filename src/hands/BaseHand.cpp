@@ -4,7 +4,7 @@
 
 #include <algorithm>
 
-BaseHand::BaseHand(int id, Cards cards, HandRank rank, Cards validated)
+BaseHand::BaseHand(int id, const Cards& cards, HandRank rank, const Cards& validated)
 :   id(id),
     cards(cards),
     rank(rank),
@@ -18,19 +18,19 @@ HandRank BaseHand::getHandRank()
     return rank;
 }
 
-bool BaseHand::operator==(const BaseHand& rhs) const
+bool BaseHand::operator==(const BaseHand& rhs) const noexcept
 {
     return std::equal(  std::begin(cards), std::end(cards),
                         std::begin(rhs.cards), std::end(rhs.cards),
-                        [](const Card* lhs, const Card* rhs){ return *lhs == *rhs; });
+                        [](const Card* const lhs, const Card* const rhs){ return *lhs == *rhs; });
 }
 
-bool BaseHand::operator!=(const BaseHand& rhs) const
+bool BaseHand::operator!=(const BaseHand& rhs) const noexcept
 {
     return !(*this == rhs);
 }
 
-bool BaseHand::operator<(const BaseHand& rhs) const
+bool BaseHand::operator<(const BaseHand& rhs) const noexcept
 {
     // compare validated ranks first
     if( rank < rhs.rank )
@@ -43,7 +43,7 @@ bool BaseHand::operator<(const BaseHand& rhs) const
     
 }
 
-bool BaseHand::operator>(const BaseHand& rhs) const
+bool BaseHand::operator>(const BaseHand& rhs) const noexcept
 {
     // compare validated ranks first
     if( rank > rhs.rank )

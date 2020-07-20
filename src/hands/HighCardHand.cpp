@@ -1,35 +1,69 @@
 #include "HighCardHand.hpp"
 
-HighCardHand::HighCardHand(int id, Cards hand, Cards validated)
+HighCardHand::HighCardHand(int id, const Cards& hand, const Cards& validated)
 :   BaseHand(id, hand, HandRank::HIGH_CARD, validated)
 {
 
 }
 
-bool HighCardHand::operator<(const HighCardHand& rhs)
+bool HighCardHand::operator<(const HighCardHand& rhs) const noexcept
 {
-    // ranks are the same
-    // compare each card in the validated hands
-    return std::equal(  std::begin(cards), std::end(cards),
-                        std::begin(rhs.cards), std::end(rhs.cards),
-                        [](const Card* lhs, const Card* rhs){ return *lhs < *rhs; });
+    if( *validated[0] < *rhs.validated[0] )
+    {
+        return true;
+    }
+
+    for(size_t x = 0; x < cards.size(); x++)
+    {
+        if( *cards[x] < *rhs.cards[x] )
+        {
+            return true;
+        }
+        else if( *cards[x] == *rhs.cards[x] )
+        {
+            continue;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    return false;
 }
 
-bool HighCardHand::operator>(const HighCardHand& rhs)
+bool HighCardHand::operator>(const HighCardHand& rhs) const noexcept
 {
-    // ranks are the same
-    // compare each card in the validated hands
-    return std::equal(  std::begin(cards), std::end(cards),
-                        std::begin(rhs.cards), std::end(rhs.cards),
-                        [](const Card* lhs, const Card* rhs){ return *lhs > *rhs; });
+    if( *validated[0] > *rhs.validated[0] )
+    {
+        return true;
+    }
+
+    for(size_t x = 0; x < cards.size(); x++)
+    {
+        if( *cards[x] > *rhs.cards[x] )
+        {
+            return true;
+        }
+        else if( *cards[x] == *rhs.cards[x] )
+        {
+            continue;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    return false;
 }
 
-bool HighCardHand::operator<(const BaseHand& rhs)
+bool HighCardHand::operator<(const BaseHand& rhs) const noexcept
 {
     return BaseHand::operator<(rhs);
 }
 
-bool HighCardHand::operator>(const BaseHand& rhs)
+bool HighCardHand::operator>(const BaseHand& rhs) const noexcept
 {
     return BaseHand::operator>(rhs);
 }

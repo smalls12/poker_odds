@@ -5,12 +5,12 @@
 class TwoPairHand : public BaseHand
 {
     public:
-        TwoPairHand(int id, Cards hand, Cards validated);
+        TwoPairHand(int id, const Cards& hand, const Cards& validated);
         ~TwoPairHand() = default;
 
-        bool operator<(TwoPairHand rhs);
-        bool operator>(TwoPairHand rhs);
+        bool operator<(const TwoPairHand& rhs) const noexcept;
+        bool operator>(const TwoPairHand& rhs) const noexcept;
 
-        bool operator<(BaseHand rhs);
-        bool operator>(BaseHand rhs);
+        bool operator<(const BaseHand& rhs) const noexcept;
+        bool operator>(const BaseHand& rhs) const noexcept;
 };

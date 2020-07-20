@@ -35,7 +35,7 @@ protected:
 
 // Test case must be called the class above
 // Also note: use TEST_F instead of TEST to access the test fixture (from google test primer)
-TEST_F(TestSuiteWinningHands, TestEquality)
+TEST_F(TestSuiteWinningHands, OnePairMatch)
 {
     OnePairHand hand1( 0,
         {
@@ -86,6 +86,74 @@ TEST_F(TestSuiteWinningHands, TestEquality)
     EXPECT_TRUE(hand1 == hand2);
     EXPECT_TRUE(hand1 > hand3);
     EXPECT_TRUE(hand2 > hand3);
+
+    std::sort(hands.begin(), hands.end(), std::greater<Hand>());
+    Hands::iterator it1 = std::adjacent_find(hands.begin(), hands.end());
+    if( it1 != hands.begin() )
+    {
+        // this means that there was only one winner
+        
+    }
+    else
+    {
+        std::cout << "multiple winners" << std::endl;
+    }
+}
+
+TEST_F(TestSuiteWinningHands, TwoPairMatch)
+{
+    TwoPairHand hand1( 0,
+        {
+            new Card{ Rank::ACE, Suit::DIAMOND },
+            new Card{ Rank::TEN, Suit::SPADE },
+            new Card{ Rank::TEN, Suit::DIAMOND },
+            new Card{ Rank::EIGHT, Suit::DIAMOND },
+            new Card{ Rank::EIGHT, Suit::SPADE },
+            new Card{ Rank::FOUR, Suit::DIAMOND },
+            new Card{ Rank::TWO, Suit::CLUB }
+        },
+        {
+            new Card{ Rank::TEN, Suit::SPADE },
+            new Card{ Rank::TEN, Suit::DIAMOND },
+            new Card{ Rank::EIGHT, Suit::DIAMOND },
+            new Card{ Rank::EIGHT, Suit::SPADE }
+        });
+    
+    TwoPairHand hand2( 1,
+        {
+            new Card{ Rank::KING, Suit::CLUB },
+            new Card{ Rank::JACK, Suit::HEART },
+            new Card{ Rank::JACK, Suit::CLUB },
+            new Card{ Rank::EIGHT, Suit::CLUB },
+            new Card{ Rank::EIGHT, Suit::HEART },
+            new Card{ Rank::THREE, Suit::CLUB },
+            new Card{ Rank::TWO, Suit::SPADE }
+        },
+        {
+            new Card{ Rank::JACK, Suit::HEART },
+            new Card{ Rank::JACK, Suit::CLUB },
+            new Card{ Rank::EIGHT, Suit::CLUB },
+            new Card{ Rank::EIGHT, Suit::HEART }
+        });
+    
+    HighCardHand hand3( 2,
+        {
+            new Card{ Rank::QUEEN, Suit::DIAMOND },
+            new Card{ Rank::JACK, Suit::SPADE },
+            new Card{ Rank::NINE, Suit::DIAMOND },
+            new Card{ Rank::SEVEN, Suit::HEART },
+            new Card{ Rank::FIVE, Suit::SPADE },
+            new Card{ Rank::THREE, Suit::DIAMOND },
+            new Card{ Rank::TWO, Suit::HEART }
+        },
+        {
+            new Card{ Rank::ACE, Suit::DIAMOND }
+        });
+
+	Hands hands{ hand3, hand1, hand2 };
+
+    EXPECT_TRUE(hand2 > hand1);
+    EXPECT_TRUE(hand1 > hand3);
 
     std::sort(hands.begin(), hands.end(), std::greater<Hand>());
     Hands::iterator it1 = std::adjacent_find(hands.begin(), hands.end());

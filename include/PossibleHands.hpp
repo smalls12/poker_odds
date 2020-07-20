@@ -11,5 +11,5 @@ class PossibleHands
         // copy the hand
         // copy the deck
         static Hands SummarizeAllPossibleHands(int id, Cards& cards, std::vector<Cards>& dealerPermutations);
-        static Hands SummarizeRoundHands(Players& players, Cards& cards);
+        static Hands SummarizeRoundHands(const Players& players, const Cards& cards) noexcept;
 };

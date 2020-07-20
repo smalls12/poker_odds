@@ -29,11 +29,11 @@ std::vector<Hand> PossibleHands::SummarizeAllPossibleHands(int id, Cards& cards,
     return possibleHands;
 }
 
-Hands PossibleHands::SummarizeRoundHands(Players& players, Cards& cards)
+Hands PossibleHands::SummarizeRoundHands(const Players& players, const Cards& cards) noexcept
 {
     std::vector<Hand> roundHands;
     roundHands.reserve(players.size());
-    for(auto& player : players)
+    for(const auto& player : players)
     {
         // build the hand for the player
         Cards playersPossibleHand;
@@ -43,7 +43,7 @@ Hands PossibleHands::SummarizeRoundHands(Players& players, Cards& cards)
 
         // sort first
         std::sort(playersPossibleHand.begin(), playersPossibleHand.end(),
-        [](const Card* lhs, const Card* rhs){ return *lhs > *rhs; });
+        [](const Card* const lhs, const Card* const rhs){ return *lhs > *rhs; });
 
         // validate and find the highest hand ranking
         ValidatedHand result = ValidateHand::DetermineHandRank(playersPossibleHand);

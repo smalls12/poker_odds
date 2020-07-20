@@ -9,6 +9,6 @@
 class FindHighCard
 {
     public:
-        static std::optional<ValidatedHand> Find(Cards& cards);
+        static std::optional<ValidatedHand> Find(const Cards& cards) noexcept;
 
 };

@@ -39,34 +39,33 @@ Rounds AnalyzeRounds::Analyze(std::vector<Hands>& roundHands)
     return winners;
 }
 
-Round AnalyzeRounds::Analyze(Hands& roundHand)
+Round AnalyzeRounds::Analyze(const Hands& roundHand) noexcept
 {
-    // sort first
-    std::sort(roundHand.begin(), roundHand.end(), std::greater<Hand>());
-
     Round round;
-    Hands::iterator it = std::adjacent_find(roundHand.begin(), roundHand.end());
-    if( it != roundHand.begin() )
+
+    if( roundHand[0] == roundHand[1] )
     {
-        // this means that there was only one winner
-        it = roundHand.begin();
-        round.emplace_back(PlayerRound{(*it).id, PlayerRoundOutcome::WIN, (*it).rank});
+        // we have a tie
+        for( size_t x = 0; x < roundHand.size(); x++ )
+        {
+            if( roundHand[x] == roundHand[0] )
+            {
+                round.emplace_back(PlayerRound{roundHand[x].id, PlayerRoundOutcome::TIE, roundHand[x].rank});
+            }
+            else
+            {
+                round.emplace_back(PlayerRound{roundHand[x].id, PlayerRoundOutcome::LOSE, roundHand[x].rank});
+            }
+        }
     }
     else
     {
-        round.emplace_back(PlayerRound{(*it).id, PlayerRoundOutcome::TIE, (*it++).rank});
-        round.emplace_back(PlayerRound{(*it).id, PlayerRoundOutcome::TIE, (*it).rank});
-        while(it++ != roundHand.end())
+        round.emplace_back(PlayerRound{roundHand[0].id, PlayerRoundOutcome::WIN, roundHand[0].rank});
+        for( size_t x = 1; x < roundHand.size(); x++ )
         {
-            round.emplace_back(PlayerRound{(*it).id, PlayerRoundOutcome::TIE, (*it).rank});
+            round.emplace_back(PlayerRound{roundHand[x].id, PlayerRoundOutcome::LOSE, roundHand[x].rank});
         }
     }
-
-    while(++it != roundHand.end())
-    {
-        round.emplace_back(PlayerRound{(*it).id, PlayerRoundOutcome::LOSE, (*it).rank});
-    }
-
 
     return round;
 }

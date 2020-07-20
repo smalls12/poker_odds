@@ -5,12 +5,12 @@
 class ThreeOfAKindHand : public BaseHand
 {
     public:
-        ThreeOfAKindHand(int id, Cards hand, Cards validated);
+        ThreeOfAKindHand(int id, const Cards& hand, const Cards& validated);
         ~ThreeOfAKindHand() = default;
 
-        bool operator<(ThreeOfAKindHand rhs);
-        bool operator>(ThreeOfAKindHand rhs);
+        bool operator<(const ThreeOfAKindHand& rhs) const noexcept;
+        bool operator>(const ThreeOfAKindHand& rhs) const noexcept;
 
-        bool operator<(BaseHand rhs);
-        bool operator>(BaseHand rhs);
+        bool operator<(const BaseHand& rhs) const noexcept;
+        bool operator>(const BaseHand& rhs) const noexcept;
 };

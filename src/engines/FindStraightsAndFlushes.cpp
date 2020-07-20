@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-std::optional<ValidatedHand> FindStraightsAndFlushes::Find(Cards& cards)
+std::optional<ValidatedHand> FindStraightsAndFlushes::Find(const Cards& cards) noexcept
 {
     if( cards.size() < 5 )
     {

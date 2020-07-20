@@ -4,7 +4,7 @@
 #include <sstream>
 #include <iostream>
 
-std::optional<ValidatedHand> FindPairs::Find(Cards& cards)
+std::optional<ValidatedHand> FindPairs::Find(const Cards& cards) noexcept
 {
     Cards temp(cards);
     
@@ -32,6 +32,7 @@ std::optional<ValidatedHand> FindPairs::Find(Cards& cards)
             [](const Card* lhs, const Card* rhs){ return *lhs == *rhs; });
             if (it3 != temp.end() && it3 == it2)
             {
+                // at this point we know we have four of a kind
                 return std::optional<ValidatedHand>{{HandRank::FOUR_OF_A_KIND, output}};
             }
 
@@ -39,13 +40,14 @@ std::optional<ValidatedHand> FindPairs::Find(Cards& cards)
             it2 = temp.erase(it2);
 
             // need to check for full house
-
             std::optional<ValidatedHand> result = FindPairs::Find(temp);
             if( result )
             {
                 if( (*result).rank == HandRank::ONE_PAIR )
                 {
-                    // found a full house
+                    // found a full 
+                    // full house arranged three of a kind then the pair
+                    // insert at the back
                     output.insert(output.end(), (*result).cards.begin(), (*result).cards.end());
                     return std::optional<ValidatedHand>{{HandRank::FULL_HOUSE, output}};
                 }
@@ -56,15 +58,16 @@ std::optional<ValidatedHand> FindPairs::Find(Cards& cards)
 
         it1 = temp.erase(it1);
 
-        // need to check for full house and two pair 
-
+        // need to check for full house and two pair
         std::optional<ValidatedHand> result = FindPairs::Find(temp);
         if( result )
         {
             if ( (*result).rank == HandRank::THREE_OF_A_KIND )
             {
                 // found three of a kind
-                output.insert(output.end(), (*result).cards.begin(), (*result).cards.end());
+                // full house arranged three of a kind then the pair
+                // insert infront
+                output.insert(output.begin(), (*result).cards.begin(), (*result).cards.end());
                 return std::optional<ValidatedHand>{{HandRank::FULL_HOUSE, output}};
 
             }

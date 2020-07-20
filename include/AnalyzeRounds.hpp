@@ -9,6 +9,6 @@ class AnalyzeRounds
 {
     public:
         static Rounds Analyze(std::vector<Hands>& roundHands);
-        static Round Analyze(Hands& roundHand);
+        static Round Analyze(const Hands& roundHand) noexcept;
 
 };

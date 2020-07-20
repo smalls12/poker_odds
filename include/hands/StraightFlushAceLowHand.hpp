@@ -5,12 +5,12 @@
 class StraightFlushAceLowHand : public BaseHand
 {
     public:
-        StraightFlushAceLowHand(int id, Cards hand, Cards validated);
+        StraightFlushAceLowHand(int id, const Cards& hand, const Cards& validated);
         ~StraightFlushAceLowHand() = default;
 
-        bool operator<(const StraightFlushAceLowHand& rhs);
-        bool operator>(const StraightFlushAceLowHand& rhs);
+        bool operator<(const StraightFlushAceLowHand& rhs) const noexcept;
+        bool operator>(const StraightFlushAceLowHand& rhs) const noexcept;
 
-        bool operator<(const BaseHand& rhs);
-        bool operator>(const BaseHand& rhs);
+        bool operator<(const BaseHand& rhs) const noexcept;
+        bool operator>(const BaseHand& rhs) const noexcept;
 };

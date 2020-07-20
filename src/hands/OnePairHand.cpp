@@ -1,102 +1,69 @@
 #include "OnePairHand.hpp"
 
-OnePairHand::OnePairHand(int id, Cards hand, Cards validated)
+OnePairHand::OnePairHand(int id, const Cards& hand, const Cards& validated)
 :   BaseHand(id, hand, HandRank::ONE_PAIR, validated)
 {
 
 }
 
-bool OnePairHand::operator<(const OnePairHand& rhs)
+bool OnePairHand::operator<(const OnePairHand& rhs) const noexcept
 {
-    // ranks are the same
-    // compare each card in the validated hands
-
-    bool result = false;
-    result = std::equal(    std::begin(validated), std::end(validated),
-                            std::begin(rhs.validated), std::end(rhs.validated),
-                            [](const Card* lhs, const Card* rhs){ return *lhs < *rhs; });
-    if( result )
+    if( *validated[0] < *rhs.validated[0] )
     {
-        // rhs is the higher one pair
         return true;
     }
-
-    result = std::equal(    std::begin(validated), std::end(validated),
-                            std::begin(rhs.validated), std::end(rhs.validated),
-                            [](const Card* lhs, const Card* rhs){ return *lhs == *rhs; });
-
-    if( result )
+    
+    for(size_t x = 0; x < cards.size(); x++)
     {
-        result = std::equal(    std::begin(cards), std::end(cards),
-                                std::begin(rhs.cards), std::end(rhs.cards),
-                                [](const Card* lhs, const Card* rhs){ return *lhs < *rhs; });
-        // same pair
-        if( result )
+        if( *cards[x] < *rhs.cards[x] )
         {
-            // rhs has higher kicker cards
             return true;
         }
-
-        result = std::equal(    std::begin(cards), std::end(cards),
-                                std::begin(rhs.cards), std::end(rhs.cards),
-                                [](const Card* lhs, const Card* rhs){ return *lhs == *rhs; });
-
-        if( result )
+        else if( *cards[x] == *rhs.cards[x] )
         {
-            // hands match perfectly
-        }        
+            continue;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     return false;
 }
 
-bool OnePairHand::operator>(const OnePairHand& rhs)
+bool OnePairHand::operator>(const OnePairHand& rhs) const noexcept
 {
-    bool result = false;
-    result = std::equal(    std::begin(validated), std::end(validated),
-                            std::begin(rhs.validated), std::end(rhs.validated),
-                            [](const Card* lhs, const Card* rhs){ return *lhs > *rhs; });
-    if( result )
+    if( *validated[0] > *rhs.validated[0] )
     {
-        // lhs is the higher one pair
         return true;
     }
 
-    result = std::equal(    std::begin(validated), std::end(validated),
-                            std::begin(rhs.validated), std::end(rhs.validated),
-                            [](const Card* lhs, const Card* rhs){ return *lhs == *rhs; });
-
-    if( result )
+    for(size_t x = 0; x < cards.size(); x++)
     {
-        result = std::equal(    std::begin(cards), std::end(cards),
-                                std::begin(rhs.cards), std::end(rhs.cards),
-                                [](const Card* lhs, const Card* rhs){ return *lhs > *rhs; });
-        // same pair
-        if( result )
+        if( *cards[x] > *rhs.cards[x] )
         {
-            // lhs has higher kicker cards
             return true;
         }
-
-        result = std::equal(    std::begin(cards), std::end(cards),
-                                std::begin(rhs.cards), std::end(rhs.cards),
-                                [](const Card* lhs, const Card* rhs){ return *lhs == *rhs; });
-
-        if( result )
+        else if( *cards[x] == *rhs.cards[x] )
         {
-            // hands match perfectly
-        }        
+            continue;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     return false;
 }
 
-bool OnePairHand::operator<(const BaseHand& rhs)
+bool OnePairHand::operator<(const BaseHand& rhs) const noexcept
 {
     return BaseHand::operator<(rhs);
 }
 
-bool OnePairHand::operator>(const BaseHand& rhs)
+bool OnePairHand::operator>(const BaseHand& rhs) const noexcept
 {
     return BaseHand::operator>(rhs);
 }
