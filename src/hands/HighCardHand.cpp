@@ -6,8 +6,18 @@ HighCardHand::HighCardHand(int id, const Cards& hand, const Cards& validated)
 
 }
 
-bool HighCardHand::operator<(const HighCardHand& rhs) const noexcept
+bool HighCardHand::operator<(const BaseHand& rhs) const noexcept
 {
+     if( rank < rhs.rank )
+    {
+        return true;
+    }
+
+    if( rank > rhs.rank )
+    {
+        return false;
+    }
+
     if( *validated[0] < *rhs.validated[0] )
     {
         return true;
@@ -28,8 +38,18 @@ bool HighCardHand::operator<(const HighCardHand& rhs) const noexcept
     return false;
 }
 
-bool HighCardHand::operator>(const HighCardHand& rhs) const noexcept
+bool HighCardHand::operator>(const BaseHand& rhs) const noexcept
 {
+    if( rank > rhs.rank )
+    {
+        return true;
+    }
+
+    if( rank < rhs.rank )
+    {
+        return false;
+    }
+
     if( *validated[0] > *rhs.validated[0] )
     {
         return true;
@@ -48,14 +68,4 @@ bool HighCardHand::operator>(const HighCardHand& rhs) const noexcept
     }
 
     return false;
-}
-
-bool HighCardHand::operator<(const BaseHand& rhs) const noexcept
-{
-    return BaseHand::operator<(rhs);
-}
-
-bool HighCardHand::operator>(const BaseHand& rhs) const noexcept
-{
-    return BaseHand::operator>(rhs);
 }

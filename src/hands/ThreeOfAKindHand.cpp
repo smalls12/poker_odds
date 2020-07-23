@@ -6,8 +6,18 @@ ThreeOfAKindHand::ThreeOfAKindHand(int id, const Cards& hand, const Cards& valid
 
 }
 
-bool ThreeOfAKindHand::operator<(const ThreeOfAKindHand& rhs) const noexcept
+bool ThreeOfAKindHand::operator<(const BaseHand& rhs) const noexcept
 {
+    if( rank < rhs.rank )
+    {
+        return true;
+    }
+
+    if( rank > rhs.rank )
+    {
+        return false;
+    }
+
     if( *validated[0] < *rhs.validated[0] )
     {
         return true;
@@ -28,8 +38,18 @@ bool ThreeOfAKindHand::operator<(const ThreeOfAKindHand& rhs) const noexcept
     return false;
 }
 
-bool ThreeOfAKindHand::operator>(const ThreeOfAKindHand& rhs) const noexcept
+bool ThreeOfAKindHand::operator>(const BaseHand& rhs) const noexcept
 {
+    if( rank > rhs.rank )
+    {
+        return true;
+    }
+
+    if( rank < rhs.rank )
+    {
+        return false;
+    }
+
     if( *validated[0] > *rhs.validated[0] )
     {
         return true;
@@ -48,14 +68,4 @@ bool ThreeOfAKindHand::operator>(const ThreeOfAKindHand& rhs) const noexcept
     }
 
     return false;
-}
-
-bool ThreeOfAKindHand::operator<(const BaseHand& rhs) const noexcept
-{
-    return BaseHand::operator<(rhs);
-}
-
-bool ThreeOfAKindHand::operator>(const BaseHand& rhs) const noexcept
-{
-    return BaseHand::operator>(rhs);
 }

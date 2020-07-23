@@ -6,8 +6,18 @@ FlushHand::FlushHand(int id, const Cards& hand, const Cards& validated)
 
 }
 
-bool FlushHand::operator<(const FlushHand& rhs) const noexcept
+bool FlushHand::operator<(const BaseHand& rhs) const noexcept
 {
+    if( rank < rhs.rank )
+    {
+        return true;
+    }
+
+    if( rank > rhs.rank )
+    {
+        return false;
+    }
+
     for(size_t x = 0; x < validated.size(); x++)
     {
         if( *validated[x] < *rhs.validated[x] )
@@ -35,8 +45,18 @@ bool FlushHand::operator<(const FlushHand& rhs) const noexcept
     return false;
 }
 
-bool FlushHand::operator>(const FlushHand& rhs) const noexcept
+bool FlushHand::operator>(const BaseHand& rhs) const noexcept
 {
+    if( rank > rhs.rank )
+    {
+        return true;
+    }
+
+    if( rank < rhs.rank )
+    {
+        return false;
+    }
+
     for(size_t x = 0; x < validated.size(); x++)
     {
         if( *validated[x] > *rhs.validated[x] )
@@ -62,14 +82,4 @@ bool FlushHand::operator>(const FlushHand& rhs) const noexcept
     }
 
     return false;
-}
-
-bool FlushHand::operator<(const BaseHand& rhs) const noexcept
-{
-    return BaseHand::operator<(rhs);
-}
-
-bool FlushHand::operator>(const BaseHand& rhs) const noexcept
-{
-    return BaseHand::operator>(rhs);
 }

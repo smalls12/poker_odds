@@ -6,8 +6,18 @@ OnePairHand::OnePairHand(int id, const Cards& hand, const Cards& validated)
 
 }
 
-bool OnePairHand::operator<(const OnePairHand& rhs) const noexcept
+bool OnePairHand::operator<(const BaseHand& rhs) const noexcept
 {
+    if( rank < rhs.rank )
+    {
+        return true;
+    }
+
+    if( rank > rhs.rank )
+    {
+        return false;
+    }
+
     if( *validated[0] < *rhs.validated[0] )
     {
         return true;
@@ -28,8 +38,18 @@ bool OnePairHand::operator<(const OnePairHand& rhs) const noexcept
     return false;
 }
 
-bool OnePairHand::operator>(const OnePairHand& rhs) const noexcept
+bool OnePairHand::operator>(const BaseHand& rhs) const noexcept
 {
+    if( rank > rhs.rank )
+    {
+        return true;
+    }
+
+    if( rank < rhs.rank )
+    {
+        return false;
+    }
+
     if( *validated[0] > *rhs.validated[0] )
     {
         return true;
@@ -48,14 +68,4 @@ bool OnePairHand::operator>(const OnePairHand& rhs) const noexcept
     }
 
     return false;
-}
-
-bool OnePairHand::operator<(const BaseHand& rhs) const noexcept
-{
-    return BaseHand::operator<(rhs);
-}
-
-bool OnePairHand::operator>(const BaseHand& rhs) const noexcept
-{
-    return BaseHand::operator>(rhs);
 }

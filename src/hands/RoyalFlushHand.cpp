@@ -6,24 +6,32 @@ RoyalFlushHand::RoyalFlushHand(int id, const Cards& hand, const Cards& validated
 
 }
 
-bool RoyalFlushHand::operator<(const RoyalFlushHand& rhs) const noexcept
-{
-    (void)rhs;
-    return false;
-}
-
-bool RoyalFlushHand::operator>(const RoyalFlushHand& rhs) const noexcept
-{
-    (void)rhs;
-    return false;
-}
-
 bool RoyalFlushHand::operator<(const BaseHand& rhs) const noexcept
 {
-    return BaseHand::operator<(rhs);
+    if( rank < rhs.rank )
+    {
+        return true;
+    }
+
+    if( rank > rhs.rank )
+    {
+        return false;
+    }
+
+    return false;
 }
 
 bool RoyalFlushHand::operator>(const BaseHand& rhs) const noexcept
 {
-    return BaseHand::operator>(rhs);
+    if( rank > rhs.rank )
+    {
+        return true;
+    }
+
+    if( rank < rhs.rank )
+    {
+        return false;
+    }
+
+    return false;
 }

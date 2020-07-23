@@ -8,9 +8,6 @@ class StraightFlushAceLowHand : public BaseHand
         StraightFlushAceLowHand(int id, const Cards& hand, const Cards& validated);
         ~StraightFlushAceLowHand() = default;
 
-        bool operator<(const StraightFlushAceLowHand& rhs) const noexcept;
-        bool operator>(const StraightFlushAceLowHand& rhs) const noexcept;
-
-        bool operator<(const BaseHand& rhs) const noexcept;
-        bool operator>(const BaseHand& rhs) const noexcept;
+        bool operator<(const BaseHand& rhs) const noexcept override;
+        bool operator>(const BaseHand& rhs) const noexcept override;
 };

@@ -6,24 +6,32 @@ StraightAceLowHand::StraightAceLowHand(int id, const Cards& hand, const Cards& v
 
 }
 
-bool StraightAceLowHand::operator<(const StraightAceLowHand& rhs) const noexcept
-{
-    (void)rhs;
-    return false;
-}
-
-bool StraightAceLowHand::operator>(const StraightAceLowHand& rhs) const noexcept
-{
-    (void)rhs;
-    return false;
-}
-
 bool StraightAceLowHand::operator<(const BaseHand& rhs) const noexcept
 {
-    return BaseHand::operator<(rhs);
+    if( rank < rhs.rank )
+    {
+        return true;
+    }
+
+    if( rank > rhs.rank )
+    {
+        return false;
+    }
+
+    return false;
 }
 
 bool StraightAceLowHand::operator>(const BaseHand& rhs) const noexcept
 {
-    return BaseHand::operator>(rhs);
+    if( rank > rhs.rank )
+    {
+        return true;
+    }
+
+    if( rank < rhs.rank )
+    {
+        return false;
+    }
+
+    return false;
 }

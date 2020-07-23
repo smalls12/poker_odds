@@ -8,9 +8,6 @@ class TwoPairHand : public BaseHand
         TwoPairHand(int id, const Cards& hand, const Cards& validated);
         ~TwoPairHand() = default;
 
-        bool operator<(const TwoPairHand& rhs) const noexcept;
-        bool operator>(const TwoPairHand& rhs) const noexcept;
-
-        bool operator<(const BaseHand& rhs) const noexcept;
-        bool operator>(const BaseHand& rhs) const noexcept;
+        bool operator<(const BaseHand& rhs) const noexcept override;
+        bool operator>(const BaseHand& rhs) const noexcept override;
 };

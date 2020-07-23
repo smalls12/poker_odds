@@ -711,7 +711,7 @@ TEST_F(TestSuiteHand, TestEquality_ThreeOfAKind_ThreeOfAKind_v3)
 
 TEST_F(TestSuiteHand, TestEquality_FullHouse_FullHouse_v1)
 {
-    ThreeOfAKindHand hand1( 0,
+    FullHouseHand hand1( 0,
         {
             new Card{ Rank::ACE, Suit::DIAMOND },
             new Card{ Rank::ACE, Suit::CLUB },
@@ -729,7 +729,7 @@ TEST_F(TestSuiteHand, TestEquality_FullHouse_FullHouse_v1)
             new Card{ Rank::KING, Suit::CLUB }
         });
 
-    ThreeOfAKindHand hand2( 0,
+    FullHouseHand hand2( 0,
         {
             new Card{ Rank::ACE, Suit::DIAMOND },
             new Card{ Rank::ACE, Suit::CLUB },
@@ -752,7 +752,7 @@ TEST_F(TestSuiteHand, TestEquality_FullHouse_FullHouse_v1)
 
 TEST_F(TestSuiteHand, TestEquality_FullHouse_FullHouse_v2)
 {
-    ThreeOfAKindHand hand1( 0,
+    FullHouseHand hand1( 0,
         {
             new Card{ Rank::ACE, Suit::DIAMOND },
             new Card{ Rank::ACE, Suit::CLUB },
@@ -770,7 +770,7 @@ TEST_F(TestSuiteHand, TestEquality_FullHouse_FullHouse_v2)
             new Card{ Rank::KING, Suit::CLUB }
         });
 
-    ThreeOfAKindHand hand2( 0,
+    FullHouseHand hand2( 0,
         {
             new Card{ Rank::ACE, Suit::DIAMOND },
             new Card{ Rank::ACE, Suit::CLUB },
@@ -793,7 +793,7 @@ TEST_F(TestSuiteHand, TestEquality_FullHouse_FullHouse_v2)
 
 TEST_F(TestSuiteHand, TestEquality_FullHouse_FullHouse_v3)
 {
-    ThreeOfAKindHand hand1( 0,
+    FullHouseHand hand1( 0,
         {
             new Card{ Rank::FIVE, Suit::DIAMOND },
             new Card{ Rank::FIVE, Suit::CLUB },
@@ -811,7 +811,7 @@ TEST_F(TestSuiteHand, TestEquality_FullHouse_FullHouse_v3)
             new Card{ Rank::FIVE, Suit::CLUB }
         });
 
-    ThreeOfAKindHand hand2( 0,
+    FullHouseHand hand2( 0,
         {
             new Card{ Rank::ACE, Suit::DIAMOND },
             new Card{ Rank::ACE, Suit::CLUB },

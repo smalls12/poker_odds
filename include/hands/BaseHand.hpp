@@ -15,12 +15,12 @@ class BaseHand
         friend class ValidateHand;
         friend class AnalyzeRounds;
 
-        bool operator==(const BaseHand& rhs) const noexcept;
-        bool operator!=(const BaseHand& rhs) const noexcept;
-        bool operator<(const BaseHand& rhs) const noexcept;
-        bool operator>(const BaseHand& rhs) const noexcept;
+        virtual bool operator==(const BaseHand& rhs) const noexcept;
+        virtual bool operator!=(const BaseHand& rhs) const noexcept;
+        virtual bool operator<(const BaseHand& rhs) const noexcept;
+        virtual bool operator>(const BaseHand& rhs) const noexcept;
 
-        friend std::ostream& operator<<(std::ostream & os, BaseHand& hand);
+        friend std::ostream& operator<<(std::ostream & os, const BaseHand& hand);
 
         // void addCard(Card card);
         // Cards getCards();

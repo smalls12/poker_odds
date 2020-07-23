@@ -6,24 +6,32 @@ StraightFlushAceLowHand::StraightFlushAceLowHand(int id, const Cards& hand, cons
 
 }
 
-bool StraightFlushAceLowHand::operator<(const StraightFlushAceLowHand& rhs) const noexcept
-{
-    (void)rhs;
-    return false;
-}
-
-bool StraightFlushAceLowHand::operator>(const StraightFlushAceLowHand& rhs) const noexcept
-{
-    (void)rhs;
-    return false;
-}
-
 bool StraightFlushAceLowHand::operator<(const BaseHand& rhs) const noexcept
 {
-    return BaseHand::operator<(rhs);
+    if( rank < rhs.rank )
+    {
+        return true;
+    }
+
+    if( rank > rhs.rank )
+    {
+        return false;
+    }
+
+    return false;
 }
 
 bool StraightFlushAceLowHand::operator>(const BaseHand& rhs) const noexcept
 {
-    return BaseHand::operator>(rhs);
+    if( rank > rhs.rank )
+    {
+        return true;
+    }
+
+    if( rank < rhs.rank )
+    {
+        return false;
+    }
+
+    return false;
 }

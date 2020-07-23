@@ -6,8 +6,18 @@ FourOfAKindHand::FourOfAKindHand(int id, const Cards& hand, const Cards& validat
 
 }
 
-bool FourOfAKindHand::operator<(const FourOfAKindHand& rhs) const noexcept
+bool FourOfAKindHand::operator<(const BaseHand& rhs) const noexcept
 {
+    if( rank > rhs.rank )
+    {
+        return true;
+    }
+
+    if( rank < rhs.rank )
+    {
+        return false;
+    }
+
     if( *validated[0] < *rhs.validated[0] )
     {
         return true;
@@ -28,8 +38,18 @@ bool FourOfAKindHand::operator<(const FourOfAKindHand& rhs) const noexcept
     return false;
 }
 
-bool FourOfAKindHand::operator>(const FourOfAKindHand& rhs) const noexcept
+bool FourOfAKindHand::operator>(const BaseHand& rhs) const noexcept
 {
+    if( rank < rhs.rank )
+    {
+        return true;
+    }
+
+    if( rank > rhs.rank )
+    {
+        return false;
+    }
+
     if( *validated[0] > *rhs.validated[0] )
     {
         return true;
@@ -48,14 +68,4 @@ bool FourOfAKindHand::operator>(const FourOfAKindHand& rhs) const noexcept
     }
 
     return false;
-}
-
-bool FourOfAKindHand::operator<(const BaseHand& rhs) const noexcept
-{
-    return BaseHand::operator<(rhs);
-}
-
-bool FourOfAKindHand::operator>(const BaseHand& rhs) const noexcept
-{
-    return BaseHand::operator>(rhs);
 }

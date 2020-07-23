@@ -40,7 +40,7 @@ bool BaseHand::operator>(const BaseHand& rhs) const noexcept
     return rank > rhs.rank;
 }
 
-std::ostream& operator<<(std::ostream & os, BaseHand& hand)
+std::ostream& operator<<(std::ostream & os, const BaseHand& hand)
 {
     os << "[ ";
     os << hand.id;
@@ -51,6 +51,13 @@ std::ostream& operator<<(std::ostream & os, BaseHand& hand)
     os << " ]";
 
     for(auto& card : hand.cards)
+    {
+        os << *card;
+    }
+
+    os << "\n";
+
+    for(auto& card : hand.validated)
     {
         os << *card;
     }

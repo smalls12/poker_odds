@@ -8,8 +8,18 @@ TwoPairHand::TwoPairHand(int id, const Cards& hand, const Cards& validated)
 
 }
 
-bool TwoPairHand::operator<(const TwoPairHand& rhs) const noexcept
+bool TwoPairHand::operator<(const BaseHand& rhs) const noexcept
 {
+    if( rank < rhs.rank )
+    {
+        return true;
+    }
+
+    if( rank > rhs.rank )
+    {
+        return false;
+    }
+
     if( *validated[0] < *rhs.validated[0] )
     {
         return true;
@@ -43,8 +53,18 @@ bool TwoPairHand::operator<(const TwoPairHand& rhs) const noexcept
     return false;
 }
 
-bool TwoPairHand::operator>(const TwoPairHand& rhs) const noexcept
+bool TwoPairHand::operator>(const BaseHand& rhs) const noexcept
 {
+    if( rank > rhs.rank )
+    {
+        return true;
+    }
+
+    if( rank < rhs.rank )
+    {
+        return false;
+    }
+
     if( *validated[0] > *rhs.validated[0] )
     {
         return true;
@@ -54,11 +74,11 @@ bool TwoPairHand::operator>(const TwoPairHand& rhs) const noexcept
         return false;
     }
     
-    if( *validated[2] > *rhs.validated[2] )
+    if( *validated[1] > *rhs.validated[1] )
     {
         return true;
     }
-    else if( *validated[2] < *rhs.validated[2] )
+    else if( *validated[1] < *rhs.validated[1] )
     {
         return false;
     }
@@ -76,14 +96,4 @@ bool TwoPairHand::operator>(const TwoPairHand& rhs) const noexcept
     }
 
     return false;
-}
-
-bool TwoPairHand::operator<(const BaseHand& rhs) const noexcept
-{
-    return BaseHand::operator<(rhs);
-}
-
-bool TwoPairHand::operator>(const BaseHand& rhs) const noexcept
-{
-    return BaseHand::operator>(rhs);
 }

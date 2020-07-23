@@ -8,9 +8,6 @@ class FlushHand : public BaseHand
         FlushHand(int id, const Cards& hand, const Cards& validated);
         ~FlushHand() = default;
 
-        bool operator<(const FlushHand& rhs) const noexcept;
-        bool operator>(const FlushHand& rhs) const noexcept;
-
-        bool operator<(const BaseHand& rhs) const noexcept;
-        bool operator>(const BaseHand& rhs) const noexcept;
+        bool operator<(const BaseHand& rhs) const noexcept override;
+        bool operator>(const BaseHand& rhs) const noexcept override;
 };

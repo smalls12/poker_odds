@@ -8,9 +8,6 @@ class FullHouseHand : public BaseHand
         FullHouseHand(int id, const Cards& hand, const Cards& validated);
         ~FullHouseHand() = default;
 
-        bool operator<(const FullHouseHand& rhs) const noexcept;
-        bool operator>(const FullHouseHand& rhs) const noexcept;
-
-        bool operator<(const BaseHand& rhs) const noexcept;
-        bool operator>(const BaseHand& rhs) const noexcept;
+        bool operator<(const BaseHand& rhs) const noexcept override;
+        bool operator>(const BaseHand& rhs) const noexcept override;
 };

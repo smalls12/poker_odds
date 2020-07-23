@@ -8,12 +8,13 @@
 
 #include <iostream>
 #include <sstream>
+#include <iomanip>      // std::setprecision
 
 struct Statistics
 {
-    int wins;
-    int ties;
-    int losses;
+    size_t wins;
+    size_t ties;
+    size_t losses;
     HandRank highHandRank;
 };
 
@@ -56,7 +57,8 @@ void CalculateOdds::Calculate(Players& players, Deck& deck)
         Hands roundHands = PossibleHands::SummarizeRoundHands(players, cards);
 
         // sort first
-        std::sort(roundHands.begin(), roundHands.end(), std::greater<Hand>());
+        std::sort(roundHands.begin(), roundHands.end(),
+        [](const Hand* const lhs, const Hand* const rhs){ return *lhs > *rhs; });
 
         // winners.emplace_back(AnalyzeRounds::Analyze(roundHands));
         for(auto& player : AnalyzeRounds::Analyze(roundHands))
@@ -80,13 +82,13 @@ void CalculateOdds::Calculate(Players& players, Deck& deck)
 
     for (PlayerStatistics::iterator it=playerStatistics.begin(); it!=playerStatistics.end(); ++it)
     {
-        int total = it->second.wins + it->second.ties + it->second.losses;
+        size_t total = it->second.wins + it->second.ties + it->second.losses;
 
         std::cout
         << "Player ID [ " << it->first << " ]"
-        << " WINS [ " << it->second.wins << " ( " << double(it->second.wins / total) << " ) ]"
-        << " TIES [ " << it->second.ties << " ( " << double(it->second.ties / total) << " ) ]"
-        << " LOSSES [ " << it->second.losses << " ( " << double(it->second.losses / total) << " ) ]"
+        << " WINS [ " << it->second.wins << " ( " << std::setprecision(5) << ( 100.0 * it->second.wins / total) << " ) ]"
+        << " TIES [ " << it->second.ties << " ( " << std::setprecision(5) << ( 100.0 * it->second.ties / total) << " ) ]"
+        << " LOSSES [ " << it->second.losses << " ( " << std::setprecision(5) << ( 100.0 * it->second.losses / total) << " ) ]"
         << std::endl;
 
     }

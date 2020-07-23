@@ -2,13 +2,13 @@
 
 #include <vector>
 
-typedef std::vector<BaseHand> Hands;
+typedef std::vector<BaseHand*> Hands;
 
-inline std::ostream& operator<<(std::ostream & os, Hands& hands)
+inline std::ostream& operator<<(std::ostream & os, const Hands& hands)
 {
     for(auto& hand : hands)
     {
-        os << hand;
+        os << *hand;
         os << "\n";
     }
     return os;

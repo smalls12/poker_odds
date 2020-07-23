@@ -5,9 +5,9 @@
 
 #include <sstream>
 
-std::vector<Hand> PossibleHands::SummarizeAllPossibleHands(int id, Cards& cards, std::vector<Cards>& dealerPermutations)
+Hands PossibleHands::SummarizeAllPossibleHands(int id, Cards& cards, std::vector<Cards>& dealerPermutations)
 {
-    std::vector<Hand> possibleHands;
+    Hands possibleHands;
     possibleHands.reserve(dealerPermutations.size());
     for(auto hand : dealerPermutations)
     {
@@ -31,7 +31,7 @@ std::vector<Hand> PossibleHands::SummarizeAllPossibleHands(int id, Cards& cards,
 
 Hands PossibleHands::SummarizeRoundHands(const Players& players, const Cards& cards) noexcept
 {
-    std::vector<Hand> roundHands;
+    Hands roundHands;
     roundHands.reserve(players.size());
     for(const auto& player : players)
     {

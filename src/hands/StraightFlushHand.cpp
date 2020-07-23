@@ -6,8 +6,18 @@ StraightFlushHand::StraightFlushHand(int id, const Cards& hand, const Cards& val
 
 }
 
-bool StraightFlushHand::operator<(const StraightFlushHand& rhs) const noexcept
+bool StraightFlushHand::operator<(const BaseHand& rhs) const noexcept
 {
+    if( rank < rhs.rank )
+    {
+        return true;
+    }
+
+    if( rank > rhs.rank )
+    {
+        return false;
+    }
+
     if( *validated[0] < *rhs.validated[0] )
     {
         return true;
@@ -32,8 +42,18 @@ bool StraightFlushHand::operator<(const StraightFlushHand& rhs) const noexcept
     return false;
 }
 
-bool StraightFlushHand::operator>(const StraightFlushHand& rhs) const noexcept
+bool StraightFlushHand::operator>(const BaseHand& rhs) const noexcept
 {
+    if( rank > rhs.rank )
+    {
+        return true;
+    }
+
+    if( rank < rhs.rank )
+    {
+        return false;
+    }
+
     if( *validated[0] > *rhs.validated[0] )
     {
         return true;
@@ -56,14 +76,4 @@ bool StraightFlushHand::operator>(const StraightFlushHand& rhs) const noexcept
     }
 
     return false;
-}
-
-bool StraightFlushHand::operator<(const BaseHand& rhs) const noexcept
-{
-    return BaseHand::operator<(rhs);
-}
-
-bool StraightFlushHand::operator>(const BaseHand& rhs) const noexcept
-{
-    return BaseHand::operator>(rhs);
 }

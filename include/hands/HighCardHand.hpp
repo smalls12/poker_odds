@@ -8,9 +8,6 @@ class HighCardHand : public BaseHand
         HighCardHand(int id, const Cards& hand, const Cards& validated);
         ~HighCardHand() = default;
 
-        bool operator<(const HighCardHand& rhs) const noexcept;
-        bool operator>(const HighCardHand& rhs) const noexcept;
-
-        bool operator<(const BaseHand& rhs) const noexcept;
-        bool operator>(const BaseHand& rhs) const noexcept;
+        bool operator<(const BaseHand& rhs) const noexcept override;
+        bool operator>(const BaseHand& rhs) const noexcept override;
 };
