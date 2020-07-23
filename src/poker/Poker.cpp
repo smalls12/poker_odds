@@ -18,12 +18,7 @@ void Poker::Initialize(unsigned int numberOfPlayers)
     m_pokerImpl->Initialize(numberOfPlayers);
 }
 
-void Poker::DealCard()
+void Poker::NextState()
 {
-    m_pokerImpl->DealCard();
-}
-
-void Poker::CalculateOdds()
-{
-    m_pokerImpl->CalculateOdds();
+    m_pokerImpl->NextState();
 }

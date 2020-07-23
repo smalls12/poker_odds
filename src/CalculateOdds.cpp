@@ -4,14 +4,36 @@
 #include "Hand.hpp"
 
 #include "PossibleHands.hpp"
-#include "TransposeHands.hpp"
 #include "AnalyzeRounds.hpp"
 
 #include <iostream>
 #include <sstream>
 
+struct Statistics
+{
+    int wins;
+    int ties;
+    int losses;
+    HandRank highHandRank;
+};
+
+typedef std::map<int, Statistics> PlayerStatistics;
+
 void CalculateOdds::Calculate(Players& players, Deck& deck)
 {
+    PlayerStatistics playerStatistics;
+
+    for(auto& player : players)
+    {
+        playerStatistics.insert(std::pair<int, Statistics>(player->m_id, {}));
+    }
+
+    std::map<PlayerRoundOutcome, std::function<void(const PlayerRound& playerRound, PlayerStatistics& playerStatistics)>> router{
+        { PlayerRoundOutcome::WIN, [](const PlayerRound& playerRound, PlayerStatistics& playerStatistics){ playerStatistics[playerRound.id].wins++; } },
+        { PlayerRoundOutcome::TIE, [](const PlayerRound& playerRound, PlayerStatistics& playerStatistics){ playerStatistics[playerRound.id].ties++; } },
+        { PlayerRoundOutcome::LOSE, [](const PlayerRound& playerRound, PlayerStatistics& playerStatistics){ playerStatistics[playerRound.id].losses++; } },
+    };
+
     Rounds winners;
     winners.reserve(1712304);
 
@@ -36,7 +58,11 @@ void CalculateOdds::Calculate(Players& players, Deck& deck)
         // sort first
         std::sort(roundHands.begin(), roundHands.end(), std::greater<Hand>());
 
-        winners.emplace_back(AnalyzeRounds::Analyze(roundHands));
+        // winners.emplace_back(AnalyzeRounds::Analyze(roundHands));
+        for(auto& player : AnalyzeRounds::Analyze(roundHands))
+        {
+            router[player.playerRoundOutcome](player, playerStatistics);
+        }
     }
 	while (std::prev_permutation(bitmask.begin(), bitmask.end()));
 
@@ -50,5 +76,18 @@ void CalculateOdds::Calculate(Players& players, Deck& deck)
     //         ss << winners[i];
     //         std::cout << "Round [ " << ss.str() << " ]" << std::endl;
     //     }
-    // }  
+    // }
+
+    for (PlayerStatistics::iterator it=playerStatistics.begin(); it!=playerStatistics.end(); ++it)
+    {
+        int total = it->second.wins + it->second.ties + it->second.losses;
+
+        std::cout
+        << "Player ID [ " << it->first << " ]"
+        << " WINS [ " << it->second.wins << " ( " << double(it->second.wins / total) << " ) ]"
+        << " TIES [ " << it->second.ties << " ( " << double(it->second.ties / total) << " ) ]"
+        << " LOSSES [ " << it->second.losses << " ( " << double(it->second.losses / total) << " ) ]"
+        << std::endl;
+
+    }
 }

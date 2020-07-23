@@ -32,27 +32,12 @@ bool BaseHand::operator!=(const BaseHand& rhs) const noexcept
 
 bool BaseHand::operator<(const BaseHand& rhs) const noexcept
 {
-    // compare validated ranks first
-    if( rank < rhs.rank )
-    {
-        // rhs has greater rank
-        return true;
-    }
-
-    return false;
-    
+    return rank < rhs.rank;  
 }
 
 bool BaseHand::operator>(const BaseHand& rhs) const noexcept
 {
-    // compare validated ranks first
-    if( rank > rhs.rank )
-    {
-        // rhs has lesser rank
-        return true;
-    }
-
-    return false;
+    return rank > rhs.rank;
 }
 
 std::ostream& operator<<(std::ostream & os, BaseHand& hand)

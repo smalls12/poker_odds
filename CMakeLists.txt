@@ -41,7 +41,6 @@ set ( lib_src_files
       src/poker/PokerImpl.cpp
       src/AnalyzeRounds.cpp
       src/CalculateOdds.cpp
-      src/TransposeHands.cpp
       src/ValidateHand.cpp
       src/PossibleHands.cpp
       src/Dealer.cpp
@@ -58,6 +57,7 @@ target_include_directories( ${PROJECT_NAME} PRIVATE include/hands )
 target_include_directories( ${PROJECT_NAME} PRIVATE include/cards )
 target_include_directories( ${PROJECT_NAME} PRIVATE include/poker )
 target_include_directories( ${PROJECT_NAME} PRIVATE include/logging )
+target_include_directories( ${PROJECT_NAME} PRIVATE include/state )
 
 # target_link_libraries( ${PROJECT_NAME} ${Boost_LIBRARIES} )
 target_link_libraries( ${PROJECT_NAME} tcmalloc )
@@ -79,6 +79,7 @@ target_include_directories( poker PRIVATE include/hands )
 target_include_directories( poker PRIVATE include/cards )
 target_include_directories( poker PRIVATE include/poker )
 target_include_directories( poker PRIVATE include/logging )
+target_include_directories( poker PRIVATE include/state )
 
 target_link_libraries( poker ${PROJECT_NAME} )
 target_link_libraries( poker tcmalloc )
@@ -109,7 +110,6 @@ set ( src_files_test
       src/hands/RoyalFlushHand.cpp
       src/hands/BaseHand.cpp
       src/cards/BaseCard.cpp
-      src/TransposeHands.cpp
       src/ValidateHand.cpp
       src/DeckBuilder.cpp
       src/PossibleHands.cpp
@@ -119,7 +119,6 @@ set ( src_files_test
       test/TestSuiteHandRank.cpp
       test/TestSuiteSuit.cpp
       test/TestSuiteRank.cpp
-      test/TestSuiteTranspose.cpp
       test/TestSuiteCard.cpp
       test/TestSuiteHand.cpp
       test/TestSuitePermutations.cpp

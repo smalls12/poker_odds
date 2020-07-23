@@ -11,8 +11,7 @@ class Poker
         ~Poker();
 
         void Initialize(unsigned int numberOfPlayers);
-        void DealCard();
-        void CalculateOdds();
+        void NextState();
     
     private:
         std::unique_ptr<PokerImpl>    m_pokerImpl;

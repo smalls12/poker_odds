@@ -27,12 +27,7 @@ int main(int argc, const char **argv)
 
     Poker poker;
     poker.Initialize(4);
-    poker.DealCard();
-    poker.DealCard();
-
-    // spdlog::get("console")->info("poker_odds::start");
-    poker.CalculateOdds();
-    // spdlog::get("console")->info("poker_odds::done");
+    poker.NextState();
 
     return 0;
 }

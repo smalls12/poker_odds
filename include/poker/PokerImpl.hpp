@@ -2,6 +2,7 @@
 
 #include "Deck.hpp"
 #include "Players.hpp"
+#include "GamePlayState.hpp"
 
 class PokerImpl
 {
@@ -10,11 +11,15 @@ class PokerImpl
         ~PokerImpl();
 
         void Initialize(unsigned int numberOfPlayers);
+        void NextState();
+
+    private:
         void DealCard();
         void CalculateOdds();
-    
-    private:
-        Deck    m_deck;
-        Players m_players;
+
+        Deck                m_deck;
+        Players             m_players;
+
+        GamePlayState       m_gamePlayState;
         
 };
