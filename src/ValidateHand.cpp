@@ -1,15 +1,37 @@
 #include "ValidateHand.hpp"
 
 #include "FindHighCard.hpp"
-#include "FindPairs.hpp"
+#include "FindAllPairs.hpp"
 #include "FindStraightsAndFlushes.hpp"
 
-ValidatedHand ValidateHand::DetermineHandRank(const Cards& cards) noexcept
+HandRank ValidateHand::DetermineHandRank(const Cards& cards) noexcept
+{
+    std::optional<HandRank> straightsAndFlushes = FindStraightsAndFlushes::FindRank(cards);
+    std::optional<HandRank> pairs = FindAllPairs::FindRank(cards);
+
+    if( straightsAndFlushes )
+    {
+        if( pairs )
+        {
+            return (((*straightsAndFlushes) > (*pairs)) ? *straightsAndFlushes : *pairs);
+        }
+
+        return *straightsAndFlushes;
+    }
+    else if( pairs )
+    {
+        return *pairs;
+    }
+    
+    return HandRank::HIGH_CARD;
+}
+
+ValidatedHand ValidateHand::DetermineHandRankWithValidatedCards(const Cards& cards) noexcept
 {
     // spdlog::get("console")->debug("ValidateHand::DetermineHandRank - start");
 
     // searching for different card combinations
-    std::optional<ValidatedHand> straightsAndFlushes = FindStraightsAndFlushes::Find(cards);
+    std::optional<ValidatedHand> straightsAndFlushes = FindStraightsAndFlushes::FindRankWithValidatedCards(cards);
 
     // royal flush (1)
 
@@ -24,7 +46,7 @@ ValidatedHand ValidateHand::DetermineHandRank(const Cards& cards) noexcept
     // straight (6)
 
     // three of a kind (7)
-    std::optional<ValidatedHand> pairs = FindPairs::Find(cards);
+    std::optional<ValidatedHand> pairs = FindAllPairs::FindRankWithValidatedCards(cards);
 
     // two pair (8)
 
@@ -47,7 +69,7 @@ ValidatedHand ValidateHand::DetermineHandRank(const Cards& cards) noexcept
     }
     
 
-    std::optional<ValidatedHand> highCard = *FindHighCard::Find(cards);
+    std::optional<ValidatedHand> highCard = *FindHighCard::FindRankWithValidatedCards(cards);
 
     // spdlog::get("console")->debug("ValidateHand::DetermineHandRank - done");
 

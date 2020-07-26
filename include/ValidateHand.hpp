@@ -10,5 +10,6 @@
 class ValidateHand
 {
     public:
-        static ValidatedHand DetermineHandRank(const Cards& cards) noexcept;
+        static HandRank DetermineHandRank(const Cards& cards) noexcept;
+        static ValidatedHand DetermineHandRankWithValidatedCards(const Cards& cards) noexcept;
 };

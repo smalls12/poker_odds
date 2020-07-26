@@ -1,7 +1,7 @@
 #include "RoyalFlushHand.hpp"
 
-RoyalFlushHand::RoyalFlushHand(int id, const Cards& hand, const Cards& validated)
-:   BaseHand(id, hand, HandRank::ROYAL_FLUSH, validated)
+RoyalFlushHand::RoyalFlushHand(int id, const Cards& hand)
+:   BaseHand(id, std::move(hand), HandRank::ROYAL_FLUSH)
 {
 
 }

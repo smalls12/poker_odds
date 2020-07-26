@@ -1,7 +1,7 @@
 #include "StraightHand.hpp"
 
-StraightHand::StraightHand(int id, const Cards& hand, const Cards& validated)
-:   BaseHand(id, hand, HandRank::STRAIGHT, validated)
+StraightHand::StraightHand(int id, const Cards& hand)
+:   BaseHand(id, std::move(hand), HandRank::STRAIGHT)
 {
 
 }
@@ -18,14 +18,14 @@ bool StraightHand::operator<(const BaseHand& rhs) const noexcept
         return false;
     }
 
-    if( *validated[0] < *rhs.validated[0] )
-    {
-        return true;
-    }
-    else if( *validated[0] > *rhs.validated[0] )
-    {
-        return false;
-    }
+    // if( *validated[0] < *rhs.validated[0] )
+    // {
+    //     return true;
+    // }
+    // else if( *validated[0] > *rhs.validated[0] )
+    // {
+    //     return false;
+    // }
 
     for(size_t x = 0; x < cards.size(); x++)
     {
@@ -54,14 +54,14 @@ bool StraightHand::operator>(const BaseHand& rhs) const noexcept
         return false;
     }
 
-    if( *validated[0] > *rhs.validated[0] )
-    {
-        return true;
-    }
-    else if( *validated[0] < *rhs.validated[0] )
-    {
-        return false;
-    }
+    // if( *validated[0] > *rhs.validated[0] )
+    // {
+    //     return true;
+    // }
+    // else if( *validated[0] < *rhs.validated[0] )
+    // {
+    //     return false;
+    // }
 
     for(size_t x = 0; x < cards.size(); x++)
     {

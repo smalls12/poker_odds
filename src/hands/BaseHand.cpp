@@ -4,11 +4,10 @@
 
 #include <algorithm>
 
-BaseHand::BaseHand(int id, const Cards& cards, HandRank rank, const Cards& validated)
+BaseHand::BaseHand(int id, const Cards&& cards, HandRank rank)
 :   id(id),
-    cards(cards),
-    rank(rank),
-    validated(validated)  
+    cards(std::move(cards)),
+    rank(rank)
 {
 
 }
@@ -57,10 +56,10 @@ std::ostream& operator<<(std::ostream & os, const BaseHand& hand)
 
     os << "\n";
 
-    for(auto& card : hand.validated)
-    {
-        os << *card;
-    }
+    // for(auto& card : hand.validated)
+    // {
+    //     os << *card;
+    // }
 
     return os;
 }

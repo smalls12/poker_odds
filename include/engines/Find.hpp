@@ -8,5 +8,18 @@
 struct ValidatedHand
 {
     HandRank rank;
-    Cards cards;
+    Card* primary;
+    Card* secondary;
 };
+
+inline std::ostream& operator<<(std::ostream & os, ValidatedHand& validatedHand)
+{
+    os << "Rank [ " << validatedHand.rank << " ]";
+    os << "Primary [ " << validatedHand.primary << " ]";
+    os << "Secondary [ " << validatedHand.secondary << " ]";
+    // for(auto& card : validatedHand.cards)
+    // {
+    //     os << *card;
+    // }
+    return os;
+}

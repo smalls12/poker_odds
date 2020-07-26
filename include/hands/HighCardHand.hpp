@@ -5,7 +5,7 @@
 class HighCardHand : public BaseHand
 {
     public:
-        HighCardHand(int id, const Cards& hand, const Cards& validated);
+        HighCardHand(int id, const Cards& hand);
         ~HighCardHand() = default;
 
         bool operator<(const BaseHand& rhs) const noexcept override;

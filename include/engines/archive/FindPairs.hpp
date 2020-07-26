@@ -10,5 +10,5 @@ class FindPairs
 {
     public:
         static std::optional<ValidatedHand> Find(const Cards& cards) noexcept;
-
+        static std::optional<ValidatedHand> Find(const Cards& cards, const Cards::const_iterator& start) noexcept;
 };

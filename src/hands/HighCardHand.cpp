@@ -1,14 +1,14 @@
 #include "HighCardHand.hpp"
 
-HighCardHand::HighCardHand(int id, const Cards& hand, const Cards& validated)
-:   BaseHand(id, hand, HandRank::HIGH_CARD, validated)
+HighCardHand::HighCardHand(int id, const Cards& hand)
+:   BaseHand(id, std::move(hand), HandRank::HIGH_CARD)
 {
 
 }
 
 bool HighCardHand::operator<(const BaseHand& rhs) const noexcept
 {
-     if( rank < rhs.rank )
+    if( rank < rhs.rank )
     {
         return true;
     }
@@ -16,11 +16,6 @@ bool HighCardHand::operator<(const BaseHand& rhs) const noexcept
     if( rank > rhs.rank )
     {
         return false;
-    }
-
-    if( *validated[0] < *rhs.validated[0] )
-    {
-        return true;
     }
 
     for(size_t x = 0; x < cards.size(); x++)
@@ -48,11 +43,6 @@ bool HighCardHand::operator>(const BaseHand& rhs) const noexcept
     if( rank < rhs.rank )
     {
         return false;
-    }
-
-    if( *validated[0] > *rhs.validated[0] )
-    {
-        return true;
     }
 
     for(size_t x = 0; x < cards.size(); x++)

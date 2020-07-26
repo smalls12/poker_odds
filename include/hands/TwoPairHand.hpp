@@ -5,7 +5,7 @@
 class TwoPairHand : public BaseHand
 {
     public:
-        TwoPairHand(int id, const Cards& hand, const Cards& validated);
+        TwoPairHand(int id, const Cards& hand);
         ~TwoPairHand() = default;
 
         bool operator<(const BaseHand& rhs) const noexcept override;

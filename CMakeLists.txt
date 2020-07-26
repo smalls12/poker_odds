@@ -20,7 +20,7 @@ endif()
 
 set ( lib_src_files
       src/engines/FindHighCard.cpp
-      src/engines/FindPairs.cpp
+      src/engines/FindAllPairs.cpp
       src/engines/FindStraightsAndFlushes.cpp
       src/hands/HandFactory.cpp
       src/hands/HighCardHand.cpp
@@ -93,7 +93,7 @@ option(ENABLE_UNIT_TESTS "Enable unit tests" ON)
 
 set ( src_files_test
       src/engines/FindHighCard.cpp
-      src/engines/FindPairs.cpp
+      src/engines/FindAllPairs.cpp
       src/engines/FindStraightsAndFlushes.cpp
       src/hands/HandFactory.cpp
       src/hands/HighCardHand.cpp
@@ -115,6 +115,7 @@ set ( src_files_test
       src/PossibleHands.cpp
       test/TestSuiteFindHighCard.cpp
       test/TestSuiteFindPairs.cpp
+      test/TestSuiteFindAllPairs.cpp
       test/TestSuiteFindStraightsAndFlushes.cpp
       test/TestSuiteHandRank.cpp
       test/TestSuiteSuit.cpp

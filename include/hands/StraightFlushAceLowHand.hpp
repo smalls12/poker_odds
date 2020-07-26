@@ -5,7 +5,7 @@
 class StraightFlushAceLowHand : public BaseHand
 {
     public:
-        StraightFlushAceLowHand(int id, const Cards& hand, const Cards& validated);
+        StraightFlushAceLowHand(int id, const Cards& hand);
         ~StraightFlushAceLowHand() = default;
 
         bool operator<(const BaseHand& rhs) const noexcept override;

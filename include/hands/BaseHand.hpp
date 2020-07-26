@@ -9,7 +9,7 @@
 class BaseHand
 {
     public:
-        BaseHand(int id, const Cards& cards, HandRank rank, const Cards& validated);
+        BaseHand(int id, const Cards&& cards, HandRank rank);
         ~BaseHand() = default;
         
         friend class ValidateHand;
@@ -22,9 +22,6 @@ class BaseHand
 
         friend std::ostream& operator<<(std::ostream & os, const BaseHand& hand);
 
-        // void addCard(Card card);
-        // Cards getCards();
-
         HandRank getHandRank();
 
         int id;
@@ -32,7 +29,6 @@ class BaseHand
         Cards cards;
 
         HandRank rank;
-        Cards validated;
     
     private:
         BaseHand() = delete;

@@ -1,7 +1,7 @@
 #include "StraightAceLowHand.hpp"
 
-StraightAceLowHand::StraightAceLowHand(int id, const Cards& hand, const Cards& validated)
-:   BaseHand(id, hand, HandRank::STRAIGHT_ACE_LOW, validated)
+StraightAceLowHand::StraightAceLowHand(int id, const Cards& hand)
+:   BaseHand(id, std::move(hand), HandRank::STRAIGHT_ACE_LOW)
 {
 
 }

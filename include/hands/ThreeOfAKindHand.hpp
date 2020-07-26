@@ -5,7 +5,7 @@
 class ThreeOfAKindHand : public BaseHand
 {
     public:
-        ThreeOfAKindHand(int id, const Cards& hand, const Cards& validated);
+        ThreeOfAKindHand(int id, const Cards& hand);
         ~ThreeOfAKindHand() = default;
 
         bool operator<(const BaseHand& rhs) const noexcept override;

@@ -100,73 +100,53 @@ protected:
 //     }
 // }
 
-// TEST_F(TestSuiteWinningHands, TwoPairMatch)
-// {
-//     TwoPairHand hand1 = new TwoPairHand( 0,
-//         {
-//             new Card{ Rank::ACE, Suit::DIAMOND },
-//             new Card{ Rank::TEN, Suit::SPADE },
-//             new Card{ Rank::TEN, Suit::DIAMOND },
-//             new Card{ Rank::EIGHT, Suit::DIAMOND },
-//             new Card{ Rank::EIGHT, Suit::SPADE },
-//             new Card{ Rank::FOUR, Suit::DIAMOND },
-//             new Card{ Rank::TWO, Suit::CLUB }
-//         },
-//         {
-//             new Card{ Rank::TEN, Suit::SPADE },
-//             new Card{ Rank::TEN, Suit::DIAMOND },
-//             new Card{ Rank::EIGHT, Suit::DIAMOND },
-//             new Card{ Rank::EIGHT, Suit::SPADE }
-//         });
+TEST_F(TestSuiteWinningHands, TwoPairMatch)
+{
+    Cards cards1{
+        new Card{ Rank::ACE, Suit::DIAMOND },
+        new Card{ Rank::TEN, Suit::SPADE },
+        new Card{ Rank::TEN, Suit::DIAMOND },
+        new Card{ Rank::EIGHT, Suit::DIAMOND },
+        new Card{ Rank::EIGHT, Suit::SPADE },
+        new Card{ Rank::FOUR, Suit::DIAMOND },
+        new Card{ Rank::TWO, Suit::CLUB }
+    };
+
+    TwoPairHand* hand1 = new TwoPairHand( 0, cards1 );
     
-//     TwoPairHand hand2 = new TwoPairHand( 1,
-//         {
-//             new Card{ Rank::KING, Suit::CLUB },
-//             new Card{ Rank::JACK, Suit::HEART },
-//             new Card{ Rank::JACK, Suit::CLUB },
-//             new Card{ Rank::EIGHT, Suit::CLUB },
-//             new Card{ Rank::EIGHT, Suit::HEART },
-//             new Card{ Rank::THREE, Suit::CLUB },
-//             new Card{ Rank::TWO, Suit::SPADE }
-//         },
-//         {
-//             new Card{ Rank::JACK, Suit::HEART },
-//             new Card{ Rank::JACK, Suit::CLUB },
-//             new Card{ Rank::EIGHT, Suit::CLUB },
-//             new Card{ Rank::EIGHT, Suit::HEART }
-//         });
+    Cards cards2{
+        new Card{ Rank::KING, Suit::CLUB },
+        new Card{ Rank::JACK, Suit::HEART },
+        new Card{ Rank::JACK, Suit::CLUB },
+        new Card{ Rank::EIGHT, Suit::CLUB },
+        new Card{ Rank::EIGHT, Suit::HEART },
+        new Card{ Rank::THREE, Suit::CLUB },
+        new Card{ Rank::TWO, Suit::SPADE }
+    };
+
+    TwoPairHand* hand2 = new TwoPairHand( 1, cards2 );
     
-//     HighCardHand hand3 = new HighCardHand( 2,
-//         {
-//             new Card{ Rank::QUEEN, Suit::DIAMOND },
-//             new Card{ Rank::JACK, Suit::SPADE },
-//             new Card{ Rank::NINE, Suit::DIAMOND },
-//             new Card{ Rank::SEVEN, Suit::HEART },
-//             new Card{ Rank::FIVE, Suit::SPADE },
-//             new Card{ Rank::THREE, Suit::DIAMOND },
-//             new Card{ Rank::TWO, Suit::HEART }
-//         },
-//         {
-//             new Card{ Rank::ACE, Suit::DIAMOND }
-//         });
+    Cards cards3{
+        new Card{ Rank::QUEEN, Suit::DIAMOND },
+        new Card{ Rank::JACK, Suit::SPADE },
+        new Card{ Rank::NINE, Suit::DIAMOND },
+        new Card{ Rank::SEVEN, Suit::HEART },
+        new Card{ Rank::FIVE, Suit::SPADE },
+        new Card{ Rank::THREE, Suit::DIAMOND },
+        new Card{ Rank::TWO, Suit::HEART }
+    };
 
-// 	Hands hands{ hand3, hand1, hand2 };
+    HighCardHand* hand3 = new HighCardHand( 2, cards3 );
 
-//     EXPECT_TRUE(hand2 > hand1);
-//     EXPECT_TRUE(hand1 > hand3);
+	Hands hands{ hand3, hand1, hand2 };
 
-//     std::sort(hands.begin(), hands.end(), std::greater<Hand>());
-//     Hands::iterator it1 = std::adjacent_find(hands.begin(), hands.end());
-//     if( it1 != hands.begin() )
-//     {
-//         // this means that there was only one winner
-        
-//     }
-//     else
-//     {
-//         std::cout << "multiple winners" << std::endl;
-//     }
-// }
+    EXPECT_TRUE(*hand2 > *hand1);
+    EXPECT_TRUE(*hand1 > *hand3);
+
+    // sort first
+    std::sort(hands.begin(), hands.end(),
+    [](const Hand* const lhs, const Hand* const rhs){ return *lhs > *rhs; });
+}
 
 // TEST_F(TestSuiteWinningHands, FlushMatch)
 // {
@@ -368,55 +348,41 @@ protected:
 
 TEST_F(TestSuiteWinningHands, FullHouseMatch)
 {
-    FullHouseHand* hand1 = new FullHouseHand( 0,
-        {
-            new Card{ Rank::EIGHT, Suit::HEART },
-            new Card{ Rank::EIGHT, Suit::DIAMOND },
-            new Card{ Rank::SEVEN, Suit::DIAMOND },
-            new Card{ Rank::SIX, Suit::DIAMOND },
-            new Card{ Rank::SIX, Suit::DIAMOND },
-            new Card{ Rank::SIX, Suit::DIAMOND },
-            new Card{ Rank::TWO, Suit::CLUB }
-        },
-        {
-            new Card{ Rank::SIX, Suit::DIAMOND },
-            new Card{ Rank::SIX, Suit::DIAMOND },
-            new Card{ Rank::SIX, Suit::DIAMOND },
-            new Card{ Rank::EIGHT, Suit::HEART },
-            new Card{ Rank::EIGHT, Suit::DIAMOND }
-        });
+    Cards cards1{
+        new Card{ Rank::EIGHT, Suit::HEART },
+        new Card{ Rank::EIGHT, Suit::DIAMOND },
+        new Card{ Rank::SEVEN, Suit::DIAMOND },
+        new Card{ Rank::SIX, Suit::DIAMOND },
+        new Card{ Rank::SIX, Suit::DIAMOND },
+        new Card{ Rank::SIX, Suit::DIAMOND },
+        new Card{ Rank::TWO, Suit::CLUB }
+    };
+
+    FullHouseHand* hand1 = new FullHouseHand( 0, cards1 );
+
+    Cards cards2{
+        new Card{ Rank::TEN, Suit::CLUB },
+        new Card{ Rank::EIGHT, Suit::CLUB },
+        new Card{ Rank::EIGHT, Suit::CLUB },
+        new Card{ Rank::EIGHT, Suit::CLUB },
+        new Card{ Rank::SIX, Suit::CLUB },
+        new Card{ Rank::SIX, Suit::CLUB },
+        new Card{ Rank::TWO, Suit::SPADE }
+    };
+
+    FullHouseHand* hand2 = new FullHouseHand( 1, cards2 );
     
-    FullHouseHand* hand2 = new FullHouseHand( 1,
-        {
-            new Card{ Rank::TEN, Suit::CLUB },
-            new Card{ Rank::EIGHT, Suit::CLUB },
-            new Card{ Rank::EIGHT, Suit::CLUB },
-            new Card{ Rank::EIGHT, Suit::CLUB },
-            new Card{ Rank::SIX, Suit::CLUB },
-            new Card{ Rank::SIX, Suit::CLUB },
-            new Card{ Rank::TWO, Suit::SPADE }
-        },
-        {
-            new Card{ Rank::EIGHT, Suit::CLUB },
-            new Card{ Rank::EIGHT, Suit::CLUB },
-            new Card{ Rank::EIGHT, Suit::CLUB },
-            new Card{ Rank::SIX, Suit::CLUB },
-            new Card{ Rank::SIX, Suit::CLUB }
-        });
-    
-    OnePairHand* hand3 = new OnePairHand( 2,
-        {
-            new Card{ Rank::QUEEN, Suit::DIAMOND },
-            new Card{ Rank::JACK, Suit::SPADE },
-            new Card{ Rank::NINE, Suit::DIAMOND },
-            new Card{ Rank::SEVEN, Suit::HEART },
-            new Card{ Rank::FIVE, Suit::SPADE },
-            new Card{ Rank::THREE, Suit::DIAMOND },
-            new Card{ Rank::TWO, Suit::HEART }
-        },
-        {
-            new Card{ Rank::ACE, Suit::DIAMOND }
-        });
+    Cards cards3{
+        new Card{ Rank::QUEEN, Suit::DIAMOND },
+        new Card{ Rank::JACK, Suit::SPADE },
+        new Card{ Rank::NINE, Suit::DIAMOND },
+        new Card{ Rank::SEVEN, Suit::HEART },
+        new Card{ Rank::FIVE, Suit::SPADE },
+        new Card{ Rank::THREE, Suit::DIAMOND },
+        new Card{ Rank::TWO, Suit::HEART }
+    };
+
+    OnePairHand* hand3 = new OnePairHand( 2, cards3 );
 
 	Hands hands{ hand3, hand1, hand2 };
 

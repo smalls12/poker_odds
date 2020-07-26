@@ -1,7 +1,7 @@
 #include "FullHouseHand.hpp"
 
-FullHouseHand::FullHouseHand(int id, const Cards& hand, const Cards& validated)
-:   BaseHand(id, hand, HandRank::FULL_HOUSE, validated)
+FullHouseHand::FullHouseHand(int id, const Cards& hand)
+:   BaseHand(id, std::move(hand), HandRank::FULL_HOUSE)
 {
 
 }
@@ -19,24 +19,24 @@ bool FullHouseHand::operator<(const BaseHand& rhs) const noexcept
     }
 
     // check the 3 of a kind
-    if( *validated[0] < *rhs.validated[0] )
-    {
-        return true;
-    }
-    else if( *validated[0] > *rhs.validated[0] )
-    {
-        return false;
-    }
+    // if( *validated[0] < *rhs.validated[0] )
+    // {
+    //     return true;
+    // }
+    // else if( *validated[0] > *rhs.validated[0] )
+    // {
+    //     return false;
+    // }
 
     // check the pair
-    if( *validated[3] < *rhs.validated[3] )
-    {
-        return true;
-    }
-    else if( *validated[3] > *rhs.validated[3] )
-    {
-        return false;
-    }
+    // if( *validated[1] < *rhs.validated[1] )
+    // {
+    //     return true;
+    // }
+    // else if( *validated[1] > *rhs.validated[1] )
+    // {
+    //     return false;
+    // }
 
     // check remaining cards
     for(size_t x = 0; x < cards.size(); x++)
@@ -67,24 +67,24 @@ bool FullHouseHand::operator>(const BaseHand& rhs) const noexcept
     }
 
     // check the 3 of a kind
-    if( *validated[0] > *rhs.validated[0] )
-    {
-        return true;
-    }
-    else if( *validated[0] < *rhs.validated[0] )
-    {
-        return false;
-    }
+    // if( *validated[0] > *rhs.validated[0] )
+    // {
+    //     return true;
+    // }
+    // else if( *validated[0] < *rhs.validated[0] )
+    // {
+    //     return false;
+    // }
 
     // check the pair
-    if( *validated[3] > *rhs.validated[3] )
-    {
-        return true;
-    }
-    else if( *validated[3] < *rhs.validated[3] )
-    {
-        return false;
-    }
+    // if( *validated[1] > *rhs.validated[1] )
+    // {
+    //     return true;
+    // }
+    // else if( *validated[1] < *rhs.validated[1] )
+    // {
+    //     return false;
+    // }
 
     // check remaining cards
     for(size_t x = 0; x < cards.size(); x++)

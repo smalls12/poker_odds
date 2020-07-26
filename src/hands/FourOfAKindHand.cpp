@@ -1,7 +1,7 @@
 #include "FourOfAKindHand.hpp"
 
-FourOfAKindHand::FourOfAKindHand(int id, const Cards& hand, const Cards& validated)
-:   BaseHand(id, hand, HandRank::FOUR_OF_A_KIND, validated)
+FourOfAKindHand::FourOfAKindHand(int id, const Cards& hand)
+:   BaseHand(id, std::move(hand), HandRank::FOUR_OF_A_KIND)
 {
 
 }
@@ -18,10 +18,10 @@ bool FourOfAKindHand::operator<(const BaseHand& rhs) const noexcept
         return false;
     }
 
-    if( *validated[0] < *rhs.validated[0] )
-    {
-        return true;
-    }
+    // if( *validated[0] < *rhs.validated[0] )
+    // {
+    //     return true;
+    // }
     
     for(size_t x = 0; x < cards.size(); x++)
     {
@@ -50,10 +50,10 @@ bool FourOfAKindHand::operator>(const BaseHand& rhs) const noexcept
         return false;
     }
 
-    if( *validated[0] > *rhs.validated[0] )
-    {
-        return true;
-    }
+    // if( *validated[0] > *rhs.validated[0] )
+    // {
+    //     return true;
+    // }
     
     for(size_t x = 0; x < cards.size(); x++)
     {

@@ -3,20 +3,20 @@
 
 #include "gtest/gtest.h"
 
-// #include "FindPairs.hpp"
+#include "FindAllPairs.hpp"
 
 #include <chrono>
 
-class TestSuiteFindPairs : public ::testing::Test {
+class TestSuiteFindAllPairs : public ::testing::Test {
 protected:
 	// You can remove any or all of the following functions if its body
 	// is empty.
 
-	TestSuiteFindPairs() {
+	TestSuiteFindAllPairs() {
 		// You can do set-up work for each test here.
 	}
 
-	virtual ~TestSuiteFindPairs() {
+	virtual ~TestSuiteFindAllPairs() {
 		// You can do clean-up work that doesn't throw exceptions here.
 	}
 
@@ -37,43 +37,44 @@ protected:
 
 // Test case must be called the class above
 // Also note: use TEST_F instead of TEST to access the test fixture (from google test primer)
-// TEST_F(TestSuiteFindPairs, FindFourOfAKind)
+TEST_F(TestSuiteFindAllPairs, FindFourOfAKind)
+{
+	Cards cards{{
+		new Card{ Rank::ACE, Suit::DIAMOND },
+		new Card{ Rank::ACE, Suit::CLUB },
+		new Card{ Rank::KING, Suit::HEART },
+		new Card{ Rank::KING, Suit::SPADE },
+		new Card{ Rank::QUEEN, Suit::HEART },
+		new Card{ Rank::QUEEN, Suit::SPADE },
+		new Card{ Rank::QUEEN, Suit::HEART }
+	}};
+
+	auto start = std::chrono::steady_clock::now();
+	std::optional<HandRank> result = FindAllPairs::FindRank(cards);
+	auto end = std::chrono::steady_clock::now();
+	std::cout << std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count() << std::endl;
+	if( result )
+	{
+		std::cout << *result << std::endl;
+	}
+}
+
+// TEST_F(TestSuiteFindAllPairs, FindFullHouse_v1)
 // {
 // 	Cards cards{{
 // 		new Card{ Rank::ACE, Suit::DIAMOND },
 // 		new Card{ Rank::ACE, Suit::CLUB },
 // 		new Card{ Rank::ACE, Suit::HEART },
-// 		new Card{ Rank::ACE, Suit::SPADE },
+// 		new Card{ Rank::KING, Suit::DIAMOND },
 // 		new Card{ Rank::KING, Suit::HEART }
 // 	}};
 
-// 	std::optional<ValidatedHand> result = FindPairs::Find(cards);
-// 	EXPECT_TRUE(result);
-// 	EXPECT_TRUE((*result).rank == HandRank::FOUR_OF_A_KIND);
-// }
-
-// TEST_F(TestSuiteFindPairs, FindFullHouse_v1)
-// {
-// 	Cards cards{{
-// 		new Card{ Rank::ACE, Suit::DIAMOND },
-// 		new Card{ Rank::ACE, Suit::CLUB },
-// 		new Card{ Rank::KING, Suit::HEART },
-// 		new Card{ Rank::KING, Suit::SPADE },
-// 		new Card{ Rank::QUEEN, Suit::HEART },
-// 		new Card{ Rank::QUEEN, Suit::SPADE },
-// 		new Card{ Rank::QUEEN, Suit::HEART }
-// 	}};
-
-// 	auto start = std::chrono::steady_clock::now();
-// 	std::optional<ValidatedHand> result = FindPairs::Find(cards);
-// 	auto end = std::chrono::steady_clock::now();
-// 	std::cout << std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count() << std::endl;
-	
+// 	std::optional<ValidatedHand> result = FindAllPairs::Find(cards);
 // 	EXPECT_TRUE(result);
 // 	EXPECT_TRUE((*result).rank == HandRank::FULL_HOUSE);
 // }
 
-// TEST_F(TestSuiteFindPairs, FindFullHouse_v2)
+// TEST_F(TestSuiteFindAllPairs, FindFullHouse_v2)
 // {
 // 	Cards cards{{
 // 		new Card{ Rank::ACE, Suit::DIAMOND },
@@ -83,7 +84,7 @@ protected:
 // 		new Card{ Rank::KING, Suit::HEART }
 // 	}};
 
-// 	std::optional<ValidatedHand> result = FindPairs::Find(cards);
+// 	std::optional<ValidatedHand> result = FindAllPairs::Find(cards);
 // 	EXPECT_TRUE(result);
 // 	EXPECT_TRUE((*result).rank == HandRank::FULL_HOUSE);
 	
@@ -93,7 +94,7 @@ protected:
 // 	}
 // }
 
-// TEST_F(TestSuiteFindPairs, FindFullHouse_v3)
+// TEST_F(TestSuiteFindAllPairs, FindFullHouse_v3)
 // {
 // 	Cards cards{{
 // 		new Card{ Rank::SEVEN, Suit::DIAMOND },
@@ -105,14 +106,14 @@ protected:
 // 		new Card{ Rank::TWO, Suit::CLUB }
 // 	}};
 
-// 	std::optional<ValidatedHand> result = FindPairs::Find(cards);
+// 	std::optional<ValidatedHand> result = FindAllPairs::Find(cards);
 // 	EXPECT_TRUE(result);
 // 	EXPECT_TRUE((*result).rank == HandRank::FULL_HOUSE);
 	
 // 	std::cout << *result << std::endl;
 // }
 
-// TEST_F(TestSuiteFindPairs, FindThreeOfAKind)
+// TEST_F(TestSuiteFindAllPairs, FindThreeOfAKind)
 // {
 // 	Cards cards{{
 // 		new Card{ Rank::ACE, Suit::DIAMOND },
@@ -122,7 +123,7 @@ protected:
 // 		new Card{ Rank::QUEEN, Suit::DIAMOND }
 // 	}};
 
-// 	std::optional<ValidatedHand> result = FindPairs::Find(cards);
+// 	std::optional<ValidatedHand> result = FindAllPairs::Find(cards);
 // 	EXPECT_TRUE(result);
 // 	EXPECT_TRUE((*result).rank == HandRank::THREE_OF_A_KIND);
 
@@ -138,7 +139,7 @@ protected:
 //                 [](const Card* lhs, const Card* rhs){ return *lhs == *rhs; }));
 // }
 
-// TEST_F(TestSuiteFindPairs, FindTwoPair)
+// TEST_F(TestSuiteFindAllPairs, FindTwoPair)
 // {
 // 	Cards cards{{
 // 		new Card{ Rank::ACE, Suit::DIAMOND },
@@ -148,12 +149,12 @@ protected:
 // 		new Card{ Rank::QUEEN, Suit::DIAMOND }
 // 	}};
 
-// 	std::optional<ValidatedHand> result = FindPairs::Find(cards);
+// 	std::optional<ValidatedHand> result = FindAllPairs::Find(cards);
 // 	EXPECT_TRUE(result);
 // 	EXPECT_TRUE((*result).rank == HandRank::TWO_PAIR);
 // }
 
-// TEST_F(TestSuiteFindPairs, FindOnePair)
+// TEST_F(TestSuiteFindAllPairs, FindOnePair)
 // {
 // 	Cards cards{{
 // 		new Card{ Rank::TWO, Suit::DIAMOND },
@@ -163,7 +164,7 @@ protected:
 // 		new Card{ Rank::QUEEN, Suit::DIAMOND }
 // 	}};
 
-// 	std::optional<ValidatedHand> result = FindPairs::Find(cards);
+// 	std::optional<ValidatedHand> result = FindAllPairs::Find(cards);
 // 	EXPECT_TRUE(result);
 // 	EXPECT_TRUE((*result).rank == HandRank::ONE_PAIR);
 // }

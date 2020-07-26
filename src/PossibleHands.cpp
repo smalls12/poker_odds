@@ -22,8 +22,8 @@ Hands PossibleHands::SummarizeAllPossibleHands(int id, Cards& cards, std::vector
         [](const Card* lhs, const Card* rhs){ return *lhs > *rhs; });
 
         // validate and find the highest hand ranking
-        ValidatedHand result = ValidateHand::DetermineHandRank(hand);
-        possibleHands.emplace_back(HandFactory::Build(id, hand, result));
+        HandRank handRank = ValidateHand::DetermineHandRank(hand);
+        possibleHands.emplace_back(HandFactory::Build(id, hand, handRank));
     }
 
     return possibleHands;
@@ -33,6 +33,7 @@ Hands PossibleHands::SummarizeRoundHands(const Players& players, const Cards& ca
 {
     Hands roundHands;
     roundHands.reserve(players.size());
+    
     for(const auto& player : players)
     {
         // build the hand for the player
@@ -46,9 +47,9 @@ Hands PossibleHands::SummarizeRoundHands(const Players& players, const Cards& ca
         [](const Card* const lhs, const Card* const rhs){ return *lhs > *rhs; });
 
         // validate and find the highest hand ranking
-        ValidatedHand result = ValidateHand::DetermineHandRank(playersPossibleHand);
+        HandRank handRank = ValidateHand::DetermineHandRank(playersPossibleHand);
 
-        roundHands.emplace_back(HandFactory::Build(player->m_id, playersPossibleHand, result));
+        roundHands.emplace_back(HandFactory::Build(player->m_id, playersPossibleHand, handRank));
     }
     
     return roundHands;

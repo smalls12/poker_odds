@@ -1,7 +1,7 @@
 #include "StraightFlushAceLowHand.hpp"
 
-StraightFlushAceLowHand::StraightFlushAceLowHand(int id, const Cards& hand, const Cards& validated)
-:   BaseHand(id, hand, HandRank::STRAIGHT_FLUSH_ACE_LOW, validated)
+StraightFlushAceLowHand::StraightFlushAceLowHand(int id, const Cards& hand)
+:   BaseHand(id, std::move(hand), HandRank::STRAIGHT_FLUSH_ACE_LOW)
 {
 
 }

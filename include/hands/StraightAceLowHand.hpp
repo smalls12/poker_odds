@@ -5,7 +5,7 @@
 class StraightAceLowHand : public BaseHand
 {
     public:
-        StraightAceLowHand(int id, const Cards& hand, const Cards& validated);
+        StraightAceLowHand(int id, const Cards& hand);
         ~StraightAceLowHand() = default;
 
         bool operator<(const BaseHand& rhs) const noexcept override;

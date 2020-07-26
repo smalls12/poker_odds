@@ -1,7 +1,7 @@
 #include "OnePairHand.hpp"
 
-OnePairHand::OnePairHand(int id, const Cards& hand, const Cards& validated)
-:   BaseHand(id, hand, HandRank::ONE_PAIR, validated)
+OnePairHand::OnePairHand(int id, const Cards& hand)
+:   BaseHand(id, std::move(hand), HandRank::ONE_PAIR)
 {
 
 }
@@ -18,10 +18,10 @@ bool OnePairHand::operator<(const BaseHand& rhs) const noexcept
         return false;
     }
 
-    if( *validated[0] < *rhs.validated[0] )
-    {
-        return true;
-    }
+    // if( *validated[0] < *rhs.validated[0] )
+    // {
+    //     return true;
+    // }
     
     for(size_t x = 0; x < cards.size(); x++)
     {
@@ -50,10 +50,10 @@ bool OnePairHand::operator>(const BaseHand& rhs) const noexcept
         return false;
     }
 
-    if( *validated[0] > *rhs.validated[0] )
-    {
-        return true;
-    }
+    // if( *validated[0] > *rhs.validated[0] )
+    // {
+    //     return true;
+    // }
 
     for(size_t x = 0; x < cards.size(); x++)
     {

@@ -1,7 +1,7 @@
 #include "FlushHand.hpp"
 
-FlushHand::FlushHand(int id, const Cards& hand, const Cards& validated)
-:   BaseHand(id, hand, HandRank::FLUSH, validated)
+FlushHand::FlushHand(int id, const Cards& hand)
+:   BaseHand(id, std::move(hand), HandRank::FLUSH)
 {
 
 }
@@ -18,17 +18,17 @@ bool FlushHand::operator<(const BaseHand& rhs) const noexcept
         return false;
     }
 
-    for(size_t x = 0; x < validated.size(); x++)
-    {
-        if( *validated[x] < *rhs.validated[x] )
-        {
-            return true;
-        }
-        else if( *validated[x] > *rhs.validated[x] )
-        {
-            return false;
-        }
-    }
+    // for(size_t x = 0; x < validated.size(); x++)
+    // {
+    //     if( *validated[x] < *rhs.validated[x] )
+    //     {
+    //         return true;
+    //     }
+    //     else if( *validated[x] > *rhs.validated[x] )
+    //     {
+    //         return false;
+    //     }
+    // }
 
     for(size_t x = 0; x < cards.size(); x++)
     {
@@ -57,17 +57,17 @@ bool FlushHand::operator>(const BaseHand& rhs) const noexcept
         return false;
     }
 
-    for(size_t x = 0; x < validated.size(); x++)
-    {
-        if( *validated[x] > *rhs.validated[x] )
-        {
-            return true;
-        }
-        else if( *validated[x] < *rhs.validated[x] )
-        {
-            return false;
-        }
-    }
+    // for(size_t x = 0; x < validated.size(); x++)
+    // {
+    //     if( *validated[x] > *rhs.validated[x] )
+    //     {
+    //         return true;
+    //     }
+    //     else if( *validated[x] < *rhs.validated[x] )
+    //     {
+    //         return false;
+    //     }
+    // }
 
     for(size_t x = 0; x < cards.size(); x++)
     {
