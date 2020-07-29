@@ -4,24 +4,26 @@
 
 #include <algorithm>
 
-BaseHand::BaseHand(int id, const Cards&& cards, HandRank rank)
-:   id(id),
-    cards(std::move(cards)),
-    rank(rank)
+BaseHand::BaseHand(int id, HandRank rank)
+:   mId(id),
+    mRank(rank)
 {
 
 }
 
-HandRank BaseHand::getHandRank()
+BaseHand* BaseHand::Reset(int id, HandRank rank)
 {
-    return rank;
+    mId = id;
+    mRank = rank;
+    return this;
 }
 
 bool BaseHand::operator==(const BaseHand& rhs) const noexcept
 {
-    return std::equal(  std::begin(cards), std::end(cards),
-                        std::begin(rhs.cards), std::end(rhs.cards),
-                        [](const Card* const lhs, const Card* const rhs){ return *lhs == *rhs; });
+    // return std::equal(  std::begin(cards), std::end(cards),
+    //                     std::begin(rhs.cards), std::end(rhs.cards),
+    //                     [](const Card* const lhs, const Card* const rhs){ return *lhs == *rhs; });
+    return mRank == rhs.mRank;
 }
 
 bool BaseHand::operator!=(const BaseHand& rhs) const noexcept
@@ -31,35 +33,27 @@ bool BaseHand::operator!=(const BaseHand& rhs) const noexcept
 
 bool BaseHand::operator<(const BaseHand& rhs) const noexcept
 {
-    return rank < rhs.rank;  
+    return mRank < rhs.mRank;  
 }
 
 bool BaseHand::operator>(const BaseHand& rhs) const noexcept
 {
-    return rank > rhs.rank;
+    return mRank > rhs.mRank;
 }
 
 std::ostream& operator<<(std::ostream & os, const BaseHand& hand)
 {
     os << "[ ";
-    os << hand.id;
+
+    os << "ID [ ";
+    os << hand.mId;
     os << " ]";
 
-    os << "[ ";
-    os << hand.rank;
+    os << " Rank [ ";
+    os << hand.mRank;
     os << " ]";
 
-    for(auto& card : hand.cards)
-    {
-        os << *card;
-    }
-
-    os << "\n";
-
-    // for(auto& card : hand.validated)
-    // {
-    //     os << *card;
-    // }
+    os << " ]";
 
     return os;
 }

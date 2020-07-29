@@ -3,6 +3,8 @@
 #include <map>
 #include <functional>
 
+// would benefit from a memory pool
+
 std::map<HandRank, std::function<Hand*(int id, const Cards& cards)>> router{
     { HandRank::ROYAL_FLUSH, [](int id, const Cards& cards){ return new RoyalFlushHand(id, cards); } },
     { HandRank::STRAIGHT_FLUSH, [](int id, const Cards& cards){ return new StraightFlushHand(id, cards); } },
@@ -17,6 +19,11 @@ std::map<HandRank, std::function<Hand*(int id, const Cards& cards)>> router{
     { HandRank::ONE_PAIR, [](int id, const Cards& cards){ return new OnePairHand(id, cards); } },
     { HandRank::HIGH_CARD, [](int id, const Cards& cards){ return new HighCardHand(id, cards); } },
 };
+
+Hand* HandFactory::Build(int id, HandRank handRank) noexcept
+{
+    return new BaseHand(id, handRank);
+}
 
 Hand* HandFactory::Build(int id, const Cards& cards, HandRank handRank) noexcept
 {

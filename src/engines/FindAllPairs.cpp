@@ -112,6 +112,25 @@ static std::map<HandRank, std::function<HandRank(int)>> router{
     }}
 };
 
+std::array<Card*, 7>::const_iterator FindIterator(const std::array<Card*, 7>& cards, std::array<Card*, 7>::const_iterator& start)
+{
+    std::array<Card*, 7>::const_iterator it = std::adjacent_find(start, cards.end(),
+    [](const Card* const lhs, const Card* const rhs){ return *lhs == *rhs; });
+
+    if (it != cards.end() && it == start)
+    {
+        it = std::adjacent_find(++it, cards.end(),
+        [](const Card* const lhs, const Card* const rhs){ return *lhs != *rhs; });
+
+        if (it != cards.end() )
+        {
+            it++;
+        }
+    }
+
+    return it;
+}
+
 Cards::const_iterator FindIterator(const Cards& cards, Cards::const_iterator& start)
 {
     Cards::const_iterator it = std::adjacent_find(start, cards.end(),
@@ -129,6 +148,69 @@ Cards::const_iterator FindIterator(const Cards& cards, Cards::const_iterator& st
     }
 
     return it;
+}
+
+// template<class T>
+// std::optional<HandRank> FindAllPairs::FindRank(const T& cards) noexcept
+// {
+//     HandRank currentHandRank = HandRank::HIGH_CARD;
+    
+//     T::const_iterator it = cards.begin();
+
+//     while( it != cards.end() )
+//     {
+//         // std::cout << "hi" << std::endl;
+//         int cardsInSequence = std::distance(it, FindIterator(cards, it));
+//         // std::cout << cardsInSequence << std::endl;
+//         if( cardsInSequence > 1 )
+//         {
+//             // std::cout << "what" << std::endl;
+//             currentHandRank = router[currentHandRank](cardsInSequence);
+//             if( currentHandRank == HandRank::FOUR_OF_A_KIND )
+//             {
+//                 break;
+//             }
+//             else if( currentHandRank == HandRank::FULL_HOUSE )
+//             {
+//                 break;
+//             }
+//         }
+
+//         it = std::next(it, cardsInSequence);
+//     }
+
+//     return std::optional<HandRank>{currentHandRank};
+// }
+
+std::optional<HandRank> FindAllPairs::FindRank(const std::array<Card*, 7>& cards) noexcept
+{
+    HandRank currentHandRank = HandRank::HIGH_CARD;
+    
+    std::array<Card*, 7>::const_iterator it = cards.begin();
+
+    while( it != cards.end() )
+    {
+        // std::cout << "hi" << std::endl;
+        int cardsInSequence = std::distance(it, FindIterator(cards, it));
+        // std::cout << cardsInSequence << std::endl;
+        if( cardsInSequence > 1 )
+        {
+            // std::cout << "what" << std::endl;
+            currentHandRank = router[currentHandRank](cardsInSequence);
+            if( currentHandRank == HandRank::FOUR_OF_A_KIND )
+            {
+                break;
+            }
+            else if( currentHandRank == HandRank::FULL_HOUSE )
+            {
+                break;
+            }
+        }
+
+        it = std::next(it, cardsInSequence);
+    }
+
+    return std::optional<HandRank>{currentHandRank};
 }
 
 std::optional<HandRank> FindAllPairs::FindRank(const Cards& cards) noexcept

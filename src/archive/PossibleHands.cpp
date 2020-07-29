@@ -49,7 +49,7 @@ Hands PossibleHands::SummarizeRoundHands(const Players& players, const Cards& ca
         // validate and find the highest hand ranking
         HandRank handRank = ValidateHand::DetermineHandRank(playersPossibleHand);
 
-        roundHands.emplace_back(HandFactory::Build(player->m_id, playersPossibleHand, handRank));
+        roundHands.emplace_back(HandFactory::Build(player->m_id, std::move(playersPossibleHand), handRank));
     }
     
     return roundHands;

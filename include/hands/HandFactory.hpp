@@ -7,5 +7,6 @@
 class HandFactory
 {
     public:
+        static Hand* Build(int id, HandRank handRank) noexcept;
         static Hand* Build(int id, const Cards& cards, HandRank handRank) noexcept;
 };

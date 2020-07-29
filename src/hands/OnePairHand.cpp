@@ -1,19 +1,19 @@
 #include "OnePairHand.hpp"
 
-OnePairHand::OnePairHand(int id, const Cards& hand)
-:   BaseHand(id, std::move(hand), HandRank::ONE_PAIR)
+OnePairHand::OnePairHand(int id, const Cards& cards)
+:   ExplicitHand(id, cards, HandRank::ONE_PAIR)
 {
 
 }
 
-bool OnePairHand::operator<(const BaseHand& rhs) const noexcept
+bool OnePairHand::operator<(const ExplicitHand& rhs) const noexcept
 {
-    if( rank < rhs.rank )
+    if( mRank < rhs.mRank )
     {
         return true;
     }
 
-    if( rank > rhs.rank )
+    if( mRank > rhs.mRank )
     {
         return false;
     }
@@ -38,14 +38,14 @@ bool OnePairHand::operator<(const BaseHand& rhs) const noexcept
     return false;
 }
 
-bool OnePairHand::operator>(const BaseHand& rhs) const noexcept
+bool OnePairHand::operator>(const ExplicitHand& rhs) const noexcept
 {
-    if( rank > rhs.rank )
+    if( mRank > rhs.mRank )
     {
         return true;
     }
 
-    if( rank < rhs.rank )
+    if( mRank < rhs.mRank )
     {
         return false;
     }

@@ -9,8 +9,9 @@
 class BaseHand
 {
     public:
-        BaseHand(int id, const Cards&& cards, HandRank rank);
-        ~BaseHand() = default;
+        BaseHand() = default;
+        BaseHand(int id, HandRank rank);
+        virtual ~BaseHand() = default;
         
         friend class ValidateHand;
         friend class AnalyzeRounds;
@@ -22,15 +23,8 @@ class BaseHand
 
         friend std::ostream& operator<<(std::ostream & os, const BaseHand& hand);
 
-        HandRank getHandRank();
+        BaseHand* Reset(int id, HandRank rank);
 
-        int id;
-
-        Cards cards;
-
-        HandRank rank;
-    
-    private:
-        BaseHand() = delete;
-
+        int mId;
+        HandRank mRank;
 };

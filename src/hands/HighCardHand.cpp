@@ -1,19 +1,19 @@
 #include "HighCardHand.hpp"
 
-HighCardHand::HighCardHand(int id, const Cards& hand)
-:   BaseHand(id, std::move(hand), HandRank::HIGH_CARD)
+HighCardHand::HighCardHand(int id, const Cards& cards)
+:   ExplicitHand(id, cards, HandRank::HIGH_CARD)
 {
 
 }
 
-bool HighCardHand::operator<(const BaseHand& rhs) const noexcept
+bool HighCardHand::operator<(const ExplicitHand& rhs) const noexcept
 {
-    if( rank < rhs.rank )
+    if( mRank < rhs.mRank )
     {
         return true;
     }
 
-    if( rank > rhs.rank )
+    if( mRank > rhs.mRank )
     {
         return false;
     }
@@ -33,14 +33,14 @@ bool HighCardHand::operator<(const BaseHand& rhs) const noexcept
     return false;
 }
 
-bool HighCardHand::operator>(const BaseHand& rhs) const noexcept
+bool HighCardHand::operator>(const ExplicitHand& rhs) const noexcept
 {
-    if( rank > rhs.rank )
+    if( mRank > rhs.mRank )
     {
         return true;
     }
 
-    if( rank < rhs.rank )
+    if( mRank < rhs.mRank )
     {
         return false;
     }

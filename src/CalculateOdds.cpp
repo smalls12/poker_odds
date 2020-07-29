@@ -10,18 +10,17 @@
 #include <sstream>
 #include <iomanip>      // std::setprecision
 
-struct Statistics
-{
-    size_t wins;
-    size_t ties;
-    size_t losses;
-    HandRank highHandRank;
-};
-
-typedef std::map<int, Statistics> PlayerStatistics;
-
 void CalculateOdds::Calculate(Players& players, Deck& deck)
 {
+    HandBuffer<4> cardPermutationsHandRankOnlyBuffer;
+	HandBuffer<4> cardPermutationsHandBuffer;
+
+    for(unsigned short x = 0; x < players.size(); x++)
+    {
+        players[x]->setCardPermutationsHandRankOnlyBufferLocation(&cardPermutationsHandRankOnlyBuffer[x]);
+        players[x]->setCardPermutationsHandBufferLocation(&cardPermutationsHandBuffer[x]);
+    }
+
     PlayerStatistics playerStatistics;
 
     for(auto& player : players)
@@ -29,42 +28,41 @@ void CalculateOdds::Calculate(Players& players, Deck& deck)
         playerStatistics.insert(std::pair<int, Statistics>(player->m_id, {}));
     }
 
-    std::map<PlayerRoundOutcome, std::function<void(const PlayerRound& playerRound, PlayerStatistics& playerStatistics)>> router{
-        { PlayerRoundOutcome::WIN, [](const PlayerRound& playerRound, PlayerStatistics& playerStatistics){ playerStatistics[playerRound.id].wins++; } },
-        { PlayerRoundOutcome::TIE, [](const PlayerRound& playerRound, PlayerStatistics& playerStatistics){ playerStatistics[playerRound.id].ties++; } },
-        { PlayerRoundOutcome::LOSE, [](const PlayerRound& playerRound, PlayerStatistics& playerStatistics){ playerStatistics[playerRound.id].losses++; } },
-    };
-
-    Rounds winners;
-    winners.reserve(1712304);
-
     std::string bitmask(5, 1); // K leading 1's
     bitmask.resize(deck.size(), 0); // N-K trailing 0's
+
+    CardBuffer<5> cards;
 
     // print integers and permute bitmask
     do
 	{
-		Cards cards;
-        cards.reserve(5);
-        for (unsigned int i = 0; i < deck.size(); ++i) // [0..N-1] integers
+        short index = 0;   
+        for (unsigned short i = 0; i < deck.size(); ++i) // [0..N-1] integers
         {
             if (bitmask[i])
 			{
-				cards.emplace_back(deck[i]);
+				cards[index++] = deck[i];
 			}
         }
 
-        Hands roundHands = PossibleHands::SummarizeRoundHands(players, cards);
+        PossibleHands::Generate(players, cards);
 
         // sort first
-        std::sort(roundHands.begin(), roundHands.end(),
+        std::sort(cardPermutationsHandRankOnlyBuffer.begin(), cardPermutationsHandRankOnlyBuffer.end(),
         [](const Hand* const lhs, const Hand* const rhs){ return *lhs > *rhs; });
 
+        AnalyzeRounds::Analyze(cardPermutationsHandRankOnlyBuffer, playerStatistics);
+
         // winners.emplace_back(AnalyzeRounds::Analyze(roundHands));
-        for(auto& player : AnalyzeRounds::Analyze(roundHands))
-        {
-            router[player.playerRoundOutcome](player, playerStatistics);
-        }
+        // for(auto& player : AnalyzeRounds::Analyze(std::move(roundHands)))
+        // {
+        //     router[player.playerRoundOutcome](player, playerStatistics);
+        // }
+        
+        // HandFactory::Build(players[x]->m_id, std::move(players[x]->m_handBuffer), handRank)
+
+ 
+
     }
 	while (std::prev_permutation(bitmask.begin(), bitmask.end()));
 

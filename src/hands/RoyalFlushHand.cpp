@@ -1,19 +1,19 @@
 #include "RoyalFlushHand.hpp"
 
-RoyalFlushHand::RoyalFlushHand(int id, const Cards& hand)
-:   BaseHand(id, std::move(hand), HandRank::ROYAL_FLUSH)
+RoyalFlushHand::RoyalFlushHand(int id, const Cards& cards)
+:   ExplicitHand(id, cards, HandRank::ROYAL_FLUSH)
 {
 
 }
 
-bool RoyalFlushHand::operator<(const BaseHand& rhs) const noexcept
+bool RoyalFlushHand::operator<(const ExplicitHand& rhs) const noexcept
 {
-    if( rank < rhs.rank )
+    if( mRank < rhs.mRank )
     {
         return true;
     }
 
-    if( rank > rhs.rank )
+    if( mRank > rhs.mRank )
     {
         return false;
     }
@@ -21,14 +21,14 @@ bool RoyalFlushHand::operator<(const BaseHand& rhs) const noexcept
     return false;
 }
 
-bool RoyalFlushHand::operator>(const BaseHand& rhs) const noexcept
+bool RoyalFlushHand::operator>(const ExplicitHand& rhs) const noexcept
 {
-    if( rank > rhs.rank )
+    if( mRank > rhs.mRank )
     {
         return true;
     }
 
-    if( rank < rhs.rank )
+    if( mRank < rhs.mRank )
     {
         return false;
     }

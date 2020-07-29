@@ -1,54 +1,59 @@
-// #include <iostream>
-// #include <sstream>
+#include <iostream>
+#include <sstream>
 
-// #include "gtest/gtest.h"
+#include "gtest/gtest.h"
 
-// #include "Hand.hpp"
+#include "HandFactory.hpp"
 
-// class TestSuiteHand : public ::testing::Test {
-// protected:
-// 	// You can remove any or all of the following functions if its body
-// 	// is empty.
+class TestSuiteHand : public ::testing::Test {
+protected:
+	// You can remove any or all of the following functions if its body
+	// is empty.
 
-// 	TestSuiteHand() {
-// 		// You can do set-up work for each test here.
-// 	}
+	TestSuiteHand() {
+		// You can do set-up work for each test here.
+	}
 
-// 	virtual ~TestSuiteHand() {
-// 		// You can do clean-up work that doesn't throw exceptions here.
-// 	}
+	virtual ~TestSuiteHand() {
+		// You can do clean-up work that doesn't throw exceptions here.
+	}
 
-// 	// If the constructor and destructor are not enough for setting up
-// 	// and cleaning up each test, you can define the following methods:
-// 	virtual void SetUp() {
-// 		// Code here will be called immediately after the constructor (right
-// 		// before each test).
-// 	}
+	// If the constructor and destructor are not enough for setting up
+	// and cleaning up each test, you can define the following methods:
+	virtual void SetUp() {
+		// Code here will be called immediately after the constructor (right
+		// before each test).
+	}
 
-// 	virtual void TearDown() {
-// 		// Code here will be called immediately after each test (right
-// 		// before the destructor).
-// 	}
+	virtual void TearDown() {
+		// Code here will be called immediately after each test (right
+		// before the destructor).
+	}
 
-// 	// Objects declared here can be used by all tests in the test case for Project1.
-// };
+	// Objects declared here can be used by all tests in the test case for Project1.
+};
 
-// // Test case must be called the class above
-// // Also note: use TEST_F instead of TEST to access the test fixture (from google test primer)
-// TEST_F(TestSuiteHand, TestEquality)
-// {
-//     HighCardHand hand( 0,
-//         {
-//             new Card{ Rank::ACE, Suit::DIAMOND },
-//             new Card{ Rank::KING, Suit::CLUB },
-//             new Card{ Rank::QUEEN, Suit::HEART }
-//         },
-//         {
-//             new Card{ Rank::ACE, Suit::DIAMOND }
-//         });
+// Test case must be called the class above
+// Also note: use TEST_F instead of TEST to access the test fixture (from google test primer)
+TEST_F(TestSuiteHand, TestEquality)
+{
+    Hand* hand = nullptr;
     
-// 	EXPECT_TRUE(hand == hand);
-// }
+    {
+        Cards cards{
+            new Card{ Rank::ACE, Suit::DIAMOND },
+            new Card{ Rank::KING, Suit::CLUB },
+            new Card{ Rank::QUEEN, Suit::HEART }
+        };
+
+        std::cout << cards << std::endl;
+        // hand = new HighCardHand( 0, std::move(cards));
+		hand = HandFactory::Build(0, std::move(cards), HandRank::HIGH_CARD);
+        std::cout << cards << std::endl;
+    }
+
+	EXPECT_TRUE(hand == hand);
+}
 
 // TEST_F(TestSuiteHand, TestEquality_Card_SameRank_DifferentSuits)
 // {

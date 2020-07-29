@@ -1,19 +1,19 @@
 #include "ThreeOfAKindHand.hpp"
 
-ThreeOfAKindHand::ThreeOfAKindHand(int id, const Cards& hand)
-:   BaseHand(id, std::move(hand), HandRank::THREE_OF_A_KIND)
+ThreeOfAKindHand::ThreeOfAKindHand(int id, const Cards& cards)
+:   ExplicitHand(id, cards, HandRank::THREE_OF_A_KIND)
 {
 
 }
 
-bool ThreeOfAKindHand::operator<(const BaseHand& rhs) const noexcept
+bool ThreeOfAKindHand::operator<(const ExplicitHand& rhs) const noexcept
 {
-    if( rank < rhs.rank )
+    if( mRank < rhs.mRank )
     {
         return true;
     }
 
-    if( rank > rhs.rank )
+    if( mRank > rhs.mRank )
     {
         return false;
     }
@@ -38,14 +38,14 @@ bool ThreeOfAKindHand::operator<(const BaseHand& rhs) const noexcept
     return false;
 }
 
-bool ThreeOfAKindHand::operator>(const BaseHand& rhs) const noexcept
+bool ThreeOfAKindHand::operator>(const ExplicitHand& rhs) const noexcept
 {
-    if( rank > rhs.rank )
+    if( mRank > rhs.mRank )
     {
         return true;
     }
 
-    if( rank < rhs.rank )
+    if( mRank < rhs.mRank )
     {
         return false;
     }

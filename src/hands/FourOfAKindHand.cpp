@@ -1,19 +1,19 @@
 #include "FourOfAKindHand.hpp"
 
-FourOfAKindHand::FourOfAKindHand(int id, const Cards& hand)
-:   BaseHand(id, std::move(hand), HandRank::FOUR_OF_A_KIND)
+FourOfAKindHand::FourOfAKindHand(int id, const Cards& cards)
+:   ExplicitHand(id, cards, HandRank::FOUR_OF_A_KIND)
 {
 
 }
 
-bool FourOfAKindHand::operator<(const BaseHand& rhs) const noexcept
+bool FourOfAKindHand::operator<(const ExplicitHand& rhs) const noexcept
 {
-    if( rank > rhs.rank )
+    if( mRank > rhs.mRank )
     {
         return true;
     }
 
-    if( rank < rhs.rank )
+    if( mRank < rhs.mRank )
     {
         return false;
     }
@@ -38,14 +38,14 @@ bool FourOfAKindHand::operator<(const BaseHand& rhs) const noexcept
     return false;
 }
 
-bool FourOfAKindHand::operator>(const BaseHand& rhs) const noexcept
+bool FourOfAKindHand::operator>(const ExplicitHand& rhs) const noexcept
 {
-    if( rank < rhs.rank )
+    if( mRank < rhs.mRank )
     {
         return true;
     }
 
-    if( rank > rhs.rank )
+    if( mRank > rhs.mRank )
     {
         return false;
     }

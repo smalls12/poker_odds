@@ -1,13 +1,13 @@
 #pragma once
 
-#include "BaseHand.hpp"
+#include "ExplicitHand.hpp"
 
-class StraightFlushHand : public BaseHand
+class StraightFlushHand : public ExplicitHand
 {
     public:
-        StraightFlushHand(int id, const Cards& hand);
+        StraightFlushHand(int id, const Cards& cards);
         ~StraightFlushHand() = default;
 
-        bool operator<(const BaseHand& rhs) const noexcept override;
-        bool operator>(const BaseHand& rhs) const noexcept override;
+        bool operator<(const ExplicitHand& rhs) const noexcept override;
+        bool operator>(const ExplicitHand& rhs) const noexcept override;
 };

@@ -2,20 +2,20 @@
 
 #include <iostream>
 
-TwoPairHand::TwoPairHand(int id, const Cards& hand)
-:   BaseHand(id, std::move(hand), HandRank::TWO_PAIR)
+TwoPairHand::TwoPairHand(int id, const Cards& cards)
+:   ExplicitHand(id, cards, HandRank::TWO_PAIR)
 {
 
 }
 
-bool TwoPairHand::operator<(const BaseHand& rhs) const noexcept
+bool TwoPairHand::operator<(const ExplicitHand& rhs) const noexcept
 {
-    if( rank < rhs.rank )
+    if( mRank < rhs.mRank )
     {
         return true;
     }
 
-    if( rank > rhs.rank )
+    if( mRank > rhs.mRank )
     {
         return false;
     }
@@ -53,14 +53,14 @@ bool TwoPairHand::operator<(const BaseHand& rhs) const noexcept
     return false;
 }
 
-bool TwoPairHand::operator>(const BaseHand& rhs) const noexcept
+bool TwoPairHand::operator>(const ExplicitHand& rhs) const noexcept
 {
-    if( rank > rhs.rank )
+    if( mRank > rhs.mRank )
     {
         return true;
     }
 
-    if( rank < rhs.rank )
+    if( mRank < rhs.mRank )
     {
         return false;
     }

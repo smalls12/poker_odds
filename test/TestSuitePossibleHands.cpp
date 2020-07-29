@@ -3,6 +3,7 @@
 
 #include "gtest/gtest.h"
 
+#include "Buffer.hpp"
 #include "PossibleHands.hpp"
 
 class TestSuitePossibleHands : public ::testing::Test {
@@ -35,30 +36,112 @@ protected:
 
 // Test case must be called the class above
 // Also note: use TEST_F instead of TEST to access the test fixture (from google test primer)
-TEST_F(TestSuitePossibleHands, TestEquality)
+TEST_F(TestSuitePossibleHands, DetermineHands_2Players)
 {
-	Hands possibleHands;
+	Players players;
+	players.emplace_back(new Player(1));
+	players[0]->AddCardToHand(new Card{ Rank::ACE, Suit::DIAMOND });
+	players[0]->AddCardToHand(new Card{ Rank::ACE, Suit::CLUB });
 
-	Cards cards({
-		new Card{ Rank::ACE, Suit::SPADE },
-		new Card{ Rank::ACE, Suit::HEART }
-	});
+	players.emplace_back(new Player(2));
+	players[1]->AddCardToHand(new Card{ Rank::KING, Suit::DIAMOND });
+	players[1]->AddCardToHand(new Card{ Rank::KING, Suit::SPADE });
 
-	std::vector<Cards> permutations({{
-			new Card{ Rank::KING, Suit::SPADE },
-			new Card{ Rank::QUEEN, Suit::HEART },
-			new Card{ Rank::JACK, Suit::SPADE }},{
-			new Card{ Rank::TEN, Suit::SPADE },
-			new Card{ Rank::NINE, Suit::HEART },
-			new Card{ Rank::EIGHT, Suit::SPADE }},{
-			new Card{ Rank::SEVEN, Suit::SPADE },
-			new Card{ Rank::SIX, Suit::HEART },
-			new Card{ Rank::FIVE, Suit::SPADE }}});
+	// Hand* cardPermutationsHandRankOnlyBuffer[2];
+    // Hand* cardPermutationsHandBuffer[2];
+	HandBuffer<2> cardPermutationsHandRankOnlyBuffer;
+	HandBuffer<2> cardPermutationsHandBuffer;
 
-	possibleHands = PossibleHands::SummarizeAllPossibleHands(0, cards, permutations);
+	for(unsigned short x = 0; x < players.size(); x++)
+    {
+        players[x]->setCardPermutationsHandRankOnlyBufferLocation(&cardPermutationsHandRankOnlyBuffer[x]);
+        players[x]->setCardPermutationsHandBufferLocation(&cardPermutationsHandBuffer[x]);
+    }
 
-	std::cout << possibleHands << std::endl;
+	CardBuffer<5> cards1{
+		new Card{ Rank::SEVEN, Suit::CLUB },
+		new Card{ Rank::FOUR, Suit::HEART },
+		new Card{ Rank::TWO, Suit::DIAMOND },
+		new Card{ Rank::TEN, Suit::HEART },
+		new Card{ Rank::TWO, Suit::CLUB }
+	};
 
+	PossibleHands::Generate(players, cards1);
+
+	std::cout << cardPermutationsHandRankOnlyBuffer << std::endl;
+
+	CardBuffer<5> cards2{
+		new Card{ Rank::FOUR, Suit::CLUB },
+		new Card{ Rank::FOUR, Suit::HEART },
+		new Card{ Rank::JACK, Suit::DIAMOND },
+		new Card{ Rank::TEN, Suit::HEART },
+		new Card{ Rank::TWO, Suit::CLUB }
+	};
+
+	PossibleHands::Generate(players, cards2);
+
+	std::cout << cardPermutationsHandRankOnlyBuffer << std::endl;
+}
+
+TEST_F(TestSuitePossibleHands, DetermineHands_4Players)
+{
+	Players players;
+	players.emplace_back(new Player(1));
+	players[0]->AddCardToHand(new Card{ Rank::ACE, Suit::HEART });
+	players[0]->AddCardToHand(new Card{ Rank::ACE, Suit::CLUB });
+
+	players.emplace_back(new Player(2));
+	players[1]->AddCardToHand(new Card{ Rank::KING, Suit::SPADE });
+	players[1]->AddCardToHand(new Card{ Rank::KING, Suit::SPADE });
+
+	players.emplace_back(new Player(3));
+	players[2]->AddCardToHand(new Card{ Rank::TEN, Suit::SPADE });
+	players[2]->AddCardToHand(new Card{ Rank::SEVEN, Suit::HEART });
+
+	players.emplace_back(new Player(4));
+	players[3]->AddCardToHand(new Card{ Rank::JACK, Suit::DIAMOND });
+	players[3]->AddCardToHand(new Card{ Rank::TWO, Suit::CLUB });
+
+	// Hand* cardPermutationsHandRankOnlyBuffer[2];
+    // Hand* cardPermutationsHandBuffer[2];
+	HandBuffer<4> cardPermutationsHandRankOnlyBuffer;
+	HandBuffer<4> cardPermutationsHandBuffer;
+
+	for(unsigned short x = 0; x < players.size(); x++)
+    {
+        players[x]->setCardPermutationsHandRankOnlyBufferLocation(&cardPermutationsHandRankOnlyBuffer[x]);
+        players[x]->setCardPermutationsHandBufferLocation(&cardPermutationsHandBuffer[x]);
+    }
+
+	CardBuffer<5> cards1{
+		new Card{ Rank::SEVEN, Suit::CLUB },
+		new Card{ Rank::FOUR, Suit::HEART },
+		new Card{ Rank::TWO, Suit::DIAMOND },
+		new Card{ Rank::TEN, Suit::HEART },
+		new Card{ Rank::TWO, Suit::CLUB }
+	};
+
+	PossibleHands::Generate(players, cards1);
+
+	std::cout << cardPermutationsHandRankOnlyBuffer << std::endl;
+
+	// sort first
+	std::sort(cardPermutationsHandRankOnlyBuffer.begin(), cardPermutationsHandRankOnlyBuffer.end(),
+	[](const Hand* const lhs, const Hand* const rhs){ return *lhs > *rhs; });
+
+	std::cout << cardPermutationsHandRankOnlyBuffer << std::endl;
+
+	CardBuffer<5> cards2{
+		new Card{ Rank::FOUR, Suit::CLUB },
+		new Card{ Rank::FOUR, Suit::HEART },
+		new Card{ Rank::JACK, Suit::DIAMOND },
+		new Card{ Rank::TEN, Suit::HEART },
+		new Card{ Rank::TWO, Suit::CLUB }
+	};
+
+	PossibleHands::Generate(players, cards2);
+
+	std::cout << cardPermutationsHandRankOnlyBuffer << std::endl;
 }
 
 // }  // namespace - could surround Project1Test in a namespace
