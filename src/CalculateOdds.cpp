@@ -33,10 +33,9 @@ void CalculateOdds::Calculate(Players& players, Deck& deck)
 
     CardBuffer<5> cards;
 
-    // print integers and permute bitmask
     do
 	{
-        short index = 0;   
+        unsigned short index = 0;   
         for (unsigned short i = 0; i < deck.size(); ++i) // [0..N-1] integers
         {
             if (bitmask[i])
@@ -53,30 +52,9 @@ void CalculateOdds::Calculate(Players& players, Deck& deck)
 
         AnalyzeRounds::Analyze(cardPermutationsHandRankOnlyBuffer, playerStatistics);
 
-        // winners.emplace_back(AnalyzeRounds::Analyze(roundHands));
-        // for(auto& player : AnalyzeRounds::Analyze(std::move(roundHands)))
-        // {
-        //     router[player.playerRoundOutcome](player, playerStatistics);
-        // }
-        
-        // HandFactory::Build(players[x]->m_id, std::move(players[x]->m_handBuffer), handRank)
-
- 
-
+        // std::cout << cardPermutationsHandRankOnlyBuffer << std::endl;
     }
 	while (std::prev_permutation(bitmask.begin(), bitmask.end()));
-
-    // std::cout << "Size [ " << winners.size() << " ]" << std::endl;
-
-    // for(unsigned i = 0; i < winners.size(); i++)
-    // {
-    //     if( winners[i][0].playerRoundOutcome == PlayerRoundOutcome::TIE )
-    //     {
-    //         std::stringstream ss;
-    //         ss << winners[i];
-    //         std::cout << "Round [ " << ss.str() << " ]" << std::endl;
-    //     }
-    // }
 
     for (PlayerStatistics::iterator it=playerStatistics.begin(); it!=playerStatistics.end(); ++it)
     {

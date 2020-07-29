@@ -17,9 +17,6 @@ Player::Player(int id)
 void Player::setCardPermutationsHandRankOnlyBufferLocation(Hand** bufferLocation)
 {
     m_cardPermutationsHandRankOnlyBufferLocation = bufferLocation;
-
-    m_buffer[0] = m_hand[0];
-    m_buffer[1] = m_hand[1];
 }
 
 void Player::setCardPermutationsHandBufferLocation(Hand** bufferLocation)
