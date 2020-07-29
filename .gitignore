@@ -1,3 +1,4 @@
 Makefile
 build_x86
 build_emscripten
+callgrind.*
