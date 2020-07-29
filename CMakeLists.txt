@@ -1,6 +1,6 @@
 cmake_minimum_required( VERSION 3.5 )
 
-project( poker_odds )
+project( poker )
 
 set( CMAKE_CXX_FLAGS " -Wall -Werror -O2 -Wextra -std=c++17 " )
 
@@ -17,6 +17,8 @@ option(SPDLOG_LOGGING "Use spdlog for logging" ON)
 if( SPDLOG_LOGGING )
 add_definitions("-DSPGLOG_LOGGING_ENABLED -DSPDLOG_COMPILED_LIB")
 endif()
+
+option(TCMALLOC "Use tcmalloc for allocating memory" ON)
 
 set ( lib_src_files
       src/engines/FindHighCard.cpp
@@ -35,58 +37,59 @@ set ( lib_src_files
       src/hands/StraightFlushAceLowHand.cpp
       src/hands/StraightFlushHand.cpp
       src/hands/RoyalFlushHand.cpp
+      src/hands/ExplicitHand.cpp
       src/hands/BaseHand.cpp
       src/cards/BaseCard.cpp
       src/poker/Poker.cpp
       src/poker/PokerImpl.cpp
-      src/AnalyzeRounds.cpp
       src/CalculateOdds.cpp
-      src/ValidateHand.cpp
-      src/PossibleHands.cpp
       src/Dealer.cpp
       src/Player.cpp
       src/DeckBuilder.cpp
       src/ShuffleDeck.cpp
 )
 
-add_library( ${PROJECT_NAME} STATIC ${lib_src_files} )
+add_library( ${PROJECT_NAME}_lib STATIC ${lib_src_files} )
 
-target_include_directories( ${PROJECT_NAME} PRIVATE include )
-target_include_directories( ${PROJECT_NAME} PRIVATE include/engines )
-target_include_directories( ${PROJECT_NAME} PRIVATE include/hands )
-target_include_directories( ${PROJECT_NAME} PRIVATE include/cards )
-target_include_directories( ${PROJECT_NAME} PRIVATE include/poker )
-target_include_directories( ${PROJECT_NAME} PRIVATE include/logging )
-target_include_directories( ${PROJECT_NAME} PRIVATE include/state )
+target_include_directories( ${PROJECT_NAME}_lib PRIVATE include )
+target_include_directories( ${PROJECT_NAME}_lib PRIVATE include/engines )
+target_include_directories( ${PROJECT_NAME}_lib PRIVATE include/hands )
+target_include_directories( ${PROJECT_NAME}_lib PRIVATE include/cards )
+target_include_directories( ${PROJECT_NAME}_lib PRIVATE include/poker )
+target_include_directories( ${PROJECT_NAME}_lib PRIVATE include/logging )
+target_include_directories( ${PROJECT_NAME}_lib PRIVATE include/state )
+target_include_directories( ${PROJECT_NAME}_lib PRIVATE include/buffer )
+target_include_directories( ${PROJECT_NAME}_lib PRIVATE include/statistics )
 
-# target_link_libraries( ${PROJECT_NAME} ${Boost_LIBRARIES} )
-target_link_libraries( ${PROJECT_NAME} tcmalloc )
+# target_link_libraries( ${PROJECT_NAME}_lib ${Boost_LIBRARIES} )
+
+if( TCMALLOC )
+target_link_libraries( ${PROJECT_NAME}_lib tcmalloc )
+endif()
 
 if( SPDLOG_LOGGING )
-target_link_libraries( ${PROJECT_NAME} spdlog )
-target_link_libraries( ${PROJECT_NAME} pthread )
+target_link_libraries( ${PROJECT_NAME}_lib spdlog )
+target_link_libraries( ${PROJECT_NAME}_lib pthread )
 endif()
 
 set ( exe_src_files
       src/main.cpp
 )
 
-add_executable( poker ${exe_src_files} )
+add_executable( ${PROJECT_NAME} ${exe_src_files} )
 
-target_include_directories( poker PRIVATE include )
-target_include_directories( poker PRIVATE include/engines )
-target_include_directories( poker PRIVATE include/hands )
-target_include_directories( poker PRIVATE include/cards )
-target_include_directories( poker PRIVATE include/poker )
-target_include_directories( poker PRIVATE include/logging )
-target_include_directories( poker PRIVATE include/state )
+target_include_directories( ${PROJECT_NAME} PRIVATE include/poker )
+target_include_directories( ${PROJECT_NAME} PRIVATE include/logging )
 
-target_link_libraries( poker ${PROJECT_NAME} )
-target_link_libraries( poker tcmalloc )
+target_link_libraries( ${PROJECT_NAME} ${PROJECT_NAME}_lib )
+
+if( TCMALLOC )
+target_link_libraries( ${PROJECT_NAME} tcmalloc )
+endif()
 
 if( SPDLOG_LOGGING )
-target_link_libraries( poker spdlog )
-target_link_libraries( poker pthread )
+target_link_libraries( ${PROJECT_NAME} spdlog )
+target_link_libraries( ${PROJECT_NAME} pthread )
 endif()
 
 option(ENABLE_UNIT_TESTS "Enable unit tests" ON)
@@ -108,11 +111,11 @@ set ( src_files_test
       src/hands/StraightFlushAceLowHand.cpp
       src/hands/StraightFlushHand.cpp
       src/hands/RoyalFlushHand.cpp
+      src/hands/ExplicitHand.cpp
       src/hands/BaseHand.cpp
       src/cards/BaseCard.cpp
-      src/ValidateHand.cpp
       src/DeckBuilder.cpp
-      src/PossibleHands.cpp
+      src/Player.cpp
       test/TestSuiteFindHighCard.cpp
       test/TestSuiteFindPairs.cpp
       test/TestSuiteFindAllPairs.cpp
@@ -137,6 +140,8 @@ target_include_directories( test_poker_odds PRIVATE include )
 target_include_directories( test_poker_odds PRIVATE include/engines )
 target_include_directories( test_poker_odds PRIVATE include/hands )
 target_include_directories( test_poker_odds PRIVATE include/cards )
+target_include_directories( test_poker_odds PRIVATE include/buffer )
+target_include_directories( test_poker_odds PRIVATE include/statistics )
 
 target_link_libraries( test_poker_odds gtest )
 target_link_libraries( test_poker_odds gtest_main )
