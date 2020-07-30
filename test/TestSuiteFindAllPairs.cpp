@@ -37,9 +37,31 @@ protected:
 
 // Test case must be called the class above
 // Also note: use TEST_F instead of TEST to access the test fixture (from google test primer)
-TEST_F(TestSuiteFindAllPairs, FindFourOfAKind)
+TEST_F(TestSuiteFindAllPairs, FindNothing)
 {
-	Cards cards{{
+	CardBuffer<7> cards{
+		new Card{ Rank::ACE, Suit::DIAMOND },
+		new Card{ Rank::KING, Suit::HEART },
+		new Card{ Rank::QUEEN, Suit::HEART },
+		new Card{ Rank::TEN, Suit::SPADE },
+		new Card{ Rank::NINE, Suit::HEART },
+		new Card{ Rank::FOUR, Suit::SPADE },
+		new Card{ Rank::TWO, Suit::CLUB }
+	};
+
+	auto start = std::chrono::steady_clock::now();
+	std::optional<HandRank> result = FindAllPairs::FindRank(cards);
+	auto end = std::chrono::steady_clock::now();
+	std::cout << std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count() << std::endl;
+	if( result )
+	{
+		std::cout << *result << std::endl;
+	}
+}
+
+TEST_F(TestSuiteFindAllPairs, FindFullHouse_v1)
+{
+	CardBuffer<7> cards{
 		new Card{ Rank::ACE, Suit::DIAMOND },
 		new Card{ Rank::ACE, Suit::CLUB },
 		new Card{ Rank::KING, Suit::HEART },
@@ -47,7 +69,29 @@ TEST_F(TestSuiteFindAllPairs, FindFourOfAKind)
 		new Card{ Rank::QUEEN, Suit::HEART },
 		new Card{ Rank::QUEEN, Suit::SPADE },
 		new Card{ Rank::QUEEN, Suit::HEART }
-	}};
+	};
+
+	auto start = std::chrono::steady_clock::now();
+	std::optional<HandRank> result = FindAllPairs::FindRank(cards);
+	auto end = std::chrono::steady_clock::now();
+	std::cout << std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count() << std::endl;
+	if( result )
+	{
+		std::cout << *result << std::endl;
+	}
+}
+
+TEST_F(TestSuiteFindAllPairs, FindFullHouse_v2)
+{
+	CardBuffer<7> cards{
+		new Card{ Rank::ACE, Suit::DIAMOND },
+		new Card{ Rank::ACE, Suit::CLUB },
+		new Card{ Rank::ACE, Suit::HEART },
+		new Card{ Rank::KING, Suit::HEART },
+		new Card{ Rank::KING, Suit::SPADE },
+		new Card{ Rank::QUEEN, Suit::HEART },
+		new Card{ Rank::QUEEN, Suit::SPADE }
+	};
 
 	auto start = std::chrono::steady_clock::now();
 	std::optional<HandRank> result = FindAllPairs::FindRank(cards);

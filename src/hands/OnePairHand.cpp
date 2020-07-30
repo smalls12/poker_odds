@@ -1,7 +1,7 @@
 #include "OnePairHand.hpp"
 
-OnePairHand::OnePairHand(int id, const Cards& cards)
-:   ExplicitHand(id, cards, HandRank::ONE_PAIR)
+OnePairHand::OnePairHand(Player* player, const Cards& cards)
+:   ExplicitHand(player, cards, HandRank::ONE_PAIR)
 {
 
 }

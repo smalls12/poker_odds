@@ -12,10 +12,26 @@ class ValidateHand
 {
     public:
         template<size_t N>
-        inline static HandRank DetermineHandRank(const CardBuffer<N>& cards) noexcept
+        inline static HandRank DetermineHandRank(CardBuffer<N>& cards) noexcept
         {
-            std::optional<HandRank> straightsAndFlushes = FindStraightsAndFlushes::FindRank(cards);
+            std::sort(std::begin(cards), std::end(cards),
+            [](const Card* const lhs, const Card* const rhs){ return *lhs > *rhs; });
+
             std::optional<HandRank> pairs = FindAllPairs::FindRank(cards);
+            if( pairs )
+            {
+                if( *pairs == HandRank::FOUR_OF_A_KIND || *pairs == HandRank::FULL_HOUSE )
+                {
+                    // impossible to get a run
+                    // and a flush would only be a lower ranking hand
+                    return *pairs;
+                }
+            }
+
+            // std::sort(std::begin(cards), std::end(cards),
+            // [](const Card* const lhs, const Card* const rhs){ return (*lhs).suit > (*rhs).suit; });
+            
+            std::optional<HandRank> straightsAndFlushes = FindStraightsAndFlushes::FindRank(cards);
 
             if( straightsAndFlushes )
             {

@@ -4,16 +4,16 @@
 
 #include <algorithm>
 
-BaseHand::BaseHand(int id, HandRank rank)
-:   mId(id),
+BaseHand::BaseHand(Player* player, HandRank rank)
+:   mPlayer(player),
     mRank(rank)
 {
-
+    
 }
 
-BaseHand* BaseHand::Reset(int id, HandRank rank)
+BaseHand* BaseHand::Reset(Player* player, HandRank rank)
 {
-    mId = id;
+    mPlayer = player;
     mRank = rank;
     return this;
 }
@@ -46,7 +46,7 @@ std::ostream& operator<<(std::ostream & os, const BaseHand& hand)
     os << "[ ";
 
     os << "ID [ ";
-    os << hand.mId;
+    os << hand.mPlayer->m_id;
     os << " ]";
 
     os << " Rank [ ";

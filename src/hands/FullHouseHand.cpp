@@ -1,7 +1,7 @@
 #include "FullHouseHand.hpp"
 
-FullHouseHand::FullHouseHand(int id, const Cards& cards)
-:   ExplicitHand(id, cards, HandRank::FULL_HOUSE)
+FullHouseHand::FullHouseHand(Player* player, const Cards& cards)
+:   ExplicitHand(player, cards, HandRank::FULL_HOUSE)
 {
 
 }

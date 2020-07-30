@@ -5,7 +5,7 @@
 class FlushHand : public ExplicitHand
 {
     public:
-        FlushHand(int id, const Cards& cards);
+        FlushHand(Player* player, const Cards& cards);
         ~FlushHand() = default;
 
         bool operator<(const ExplicitHand& rhs) const noexcept override;

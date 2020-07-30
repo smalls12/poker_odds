@@ -1,7 +1,7 @@
 #include "StraightFlushAceLowHand.hpp"
 
-StraightFlushAceLowHand::StraightFlushAceLowHand(int id, const Cards& cards)
-:   ExplicitHand(id, cards, HandRank::STRAIGHT_FLUSH_ACE_LOW)
+StraightFlushAceLowHand::StraightFlushAceLowHand(Player* player, const Cards& cards)
+:   ExplicitHand(player, cards, HandRank::STRAIGHT_FLUSH_ACE_LOW)
 {
 
 }

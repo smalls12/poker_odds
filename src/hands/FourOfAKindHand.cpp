@@ -1,7 +1,7 @@
 #include "FourOfAKindHand.hpp"
 
-FourOfAKindHand::FourOfAKindHand(int id, const Cards& cards)
-:   ExplicitHand(id, cards, HandRank::FOUR_OF_A_KIND)
+FourOfAKindHand::FourOfAKindHand(Player* player, const Cards& cards)
+:   ExplicitHand(player, cards, HandRank::FOUR_OF_A_KIND)
 {
 
 }

@@ -5,7 +5,7 @@
 class StraightHand : public ExplicitHand
 {
     public:
-        StraightHand(int id, const Cards& cards);
+        StraightHand(Player* player, const Cards& cards);
         ~StraightHand() = default;
 
         bool operator<(const ExplicitHand& rhs) const noexcept override;

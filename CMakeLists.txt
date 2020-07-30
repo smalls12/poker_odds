@@ -18,12 +18,10 @@ if( SPDLOG_LOGGING )
 add_definitions("-DSPGLOG_LOGGING_ENABLED -DSPDLOG_COMPILED_LIB")
 endif()
 
-option(TCMALLOC "Use tcmalloc for allocating memory" ON)
+option(TCMALLOC "Use tcmalloc for allocating memory" OFF)
 
 set ( lib_src_files
       src/engines/FindHighCard.cpp
-      src/engines/FindAllPairs.cpp
-      src/engines/FindStraightsAndFlushes.cpp
       src/hands/HandFactory.cpp
       src/hands/HighCardHand.cpp
       src/hands/OnePairHand.cpp
@@ -42,9 +40,9 @@ set ( lib_src_files
       src/cards/BaseCard.cpp
       src/poker/Poker.cpp
       src/poker/PokerImpl.cpp
+      src/player/Player.cpp
       src/CalculateOdds.cpp
       src/Dealer.cpp
-      src/Player.cpp
       src/DeckBuilder.cpp
       src/ShuffleDeck.cpp
 )
@@ -60,6 +58,7 @@ target_include_directories( ${PROJECT_NAME}_lib PRIVATE include/logging )
 target_include_directories( ${PROJECT_NAME}_lib PRIVATE include/state )
 target_include_directories( ${PROJECT_NAME}_lib PRIVATE include/buffer )
 target_include_directories( ${PROJECT_NAME}_lib PRIVATE include/statistics )
+target_include_directories( ${PROJECT_NAME}_lib PRIVATE include/player )
 
 # target_link_libraries( ${PROJECT_NAME}_lib ${Boost_LIBRARIES} )
 
@@ -96,8 +95,6 @@ option(ENABLE_UNIT_TESTS "Enable unit tests" ON)
 
 set ( src_files_test
       src/engines/FindHighCard.cpp
-      src/engines/FindAllPairs.cpp
-      src/engines/FindStraightsAndFlushes.cpp
       src/hands/HandFactory.cpp
       src/hands/HighCardHand.cpp
       src/hands/OnePairHand.cpp
@@ -114,8 +111,8 @@ set ( src_files_test
       src/hands/ExplicitHand.cpp
       src/hands/BaseHand.cpp
       src/cards/BaseCard.cpp
+      src/player/Player.cpp
       src/DeckBuilder.cpp
-      src/Player.cpp
       test/TestSuiteFindHighCard.cpp
       test/TestSuiteFindPairs.cpp
       test/TestSuiteFindAllPairs.cpp
@@ -142,6 +139,7 @@ target_include_directories( test_poker_odds PRIVATE include/hands )
 target_include_directories( test_poker_odds PRIVATE include/cards )
 target_include_directories( test_poker_odds PRIVATE include/buffer )
 target_include_directories( test_poker_odds PRIVATE include/statistics )
+target_include_directories( test_poker_odds PRIVATE include/player )
 
 target_link_libraries( test_poker_odds gtest )
 target_link_libraries( test_poker_odds gtest_main )

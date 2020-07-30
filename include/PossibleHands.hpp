@@ -17,8 +17,8 @@ static HandBuffer<4> HandPool{
 class PossibleHands
 {
     public:
-        template<size_t N>
-        inline static void Generate(const Players& players, const CardBuffer<N>& cards) noexcept
+        template<size_t M, size_t N>
+        inline static void Generate(const Players& players, const CardBuffer<M>& cards, HandBuffer<N>& hands) noexcept
         {
             for( unsigned short x = 0; x < players.size(); x++ )
             {
@@ -30,13 +30,10 @@ class PossibleHands
                     players[x]->m_buffer[y + 2] = cards[y];
                 }
 
-                std::sort(std::begin(players[x]->m_buffer), std::end(players[x]->m_buffer),
-                [](const Card* const lhs, const Card* const rhs){ return *lhs > *rhs; });
-
                 // validate and find the highest hand ranking
                 HandRank handRank = ValidateHand::DetermineHandRank(players[x]->m_buffer);
 
-                *players[x]->m_cardPermutationsHandRankOnlyBufferLocation = HandPool[x]->Reset(players[x]->m_id, handRank);
+                hands[x] = HandPool[x]->Reset(players[x].get(), handRank);
             }
         }
 

@@ -13,13 +13,7 @@
 void CalculateOdds::Calculate(Players& players, Deck& deck)
 {
     HandBuffer<4> cardPermutationsHandRankOnlyBuffer;
-	HandBuffer<4> cardPermutationsHandBuffer;
 
-    for(unsigned short x = 0; x < players.size(); x++)
-    {
-        players[x]->setCardPermutationsHandRankOnlyBufferLocation(&cardPermutationsHandRankOnlyBuffer[x]);
-        players[x]->setCardPermutationsHandBufferLocation(&cardPermutationsHandBuffer[x]);
-    }
 
     PlayerStatistics playerStatistics;
 
@@ -44,7 +38,7 @@ void CalculateOdds::Calculate(Players& players, Deck& deck)
 			}
         }
 
-        PossibleHands::Generate(players, cards);
+        PossibleHands::Generate(players, cards, cardPermutationsHandRankOnlyBuffer);
 
         // sort first
         std::sort(cardPermutationsHandRankOnlyBuffer.begin(), cardPermutationsHandRankOnlyBuffer.end(),

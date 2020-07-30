@@ -50,13 +50,13 @@ TEST_F(TestSuitePossibleHands, DetermineHands_2Players)
 	// Hand* cardPermutationsHandRankOnlyBuffer[2];
     // Hand* cardPermutationsHandBuffer[2];
 	HandBuffer<2> cardPermutationsHandRankOnlyBuffer;
-	HandBuffer<2> cardPermutationsHandBuffer;
+	// HandBuffer<2> cardPermutationsHandBuffer;
 
-	for(unsigned short x = 0; x < players.size(); x++)
-    {
-        players[x]->setCardPermutationsHandRankOnlyBufferLocation(&cardPermutationsHandRankOnlyBuffer[x]);
-        players[x]->setCardPermutationsHandBufferLocation(&cardPermutationsHandBuffer[x]);
-    }
+	// for(unsigned short x = 0; x < players.size(); x++)
+    // {
+    //     players[x]->setCardPermutationsHandRankOnlyBufferLocation(&cardPermutationsHandRankOnlyBuffer[x]);
+    //     players[x]->setCardPermutationsHandBufferLocation(&cardPermutationsHandBuffer[x]);
+    // }
 
 	CardBuffer<5> cards1{
 		new Card{ Rank::SEVEN, Suit::CLUB },
@@ -66,7 +66,7 @@ TEST_F(TestSuitePossibleHands, DetermineHands_2Players)
 		new Card{ Rank::TWO, Suit::CLUB }
 	};
 
-	PossibleHands::Generate(players, cards1);
+	PossibleHands::Generate(players, cards1, cardPermutationsHandRankOnlyBuffer);
 
 	std::cout << cardPermutationsHandRankOnlyBuffer << std::endl;
 
@@ -78,7 +78,7 @@ TEST_F(TestSuitePossibleHands, DetermineHands_2Players)
 		new Card{ Rank::TWO, Suit::CLUB }
 	};
 
-	PossibleHands::Generate(players, cards2);
+	PossibleHands::Generate(players, cards2, cardPermutationsHandRankOnlyBuffer);
 
 	std::cout << cardPermutationsHandRankOnlyBuffer << std::endl;
 }
@@ -105,13 +105,13 @@ TEST_F(TestSuitePossibleHands, DetermineHands_4Players)
 	// Hand* cardPermutationsHandRankOnlyBuffer[2];
     // Hand* cardPermutationsHandBuffer[2];
 	HandBuffer<4> cardPermutationsHandRankOnlyBuffer;
-	HandBuffer<4> cardPermutationsHandBuffer;
+	// HandBuffer<4> cardPermutationsHandBuffer;
 
-	for(unsigned short x = 0; x < players.size(); x++)
-    {
-        players[x]->setCardPermutationsHandRankOnlyBufferLocation(&cardPermutationsHandRankOnlyBuffer[x]);
-        players[x]->setCardPermutationsHandBufferLocation(&cardPermutationsHandBuffer[x]);
-    }
+	// for(unsigned short x = 0; x < players.size(); x++)
+    // {
+    //     players[x]->setCardPermutationsHandRankOnlyBufferLocation(&cardPermutationsHandRankOnlyBuffer[x]);
+    //     players[x]->setCardPermutationsHandBufferLocation(&cardPermutationsHandBuffer[x]);
+    // }
 
 	CardBuffer<5> cards1{
 		new Card{ Rank::SEVEN, Suit::CLUB },
@@ -121,7 +121,7 @@ TEST_F(TestSuitePossibleHands, DetermineHands_4Players)
 		new Card{ Rank::TWO, Suit::CLUB }
 	};
 
-	PossibleHands::Generate(players, cards1);
+	PossibleHands::Generate(players, cards1, cardPermutationsHandRankOnlyBuffer);
 
 	std::cout << cardPermutationsHandRankOnlyBuffer << std::endl;
 
@@ -139,7 +139,7 @@ TEST_F(TestSuitePossibleHands, DetermineHands_4Players)
 		new Card{ Rank::TWO, Suit::CLUB }
 	};
 
-	PossibleHands::Generate(players, cards2);
+	PossibleHands::Generate(players, cards2, cardPermutationsHandRankOnlyBuffer);
 
 	std::cout << cardPermutationsHandRankOnlyBuffer << std::endl;
 }

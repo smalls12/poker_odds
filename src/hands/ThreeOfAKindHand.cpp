@@ -1,7 +1,7 @@
 #include "ThreeOfAKindHand.hpp"
 
-ThreeOfAKindHand::ThreeOfAKindHand(int id, const Cards& cards)
-:   ExplicitHand(id, cards, HandRank::THREE_OF_A_KIND)
+ThreeOfAKindHand::ThreeOfAKindHand(Player* player, const Cards& cards)
+:   ExplicitHand(player, cards, HandRank::THREE_OF_A_KIND)
 {
 
 }

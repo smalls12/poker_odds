@@ -2,8 +2,8 @@
 
 #include <iostream>
 
-TwoPairHand::TwoPairHand(int id, const Cards& cards)
-:   ExplicitHand(id, cards, HandRank::TWO_PAIR)
+TwoPairHand::TwoPairHand(Player* player, const Cards& cards)
+:   ExplicitHand(player, cards, HandRank::TWO_PAIR)
 {
 
 }

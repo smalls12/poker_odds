@@ -1,16 +1,17 @@
 #pragma once
 
-#include "Card.hpp"
-#include "Find.hpp"
+#include "HandRank.hpp"
+#include "Player.hpp"
 
 #include <vector>
-#include <iostream>
 
 class BaseHand
 {
     public:
         BaseHand() = default;
-        BaseHand(int id, HandRank rank);
+        
+        BaseHand(Player* player, HandRank rank);
+
         virtual ~BaseHand() = default;
         
         friend class ValidateHand;
@@ -23,8 +24,8 @@ class BaseHand
 
         friend std::ostream& operator<<(std::ostream & os, const BaseHand& hand);
 
-        BaseHand* Reset(int id, HandRank rank);
+        BaseHand* Reset(Player* player, HandRank rank);
 
-        int mId;
+        Player* mPlayer;
         HandRank mRank;
 };

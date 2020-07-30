@@ -35,28 +35,43 @@ protected:
 
 // Test case must be called the class above
 // Also note: use TEST_F instead of TEST to access the test fixture (from google test primer)
-TEST_F(TestSuiteHand, TestEquality)
-{
-    Hand* hand = nullptr;
-    
-    {
-        Cards cards{
-            new Card{ Rank::ACE, Suit::DIAMOND },
-            new Card{ Rank::KING, Suit::CLUB },
-            new Card{ Rank::QUEEN, Suit::HEART }
-        };
-
-        std::cout << cards << std::endl;
-        // hand = new HighCardHand( 0, std::move(cards));
-		hand = HandFactory::Build(0, std::move(cards), HandRank::HIGH_CARD);
-        std::cout << cards << std::endl;
-    }
-
+TEST_F(TestSuiteHand, TestEquality_SingleHand_Equal)
+{   
+    Hand hand(0, HandRank::HIGH_CARD);
 	EXPECT_TRUE(hand == hand);
+}
+
+TEST_F(TestSuiteHand, TestEquality_TwoHands_Equal)
+{   
+    Hand hand1(0, HandRank::HIGH_CARD);
+	Hand hand2(0, HandRank::HIGH_CARD);
+	EXPECT_TRUE(hand1 == hand2);
+}
+
+TEST_F(TestSuiteHand, TestEquality_TwoHands_GreaterThan)
+{   
+    Hand hand1(0, HandRank::ONE_PAIR);
+	Hand hand2(0, HandRank::HIGH_CARD);
+	EXPECT_TRUE(hand1 > hand2);
 }
 
 // TEST_F(TestSuiteHand, TestEquality_Card_SameRank_DifferentSuits)
 // {
+// 	Hand* hand1 = nullptr;
+// 	Hand* hand2 = nullptr;
+
+// 	{
+// 		Cards cards{
+//             new Card{ Rank::ACE, Suit::DIAMOND },
+//             new Card{ Rank::KING, Suit::CLUB },
+//             new Card{ Rank::QUEEN, Suit::HEART }
+//         };
+
+// 		hand = HandFactory::Build(0, std::move(cards), HandRank::HIGH_CARD);
+// 		hand = HandFactory::Build(0, std::move(cards), HandRank::HIGH_CARD);
+// 	}
+
+
 //     HighCardHand hand1( 0,
 //         {
 //             new Card{ Rank::ACE, Suit::DIAMOND },

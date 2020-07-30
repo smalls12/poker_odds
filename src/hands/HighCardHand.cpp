@@ -1,7 +1,7 @@
 #include "HighCardHand.hpp"
 
-HighCardHand::HighCardHand(int id, const Cards& cards)
-:   ExplicitHand(id, cards, HandRank::HIGH_CARD)
+HighCardHand::HighCardHand(Player* player, const Cards& cards)
+:   ExplicitHand(player, cards, HandRank::HIGH_CARD)
 {
 
 }

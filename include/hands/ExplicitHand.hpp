@@ -2,10 +2,12 @@
 
 #include "BaseHand.hpp"
 
+#include "Card.hpp"
+
 class ExplicitHand : public BaseHand
 {
     public:
-        ExplicitHand(int id, const Cards& cards, HandRank rank);
+        ExplicitHand(Player* player, const Cards& cards, HandRank rank);
         ~ExplicitHand() = default;
 
         bool operator<(const BaseHand& rhs) const noexcept override;

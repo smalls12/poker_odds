@@ -5,27 +5,27 @@
 
 // would benefit from a memory pool
 
-std::map<HandRank, std::function<Hand*(int id, const Cards& cards)>> router{
-    { HandRank::ROYAL_FLUSH, [](int id, const Cards& cards){ return new RoyalFlushHand(id, cards); } },
-    { HandRank::STRAIGHT_FLUSH, [](int id, const Cards& cards){ return new StraightFlushHand(id, cards); } },
-    { HandRank::STRAIGHT_FLUSH_ACE_LOW, [](int id, const Cards& cards){ return new StraightFlushAceLowHand(id, cards); } },
-    { HandRank::FOUR_OF_A_KIND, [](int id, const Cards& cards){ return new FourOfAKindHand(id, cards); } },
-    { HandRank::FULL_HOUSE, [](int id, const Cards& cards){ return new FullHouseHand(id, cards); } },
-    { HandRank::FLUSH, [](int id, const Cards& cards){ return new FlushHand(id, cards); } },
-    { HandRank::STRAIGHT, [](int id, const Cards& cards){ return new StraightHand(id, cards); } },
-    { HandRank::STRAIGHT_ACE_LOW, [](int id, const Cards& cards){ return new StraightAceLowHand(id, cards); } },
-    { HandRank::THREE_OF_A_KIND, [](int id, const Cards& cards){ return new ThreeOfAKindHand(id, cards); } },
-    { HandRank::TWO_PAIR, [](int id, const Cards& cards){ return new TwoPairHand(id, cards); } },
-    { HandRank::ONE_PAIR, [](int id, const Cards& cards){ return new OnePairHand(id, cards); } },
-    { HandRank::HIGH_CARD, [](int id, const Cards& cards){ return new HighCardHand(id, cards); } },
+std::map<HandRank, std::function<Hand*(Player* player, const Cards& cards)>> router{
+    { HandRank::ROYAL_FLUSH, [](Player* player, const Cards& cards){ return new RoyalFlushHand(player, cards); } },
+    { HandRank::STRAIGHT_FLUSH, [](Player* player, const Cards& cards){ return new StraightFlushHand(player, cards); } },
+    { HandRank::STRAIGHT_FLUSH_ACE_LOW, [](Player* player, const Cards& cards){ return new StraightFlushAceLowHand(player, cards); } },
+    { HandRank::FOUR_OF_A_KIND, [](Player* player, const Cards& cards){ return new FourOfAKindHand(player, cards); } },
+    { HandRank::FULL_HOUSE, [](Player* player, const Cards& cards){ return new FullHouseHand(player, cards); } },
+    { HandRank::FLUSH, [](Player* player, const Cards& cards){ return new FlushHand(player, cards); } },
+    { HandRank::STRAIGHT, [](Player* player, const Cards& cards){ return new StraightHand(player, cards); } },
+    { HandRank::STRAIGHT_ACE_LOW, [](Player* player, const Cards& cards){ return new StraightAceLowHand(player, cards); } },
+    { HandRank::THREE_OF_A_KIND, [](Player* player, const Cards& cards){ return new ThreeOfAKindHand(player, cards); } },
+    { HandRank::TWO_PAIR, [](Player* player, const Cards& cards){ return new TwoPairHand(player, cards); } },
+    { HandRank::ONE_PAIR, [](Player* player, const Cards& cards){ return new OnePairHand(player, cards); } },
+    { HandRank::HIGH_CARD, [](Player* player, const Cards& cards){ return new HighCardHand(player, cards); } },
 };
 
-Hand* HandFactory::Build(int id, HandRank handRank) noexcept
+Hand* HandFactory::Build(Player* player, HandRank handRank) noexcept
 {
-    return new BaseHand(id, handRank);
+    return new BaseHand(player, handRank);
 }
 
-Hand* HandFactory::Build(int id, const Cards& cards, HandRank handRank) noexcept
+Hand* HandFactory::Build(Player* player, const Cards& cards, HandRank handRank) noexcept
 {
-    return router[handRank](id, cards);
+    return router[handRank](player, cards);
 }

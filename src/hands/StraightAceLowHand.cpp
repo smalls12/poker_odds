@@ -1,7 +1,7 @@
 #include "StraightAceLowHand.hpp"
 
-StraightAceLowHand::StraightAceLowHand(int id, const Cards& cards)
-:   ExplicitHand(id, cards, HandRank::STRAIGHT_ACE_LOW)
+StraightAceLowHand::StraightAceLowHand(Player* player, const Cards& cards)
+:   ExplicitHand(player, cards, HandRank::STRAIGHT_ACE_LOW)
 {
 
 }
