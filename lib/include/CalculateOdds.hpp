@@ -20,7 +20,7 @@ class CalculateOdds
         template<size_t N>
         inline static void Calculate(Players& players, const CardBuffer<N>& communityCards, Deck& deck) noexcept
         {
-            HandBuffer<4> cardPermutationsHandRankOnlyBuffer;
+            HandBuffer<4> hands;
 
             PlayerStatistics playerStatistics;
 
@@ -47,13 +47,13 @@ class CalculateOdds
                     }
                 }
 
-                possibleHands.Generate(cards, communityCards, cardPermutationsHandRankOnlyBuffer);
+                possibleHands.Generate(cards, communityCards, hands);
 
                 // sort first
-                std::sort(cardPermutationsHandRankOnlyBuffer.begin(), cardPermutationsHandRankOnlyBuffer.end(),
+                std::sort(hands.begin(), hands.end(),
                 [](const ExplicitHand* const lhs, const ExplicitHand* const rhs){ return *lhs > *rhs; });
 
-                AnalyzeRounds::Analyze(cardPermutationsHandRankOnlyBuffer, playerStatistics);
+                AnalyzeRounds::Analyze(hands, playerStatistics);
             }
             while (std::prev_permutation(bitmask.begin(), bitmask.end()));
 
