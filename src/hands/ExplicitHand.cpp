@@ -1,87 +1,51 @@
 #include "ExplicitHand.hpp"
 
-ExplicitHand::ExplicitHand(Player* player, const Cards& cards, HandRank rank)
+ExplicitHand::ExplicitHand(Player* player, HandRank rank)
 :   BaseHand(player, rank),
-    cards(cards)
+    cards(nullptr),
+    flush(std::nullopt)
 {
 
+}
+
+ExplicitHand* ExplicitHand::Reset(CardBuffer<7>* _cards, std::optional<Suit> _flush)
+{
+    cards = _cards;
+    flush = _flush;
+    return this;
 }
 
 bool ExplicitHand::operator<(const BaseHand& rhs) const noexcept
 {
-    return mRank < rhs.mRank;
+    return static_cast<BaseHand>(*this) < rhs;
 }
 
 bool ExplicitHand::operator>(const BaseHand& rhs) const noexcept
 {
-    return mRank > rhs.mRank;
+    return static_cast<BaseHand>(*this) > rhs;
 }
 
 bool ExplicitHand::operator<(const ExplicitHand& rhs) const noexcept
 {
-    if( mRank < rhs.mRank )
-    {
-        return true;
-    }
-
-    if( mRank > rhs.mRank )
-    {
-        return false;
-    }
-
-    for(size_t x = 0; x < cards.size(); x++)
-    {
-        if( *cards[x] < *rhs.cards[x] )
-        {
-            return true;
-        }
-        else if( *cards[x] > *rhs.cards[x] )
-        {
-            return false;
-        }
-    }
-
-    return false;
+    return static_cast<BaseHand>(*this) < static_cast<BaseHand>(rhs);
 }
 
 bool ExplicitHand::operator>(const ExplicitHand& rhs) const noexcept
 {
-    if( mRank > rhs.mRank )
-    {
-        return true;
-    }
-
-    if( mRank < rhs.mRank )
-    {
-        return false;
-    }
-
-    for(size_t x = 0; x < cards.size(); x++)
-    {
-        if( *cards[x] > *rhs.cards[x] )
-        {
-            return true;
-        }
-        else if( *cards[x] < *rhs.cards[x] )
-        {
-            return false;
-        }
-    }
-
-    return false;
+    return static_cast<BaseHand>(*this) > static_cast<BaseHand>(rhs);
 }
 
 std::ostream& operator<<(std::ostream & os, const ExplicitHand& hand)
 {
     os << "ID [ ";
-    os << hand.mPlayer->m_id;
+    os << ( hand.mPlayer == nullptr ? "null" : std::to_string(hand.mPlayer->m_id) );
     os << " ]";
 
     os << " Rank [ ";
     os << hand.mRank;
     os << " ]";
 
-    for(auto& card : hand.cards)
+    for(auto card : *hand.cards)
     {
         os << *card;
     }

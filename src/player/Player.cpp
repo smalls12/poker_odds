@@ -1,19 +1,23 @@
 #include "Player.hpp"
 
 Player::Player(int id)
-:   m_id(id),
-    m_hand()
+:   m_id(id)
 {
-    m_hand.reserve(2);
+
 }
 
-void Player::AddCardToHand(Card* card)
+Player::~Player()
 {
-    m_hand.emplace_back(card);
+
 }
 
-std::ostream& operator<<(std::ostream & os, Player& player)
+void Player::AddCardToHand(Card* card, unsigned short location)
 {
-    os << player.m_hand;
+    m_hand[location] = card;
+}
+
+std::ostream& operator<<(std::ostream & os, const Player& player)
+{
+    os << "Player ID [ " << player.m_id << " ] Hand " << player.m_hand;
     return os;
 }

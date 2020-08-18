@@ -4,7 +4,7 @@
 
 #include "FindHighCard.hpp"
 #include "FindAllPairs.hpp"
-#include "FindStraightsAndFlushes.hpp"
+#include "FindStraights.hpp"
 
 #include <optional>
 
@@ -12,7 +12,7 @@ class ValidateHand
 {
     public:
         template<size_t N>
-        inline static HandRank DetermineHandRank(CardBuffer<N>& cards) noexcept
+        inline static HandRank DetermineHandRank(CardBuffer<N>& cards, bool flush) noexcept
         {
             std::sort(std::begin(cards), std::end(cards),
             [](const Card* const lhs, const Card* const rhs){ return *lhs > *rhs; });
@@ -28,26 +28,23 @@ class ValidateHand
                 }
             }
 
-            // std::sort(std::begin(cards), std::end(cards),
-            // [](const Card* const lhs, const Card* const rhs){ return (*lhs).suit > (*rhs).suit; });
-            
-            std::optional<HandRank> straightsAndFlushes = FindStraightsAndFlushes::FindRank(cards);
+            std::optional<HandRank> straight = FindStraights::FindRank(cards, flush);
+            // std::optional<HandRank> straight = std::nullopt;
 
-            if( straightsAndFlushes )
+            if( straight )
             {
                 if( pairs )
                 {
-                    return (((*straightsAndFlushes) > (*pairs)) ? *straightsAndFlushes : *pairs);
+                    return (((*straight) > (*pairs)) ? *straight : *pairs);
                 }
 
-                return *straightsAndFlushes;
+                return *straight;
             }
             else if( pairs )
             {
                 return *pairs;
-            }
-            
+            }   
+
             return HandRank::HIGH_CARD;
         }
-        
 };

@@ -59,6 +59,44 @@ TEST_F(TestSuiteFindAllPairs, FindNothing)
 	}
 }
 
+TEST_F(TestSuiteFindAllPairs, FindOnePair_v1)
+{
+	CardBuffer<7> cards{
+		new Card{ Rank::ACE, Suit::DIAMOND },
+		new Card{ Rank::ACE, Suit::CLUB },
+		new Card{ Rank::KING, Suit::HEART },
+		new Card{ Rank::QUEEN, Suit::SPADE },
+		new Card{ Rank::SEVEN, Suit::HEART },
+		new Card{ Rank::FOUR, Suit::SPADE },
+		new Card{ Rank::TWO, Suit::HEART }
+	};
+
+	std::optional<HandRank> result = FindAllPairs::FindRank(cards);
+	if( result )
+	{
+		std::cout << *result << std::endl;
+	}
+}
+
+TEST_F(TestSuiteFindAllPairs, FindTwoPair_v1)
+{
+	CardBuffer<7> cards{
+		new Card{ Rank::ACE, Suit::DIAMOND },
+		new Card{ Rank::ACE, Suit::CLUB },
+		new Card{ Rank::KING, Suit::HEART },
+		new Card{ Rank::KING, Suit::SPADE },
+		new Card{ Rank::QUEEN, Suit::HEART },
+		new Card{ Rank::FOUR, Suit::SPADE },
+		new Card{ Rank::TWO, Suit::HEART }
+	};
+
+	std::optional<HandRank> result = FindAllPairs::FindRank(cards);
+	if( result )
+	{
+		std::cout << *result << std::endl;
+	}
+}
+
 TEST_F(TestSuiteFindAllPairs, FindFullHouse_v1)
 {
 	CardBuffer<7> cards{

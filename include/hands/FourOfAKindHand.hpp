@@ -5,7 +5,7 @@
 class FourOfAKindHand : public ExplicitHand
 {
     public:
-        FourOfAKindHand(Player* player, const Cards& cards);
+        FourOfAKindHand(Player* player);
         ~FourOfAKindHand() = default;
 
         bool operator<(const ExplicitHand& rhs) const noexcept override;

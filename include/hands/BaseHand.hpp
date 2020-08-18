@@ -8,10 +8,7 @@
 class BaseHand
 {
     public:
-        BaseHand() = default;
-        
         BaseHand(Player* player, HandRank rank);
-
         virtual ~BaseHand() = default;
         
         friend class ValidateHand;
@@ -24,7 +21,7 @@ class BaseHand
 
         friend std::ostream& operator<<(std::ostream & os, const BaseHand& hand);
 
-        BaseHand* Reset(Player* player, HandRank rank);
+        BaseHand* Reset(HandRank rank);
 
         Player* mPlayer;
         HandRank mRank;

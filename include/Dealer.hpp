@@ -8,5 +8,9 @@
 class Dealer
 {
     public:
-        static void DealCards(Players& players, Deck& deck);
+        inline static void DealCards(Card** card, Deck& deck)
+        {
+            *card = deck.back();            
+            deck.pop_back();
+        }
 };

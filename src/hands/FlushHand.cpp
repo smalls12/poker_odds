@@ -1,83 +1,192 @@
 #include "FlushHand.hpp"
 
-FlushHand::FlushHand(Player* player, const Cards& cards)
-:   ExplicitHand(player, cards, HandRank::FLUSH)
+FlushHand::FlushHand(Player* player)
+:   ExplicitHand(player, HandRank::FLUSH)
 {
 
 }
 
 bool FlushHand::operator<(const ExplicitHand& rhs) const noexcept
 {
-    if( mRank < rhs.mRank )
+    if( static_cast<ExplicitHand>(*this) < rhs )
     {
         return true;
     }
 
-    if( mRank > rhs.mRank )
+    if( static_cast<ExplicitHand>(*this) > rhs )
     {
         return false;
     }
 
-    // for(size_t x = 0; x < validated.size(); x++)
-    // {
-    //     if( *validated[x] < *rhs.validated[x] )
-    //     {
-    //         return true;
-    //     }
-    //     else if( *validated[x] > *rhs.validated[x] )
-    //     {
-    //         return false;
-    //     }
-    // }
-
-    for(size_t x = 0; x < cards.size(); x++)
+    if( mPlayer->m_hand[0]->suit == *flush )
     {
-        if( *cards[x] < *rhs.cards[x] )
+        if( rhs.mPlayer->m_hand[0]->suit == *flush && rhs.mPlayer->m_hand[1]->suit == *flush )
         {
-            return true;
+            if( mPlayer->m_hand[0] < rhs.mPlayer->m_hand[0] && mPlayer->m_hand[0] < rhs.mPlayer->m_hand[1] )
+            {
+                return true;
+            }
+            else if( mPlayer->m_hand[0] > rhs.mPlayer->m_hand[0] && mPlayer->m_hand[0] > rhs.mPlayer->m_hand[1] )
+            {
+                return false;
+            }
         }
-        else if( *cards[x] > *rhs.cards[x] )
+
+        if( rhs.mPlayer->m_hand[0]->suit == *flush )
         {
-            return false;
+            if( mPlayer->m_hand[0] < rhs.mPlayer->m_hand[0] )
+            {
+                return true;
+            }
+            else if( mPlayer->m_hand[0] > rhs.mPlayer->m_hand[0] )
+            {
+                return false;
+            }
+        }
+
+        if( rhs.mPlayer->m_hand[1]->suit == *flush )
+        {
+            if( mPlayer->m_hand[0] < rhs.mPlayer->m_hand[1] )
+            {
+                return true;
+            }
+            else if( mPlayer->m_hand[0] > rhs.mPlayer->m_hand[1] )
+            {
+                return false;
+            }
         }
     }
 
+    if( mPlayer->m_hand[1]->suit == *flush )
+    {
+        if( rhs.mPlayer->m_hand[0]->suit == *flush && rhs.mPlayer->m_hand[1]->suit == *flush )
+        {
+            if( mPlayer->m_hand[1] < rhs.mPlayer->m_hand[0] && mPlayer->m_hand[1] < rhs.mPlayer->m_hand[1] )
+            {
+                return true;
+            }
+            else if( mPlayer->m_hand[1] > rhs.mPlayer->m_hand[0] && mPlayer->m_hand[1] > rhs.mPlayer->m_hand[1] )
+            {
+                return false;
+            }
+        }
+
+        if( rhs.mPlayer->m_hand[0]->suit == *flush )
+        {
+            if( mPlayer->m_hand[1] < rhs.mPlayer->m_hand[0] )
+            {
+                return true;
+            }
+            else if( mPlayer->m_hand[1] > rhs.mPlayer->m_hand[0] )
+            {
+                return false;
+            }
+        }
+
+        if( rhs.mPlayer->m_hand[1]->suit == *flush )
+        {
+            if( mPlayer->m_hand[1] < rhs.mPlayer->m_hand[1] )
+            {
+                return true;
+            }
+            else if( mPlayer->m_hand[1] > rhs.mPlayer->m_hand[1] )
+            {
+                return false;
+            }
+        }
+    }
+
+    // tie
     return false;
 }
 
 bool FlushHand::operator>(const ExplicitHand& rhs) const noexcept
 {
-    if( mRank > rhs.mRank )
+    if( static_cast<ExplicitHand>(*this) > rhs )
     {
         return true;
     }
 
-    if( mRank < rhs.mRank )
+    if( static_cast<ExplicitHand>(*this) < rhs )
     {
         return false;
     }
 
-    // for(size_t x = 0; x < validated.size(); x++)
-    // {
-    //     if( *validated[x] > *rhs.validated[x] )
-    //     {
-    //         return true;
-    //     }
-    //     else if( *validated[x] < *rhs.validated[x] )
-    //     {
-    //         return false;
-    //     }
-    // }
-
-    for(size_t x = 0; x < cards.size(); x++)
+    if( mPlayer->m_hand[0]->suit == *flush )
     {
-        if( *cards[x] > *rhs.cards[x] )
+        if( rhs.mPlayer->m_hand[0]->suit == *flush && rhs.mPlayer->m_hand[1]->suit == *flush )
         {
-            return true;
+            if( mPlayer->m_hand[0] > rhs.mPlayer->m_hand[0] && mPlayer->m_hand[0] > rhs.mPlayer->m_hand[1] )
+            {
+                return true;
+            }
+            else if( mPlayer->m_hand[0] < rhs.mPlayer->m_hand[0] && mPlayer->m_hand[0] < rhs.mPlayer->m_hand[1] )
+            {
+                return false;
+            }
         }
-        else if( *cards[x] < *rhs.cards[x] )
+
+        if( rhs.mPlayer->m_hand[0]->suit == *flush )
         {
-            return false;
+            if( mPlayer->m_hand[0] > rhs.mPlayer->m_hand[0] )
+            {
+                return true;
+            }
+            else if( mPlayer->m_hand[0] < rhs.mPlayer->m_hand[0] )
+            {
+                return false;
+            }
+        }
+
+        if( rhs.mPlayer->m_hand[1]->suit == *flush )
+        {
+            if( mPlayer->m_hand[0] > rhs.mPlayer->m_hand[1] )
+            {
+                return true;
+            }
+            else if( mPlayer->m_hand[0] < rhs.mPlayer->m_hand[1] )
+            {
+                return false;
+            }
+        }
+    }
+
+    if( mPlayer->m_hand[1]->suit == *flush )
+    {
+        if( rhs.mPlayer->m_hand[0]->suit == *flush && rhs.mPlayer->m_hand[1]->suit == *flush )
+        {
+            if( mPlayer->m_hand[1] > rhs.mPlayer->m_hand[0] && mPlayer->m_hand[1] > rhs.mPlayer->m_hand[1] )
+            {
+                return true;
+            }
+            else if( mPlayer->m_hand[1] < rhs.mPlayer->m_hand[0] && mPlayer->m_hand[1] < rhs.mPlayer->m_hand[1] )
+            {
+                return false;
+            }
+        }
+
+        if( rhs.mPlayer->m_hand[0]->suit == *flush )
+        {
+            if( mPlayer->m_hand[1] > rhs.mPlayer->m_hand[0] )
+            {
+                return true;
+            }
+            else if( mPlayer->m_hand[1] < rhs.mPlayer->m_hand[0] )
+            {
+                return false;
+            }
+        }
+
+        if( rhs.mPlayer->m_hand[1]->suit == *flush )
+        {
+            if( mPlayer->m_hand[1] > rhs.mPlayer->m_hand[1] )
+            {
+                return true;
+            }
+            else if( mPlayer->m_hand[1] < rhs.mPlayer->m_hand[1] )
+            {
+                return false;
+            }
         }
     }
 

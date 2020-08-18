@@ -1,30 +1,30 @@
 #include "HighCardHand.hpp"
 
-HighCardHand::HighCardHand(Player* player, const Cards& cards)
-:   ExplicitHand(player, cards, HandRank::HIGH_CARD)
+HighCardHand::HighCardHand(Player* player)
+:   ExplicitHand(player, HandRank::HIGH_CARD)
 {
 
 }
 
 bool HighCardHand::operator<(const ExplicitHand& rhs) const noexcept
 {
-    if( mRank < rhs.mRank )
+    if( static_cast<ExplicitHand>(*this) < rhs )
     {
         return true;
     }
 
-    if( mRank > rhs.mRank )
+    if( static_cast<ExplicitHand>(*this) > rhs )
     {
         return false;
     }
 
-    for(size_t x = 0; x < cards.size(); x++)
+    for(size_t x = 0; x < cards->size(); x++)
     {
-        if( *cards[x] < *rhs.cards[x] )
+        if( *(*cards)[x] < *(*rhs.cards)[x] )
         {
             return true;
         }
-        else if( *cards[x] > *rhs.cards[x] )
+        else if( *(*cards)[x] > *(*rhs.cards)[x] )
         {
             return false;
         }
@@ -35,23 +35,23 @@ bool HighCardHand::operator<(const ExplicitHand& rhs) const noexcept
 
 bool HighCardHand::operator>(const ExplicitHand& rhs) const noexcept
 {
-    if( mRank > rhs.mRank )
+    if( static_cast<ExplicitHand>(*this) > rhs )
     {
         return true;
     }
 
-    if( mRank < rhs.mRank )
+    if( static_cast<ExplicitHand>(*this) < rhs )
     {
         return false;
     }
 
-    for(size_t x = 0; x < cards.size(); x++)
+    for(size_t x = 0; x < cards->size(); x++)
     {
-        if( *cards[x] > *rhs.cards[x] )
+        if( *(*cards)[x] > *(*rhs.cards)[x] )
         {
             return true;
         }
-        else if( *cards[x] < *rhs.cards[x] )
+        else if( *(*cards)[x] < *(*rhs.cards)[x] )
         {
             return false;
         }

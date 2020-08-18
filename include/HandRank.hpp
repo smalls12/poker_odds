@@ -6,18 +6,18 @@
 
 enum HandRank
 {
-    HIGH_CARD,
-    ONE_PAIR,
-    TWO_PAIR,
-    THREE_OF_A_KIND,
-    STRAIGHT_ACE_LOW,
-    STRAIGHT,
-    FLUSH,
-    FULL_HOUSE,
-    FOUR_OF_A_KIND,
-    STRAIGHT_FLUSH_ACE_LOW,
-    STRAIGHT_FLUSH,
-    ROYAL_FLUSH
+    HIGH_CARD,              // 0
+    ONE_PAIR,               // 1
+    TWO_PAIR,               // 2
+    THREE_OF_A_KIND,        // 3
+    STRAIGHT_ACE_LOW,       // 4
+    STRAIGHT,               // 5
+    FLUSH,                  // 6
+    FULL_HOUSE,             // 7
+    FOUR_OF_A_KIND,         // 8
+    STRAIGHT_FLUSH_ACE_LOW, // 9
+    STRAIGHT_FLUSH,         // 10
+    ROYAL_FLUSH             // 11
 };
 
 inline std::ostream& operator<<(std::ostream & os, HandRank& handRank)

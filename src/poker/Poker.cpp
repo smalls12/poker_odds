@@ -22,3 +22,9 @@ void Poker::NextState()
 {
     m_pokerImpl->NextState();
 }
+
+std::ostream& operator<<(std::ostream & os, const Poker& poker)
+{
+    os << *poker.m_pokerImpl.get();
+    return os;
+}

@@ -10,7 +10,7 @@ static std::map<HandRank, std::function<HandRank(int)>> router{
         {
             case 2:
             {
-                return HandRank::TWO_PAIR;
+                return HandRank::ONE_PAIR;
             }
             case 3:
             {
@@ -104,26 +104,6 @@ static std::map<HandRank, std::function<HandRank(int)>> router{
 class FindAllPairs
 {
     public:
-        // template<size_t N>
-        // inline static typename CardBuffer<N>::const_iterator FindIterator(const CardBuffer<N>& cards, typename CardBuffer<N>::const_iterator& start)
-        // {
-        //     typename CardBuffer<N>::const_iterator it = std::adjacent_find(start, cards.end(),
-        //     [](const Card* const lhs, const Card* const rhs){ return *lhs == *rhs; });
-
-        //     if (it != cards.end() && it == start)
-        //     {
-        //         it = std::adjacent_find(++it, cards.end(),
-        //         [](const Card* const lhs, const Card* const rhs){ return *lhs != *rhs; });
-
-        //         if (it != cards.end() )
-        //         {
-        //             it++;
-        //         }
-        //     }
-
-        //     return it;
-        // }
-
         template<size_t N>
         inline static typename std::optional<HandRank> FindRank(const CardBuffer<N>& cards) noexcept
         {
@@ -137,18 +117,15 @@ class FindAllPairs
                 typename CardBuffer<N>::const_iterator pair_end = std::adjacent_find(pair_start + 1, cards.end(),
                 [](const Card* const lhs, const Card* const rhs){ return *lhs != *rhs; });
 
-                if (pair_end != cards.end() )
+                if ( pair_end != cards.end() )
                 {
                     pair_end++;
                 }
 
-                // std::cout << "hi" << std::endl;
                 int cardsInSequence = std::distance(pair_start, pair_end);
-                // std::cout << cardsInSequence << std::endl;
 
                 if( cardsInSequence > 1 )
                 {
-                    // std::cout << "what" << std::endl;
                     currentHandRank = router[currentHandRank](cardsInSequence);
                     if( currentHandRank == HandRank::FOUR_OF_A_KIND )
                     {
@@ -162,11 +139,42 @@ class FindAllPairs
 
                 pair_start = std::next(pair_start, cardsInSequence);
                 
-                
                 pair_start = std::adjacent_find(pair_start, cards.end(),
                 [](const Card* const lhs, const Card* const rhs){ return *lhs == *rhs; });
             }
 
             return std::optional<HandRank>{currentHandRank};
+        }
+
+        template<size_t N>
+        inline static typename CardBuffer<N>::const_iterator FindPair(const CardBuffer<N>& cards, const typename CardBuffer<N>::const_iterator start, unsigned short size) noexcept
+        {
+            typename CardBuffer<N>::const_iterator pair_start = std::adjacent_find(start, cards.end(),
+            [](const Card* const lhs, const Card* const rhs){ return *lhs == *rhs; });
+
+            while( pair_start != cards.end() )
+            {
+                typename CardBuffer<N>::const_iterator pair_end = std::adjacent_find(pair_start + 1, cards.end(),
+                [](const Card* const lhs, const Card* const rhs){ return *lhs != *rhs; });
+
+                if ( pair_end != cards.end() )
+                {
+                    pair_end++;
+                }
+
+                int cardsInSequence = std::distance(pair_start, pair_end);
+
+                if( cardsInSequence >= size )
+                {
+                    return pair_end - 1;
+                }
+
+                pair_start = std::next(pair_start, cardsInSequence);
+                
+                pair_start = std::adjacent_find(pair_start, cards.end(),
+                [](const Card* const lhs, const Card* const rhs){ return *lhs == *rhs; });
+            }
+
+            return pair_start;
         }
 };

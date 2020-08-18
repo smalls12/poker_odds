@@ -7,7 +7,8 @@
 class ExplicitHand : public BaseHand
 {
     public:
-        ExplicitHand(Player* player, const Cards& cards, HandRank rank);
+        ExplicitHand(Player* player, HandRank rank);
+
         ~ExplicitHand() = default;
 
         bool operator<(const BaseHand& rhs) const noexcept override;
@@ -18,5 +19,8 @@ class ExplicitHand : public BaseHand
 
         friend std::ostream& operator<<(std::ostream & os, const ExplicitHand& hand);
 
-        const Cards& cards;
+        ExplicitHand* Reset(CardBuffer<7>* _cards, std::optional<Suit> _flush = std::nullopt);
+
+        CardBuffer<7>* cards;
+        std::optional<Suit> flush;
 };

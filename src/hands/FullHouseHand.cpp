@@ -1,51 +1,59 @@
 #include "FullHouseHand.hpp"
 
-FullHouseHand::FullHouseHand(Player* player, const Cards& cards)
-:   ExplicitHand(player, cards, HandRank::FULL_HOUSE)
+#include "FindAllPairs.hpp"
+
+FullHouseHand::FullHouseHand(Player* player)
+:   ExplicitHand(player, HandRank::FULL_HOUSE)
 {
 
 }
 
 bool FullHouseHand::operator<(const ExplicitHand& rhs) const noexcept
 {
-    if( mRank < rhs.mRank )
+    if( static_cast<ExplicitHand>(*this) < rhs )
     {
         return true;
     }
 
-    if( mRank > rhs.mRank )
+    if( static_cast<ExplicitHand>(*this) > rhs )
     {
         return false;
     }
 
-    // check the 3 of a kind
-    // if( *validated[0] < *rhs.validated[0] )
-    // {
-    //     return true;
-    // }
-    // else if( *validated[0] > *rhs.validated[0] )
-    // {
-    //     return false;
-    // }
+    CardBuffer<7>::const_iterator pair = FindAllPairs::FindPair(*cards, cards->begin(), 3);
+    CardBuffer<7>::const_iterator rhs_pair = FindAllPairs::FindPair(*rhs.cards, rhs.cards->begin(), 3);
 
-    // check the pair
-    // if( *validated[1] < *rhs.validated[1] )
-    // {
-    //     return true;
-    // }
-    // else if( *validated[1] > *rhs.validated[1] )
-    // {
-    //     return false;
-    // }
+    if( *(*pair) < *(*rhs_pair) )
+    {
+        return true;
+    }
+
+    if( *(*pair) > *(*rhs_pair) )
+    {
+        return false;
+    }
+
+    pair = FindAllPairs::FindPair(*cards, cards->begin(), 2);
+    rhs_pair = FindAllPairs::FindPair(*rhs.cards, rhs.cards->begin(), 2);
+
+    if( *(*pair) < *(*rhs_pair) )
+    {
+        return true;
+    }
+
+    if( *(*pair) > *(*rhs_pair) )
+    {
+        return false;
+    }
 
     // check remaining cards
-    for(size_t x = 0; x < cards.size(); x++)
+    for(size_t x = 0; x < cards->size(); x++)
     {
-        if( *cards[x] < *rhs.cards[x] )
+        if( *(*cards)[x] < *(*rhs.cards)[x] )
         {
             return true;
         }
-        else if( *cards[x] > *rhs.cards[x] )
+        else if( *(*cards)[x] > *(*rhs.cards)[x] )
         {
             return false;
         }
@@ -56,44 +64,50 @@ bool FullHouseHand::operator<(const ExplicitHand& rhs) const noexcept
 
 bool FullHouseHand::operator>(const ExplicitHand& rhs) const noexcept
 {
-    if( mRank > rhs.mRank )
+    if( static_cast<ExplicitHand>(*this) > rhs )
     {
         return true;
     }
 
-    if( mRank < rhs.mRank )
+    if( static_cast<ExplicitHand>(*this) < rhs )
     {
         return false;
     }
 
-    // check the 3 of a kind
-    // if( *validated[0] > *rhs.validated[0] )
-    // {
-    //     return true;
-    // }
-    // else if( *validated[0] < *rhs.validated[0] )
-    // {
-    //     return false;
-    // }
+    CardBuffer<7>::const_iterator pair = FindAllPairs::FindPair(*cards, cards->begin(), 3);
+    CardBuffer<7>::const_iterator rhs_pair = FindAllPairs::FindPair(*rhs.cards, rhs.cards->begin(), 3);
 
-    // check the pair
-    // if( *validated[1] > *rhs.validated[1] )
-    // {
-    //     return true;
-    // }
-    // else if( *validated[1] < *rhs.validated[1] )
-    // {
-    //     return false;
-    // }
+    if( *(*pair) > *(*rhs_pair) )
+    {
+        return true;
+    }
+
+    if( *(*pair) < *(*rhs_pair) )
+    {
+        return false;
+    }
+
+    pair = FindAllPairs::FindPair(*cards, cards->begin(), 2);
+    rhs_pair = FindAllPairs::FindPair(*rhs.cards, rhs.cards->begin(), 2);
+
+    if( *(*pair) > *(*rhs_pair) )
+    {
+        return true;
+    }
+
+    if( *(*pair) < *(*rhs_pair) )
+    {
+        return false;
+    }
 
     // check remaining cards
-    for(size_t x = 0; x < cards.size(); x++)
+    for(size_t x = 0; x < cards->size(); x++)
     {
-        if( *cards[x] > *rhs.cards[x] )
+        if( *(*cards)[x] > *(*rhs.cards)[x] )
         {
             return true;
         }
-        else if( *cards[x] < *rhs.cards[x] )
+        else if( *(*cards)[x] < *(*rhs.cards)[x] )
         {
             return false;
         }

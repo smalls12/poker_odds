@@ -2,7 +2,7 @@ cmake_minimum_required( VERSION 3.5 )
 
 project( poker )
 
-set( CMAKE_CXX_FLAGS " -Wall -Werror -O2 -Wextra -std=c++17 " )
+set( CMAKE_CXX_FLAGS " -Wall -Werror -O2 -Wextra -std=c++17 -Wno-error=maybe-uninitialized" )
 
 include_directories( ${CMAKE_STAGING_PREFIX}/usr/include )
 link_directories( ${CMAKE_STAGING_PREFIX}/usr/lib )
@@ -21,8 +21,6 @@ endif()
 option(TCMALLOC "Use tcmalloc for allocating memory" OFF)
 
 set ( lib_src_files
-      src/engines/FindHighCard.cpp
-      src/hands/HandFactory.cpp
       src/hands/HighCardHand.cpp
       src/hands/OnePairHand.cpp
       src/hands/TwoPairHand.cpp
@@ -41,8 +39,6 @@ set ( lib_src_files
       src/poker/Poker.cpp
       src/poker/PokerImpl.cpp
       src/player/Player.cpp
-      src/CalculateOdds.cpp
-      src/Dealer.cpp
       src/DeckBuilder.cpp
       src/ShuffleDeck.cpp
 )
@@ -59,6 +55,7 @@ target_include_directories( ${PROJECT_NAME}_lib PRIVATE include/state )
 target_include_directories( ${PROJECT_NAME}_lib PRIVATE include/buffer )
 target_include_directories( ${PROJECT_NAME}_lib PRIVATE include/statistics )
 target_include_directories( ${PROJECT_NAME}_lib PRIVATE include/player )
+target_include_directories( ${PROJECT_NAME}_lib PRIVATE include/pool )
 
 # target_link_libraries( ${PROJECT_NAME}_lib ${Boost_LIBRARIES} )
 
@@ -94,8 +91,6 @@ endif()
 option(ENABLE_UNIT_TESTS "Enable unit tests" ON)
 
 set ( src_files_test
-      src/engines/FindHighCard.cpp
-      src/hands/HandFactory.cpp
       src/hands/HighCardHand.cpp
       src/hands/OnePairHand.cpp
       src/hands/TwoPairHand.cpp
@@ -116,7 +111,7 @@ set ( src_files_test
       test/TestSuiteFindHighCard.cpp
       test/TestSuiteFindPairs.cpp
       test/TestSuiteFindAllPairs.cpp
-      test/TestSuiteFindStraightsAndFlushes.cpp
+      test/TestSuiteFindStraights.cpp
       test/TestSuiteHandRank.cpp
       test/TestSuiteSuit.cpp
       test/TestSuiteRank.cpp
@@ -137,9 +132,11 @@ target_include_directories( test_poker_odds PRIVATE include )
 target_include_directories( test_poker_odds PRIVATE include/engines )
 target_include_directories( test_poker_odds PRIVATE include/hands )
 target_include_directories( test_poker_odds PRIVATE include/cards )
+target_include_directories( test_poker_odds PRIVATE include/state )
 target_include_directories( test_poker_odds PRIVATE include/buffer )
 target_include_directories( test_poker_odds PRIVATE include/statistics )
 target_include_directories( test_poker_odds PRIVATE include/player )
+target_include_directories( test_poker_odds PRIVATE include/pool )
 
 target_link_libraries( test_poker_odds gtest )
 target_link_libraries( test_poker_odds gtest_main )

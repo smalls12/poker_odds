@@ -1,35 +1,45 @@
 #include "OnePairHand.hpp"
 
-OnePairHand::OnePairHand(Player* player, const Cards& cards)
-:   ExplicitHand(player, cards, HandRank::ONE_PAIR)
+#include "FindAllPairs.hpp"
+
+OnePairHand::OnePairHand(Player* player)
+:   ExplicitHand(player, HandRank::ONE_PAIR)
 {
 
 }
 
 bool OnePairHand::operator<(const ExplicitHand& rhs) const noexcept
 {
-    if( mRank < rhs.mRank )
+    if( static_cast<ExplicitHand>(*this) < rhs )
     {
         return true;
     }
 
-    if( mRank > rhs.mRank )
+    if( static_cast<ExplicitHand>(*this) > rhs )
     {
         return false;
     }
 
-    // if( *validated[0] < *rhs.validated[0] )
-    // {
-    //     return true;
-    // }
-    
-    for(size_t x = 0; x < cards.size(); x++)
+    CardBuffer<7>::const_iterator pair = FindAllPairs::FindPair(*cards, cards->begin(), 2);
+    CardBuffer<7>::const_iterator rhs_pair = FindAllPairs::FindPair(*rhs.cards, rhs.cards->begin(), 2);
+
+    if( *(*pair) < *(*rhs_pair) )
     {
-        if( *cards[x] < *rhs.cards[x] )
+        return true;
+    }
+
+    if( *(*pair) > *(*rhs_pair) )
+    {
+        return false;
+    }
+
+    for(size_t x = 0; x < cards->size(); x++)
+    {
+        if( *(*cards)[x] < *(*rhs.cards)[x] )
         {
             return true;
         }
-        else if( *cards[x] > *rhs.cards[x] )
+        else if( *(*cards)[x] > *(*rhs.cards)[x] )
         {
             return false;
         }
@@ -40,28 +50,36 @@ bool OnePairHand::operator<(const ExplicitHand& rhs) const noexcept
 
 bool OnePairHand::operator>(const ExplicitHand& rhs) const noexcept
 {
-    if( mRank > rhs.mRank )
+    if( static_cast<ExplicitHand>(*this) > rhs )
     {
         return true;
     }
 
-    if( mRank < rhs.mRank )
+    if( static_cast<ExplicitHand>(*this) < rhs )
     {
         return false;
     }
 
-    // if( *validated[0] > *rhs.validated[0] )
-    // {
-    //     return true;
-    // }
+    CardBuffer<7>::const_iterator pair = FindAllPairs::FindPair(*cards, cards->begin(), 2);
+    CardBuffer<7>::const_iterator rhs_pair = FindAllPairs::FindPair(*rhs.cards, rhs.cards->begin(), 2);
 
-    for(size_t x = 0; x < cards.size(); x++)
+    if( *(*pair) > *(*rhs_pair) )
     {
-        if( *cards[x] > *rhs.cards[x] )
+        return true;
+    }
+
+    if( *(*pair) < *(*rhs_pair) )
+    {
+        return false;
+    }
+
+    for(size_t x = 0; x < cards->size(); x++)
+    {
+        if( *(*cards)[x] > *(*rhs.cards)[x] )
         {
             return true;
         }
-        else if( *cards[x] < *rhs.cards[x] )
+        else if( *(*cards)[x] < *(*rhs.cards)[x] )
         {
             return false;
         }

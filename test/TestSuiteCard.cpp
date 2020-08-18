@@ -70,4 +70,18 @@ TEST_F(TestSuiteCard, TestingAdjacentDifference)
 	}
 }
 
+TEST_F(TestSuiteCard, TestInEquality_GreaterThan_v1)
+{
+    Card card1( { Rank::ACE, Suit::DIAMOND } );
+	Card card2( { Rank::KING, Suit::DIAMOND } );
+	EXPECT_TRUE(card1 > card2);
+}
+
+TEST_F(TestSuiteCard, TestInEquality_GreaterThan_v2)
+{
+    Card card1( { Rank::KING, Suit::DIAMOND } );
+	Card card2( { Rank::ACE, Suit::DIAMOND } );
+	EXPECT_TRUE(card1 > card2);
+}
+
 // }  // namespace - could surround Project1Test in a namespace

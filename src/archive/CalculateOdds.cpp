@@ -10,7 +10,8 @@
 #include <sstream>
 #include <iomanip>      // std::setprecision
 
-void CalculateOdds::Calculate(Players& players, Deck& deck)
+template<size_t N>
+void CalculateOdds::Calculate(Players& players, CardBuffer<N>& communityCards, Deck& deck)
 {
     HandBuffer<4> cardPermutationsHandRankOnlyBuffer;
 
@@ -25,6 +26,8 @@ void CalculateOdds::Calculate(Players& players, Deck& deck)
     std::string bitmask(5, 1); // K leading 1's
     bitmask.resize(deck.size(), 0); // N-K trailing 0's
 
+    PossibleHands possibleHands(players);
+
     CardBuffer<5> cards;
 
     do
@@ -38,15 +41,13 @@ void CalculateOdds::Calculate(Players& players, Deck& deck)
 			}
         }
 
-        PossibleHands::Generate(players, cards, cardPermutationsHandRankOnlyBuffer);
+        possibleHands.Generate(cards, communityCards, cardPermutationsHandRankOnlyBuffer);
 
         // sort first
         std::sort(cardPermutationsHandRankOnlyBuffer.begin(), cardPermutationsHandRankOnlyBuffer.end(),
-        [](const Hand* const lhs, const Hand* const rhs){ return *lhs > *rhs; });
+        [](const ExplicitHand* const lhs, const ExplicitHand* const rhs){ return *lhs > *rhs; });
 
         AnalyzeRounds::Analyze(cardPermutationsHandRankOnlyBuffer, playerStatistics);
-
-        // std::cout << cardPermutationsHandRankOnlyBuffer << std::endl;
     }
 	while (std::prev_permutation(bitmask.begin(), bitmask.end()));
 

@@ -1,37 +1,17 @@
 #include "RoyalFlushHand.hpp"
 
-RoyalFlushHand::RoyalFlushHand(Player* player, const Cards& cards)
-:   ExplicitHand(player, cards, HandRank::ROYAL_FLUSH)
+RoyalFlushHand::RoyalFlushHand(Player* player)
+:   ExplicitHand(player, HandRank::ROYAL_FLUSH)
 {
 
 }
 
 bool RoyalFlushHand::operator<(const ExplicitHand& rhs) const noexcept
 {
-    if( mRank < rhs.mRank )
-    {
-        return true;
-    }
-
-    if( mRank > rhs.mRank )
-    {
-        return false;
-    }
-
-    return false;
+    return static_cast<ExplicitHand>(*this) < rhs;
 }
 
 bool RoyalFlushHand::operator>(const ExplicitHand& rhs) const noexcept
 {
-    if( mRank > rhs.mRank )
-    {
-        return true;
-    }
-
-    if( mRank < rhs.mRank )
-    {
-        return false;
-    }
-
-    return false;
+    return static_cast<ExplicitHand>(*this) > rhs;
 }

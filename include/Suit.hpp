@@ -30,19 +30,3 @@ inline std::ostream& operator<<(std::ostream & os, Suit& suit)
     }
     return os;
 }
-
-// inline
-// std::ostream &operator<<( std::ostream &os, const Categoria cat )
-// {
-//   switch (cat) {
-//   case LongoCurso:
-//       os << "Longo Curso";
-//       break;
-//   case MedioCurso:
-//       os << "Medio Curso";
-//       break;
-//   case Domestico:
-//       os << "Domestico";
-//   }
-//   return os;
-// }

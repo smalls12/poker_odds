@@ -22,7 +22,9 @@ std::map<HandRank, std::function<Hand*(Player* player, const Cards& cards)>> rou
 
 Hand* HandFactory::Build(Player* player, HandRank handRank) noexcept
 {
-    return new BaseHand(player, handRank);
+    (void)player;
+    (void)handRank;
+    return new BaseHand();
 }
 
 Hand* HandFactory::Build(Player* player, const Cards& cards, HandRank handRank) noexcept

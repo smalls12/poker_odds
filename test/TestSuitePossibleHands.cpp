@@ -40,23 +40,14 @@ TEST_F(TestSuitePossibleHands, DetermineHands_2Players)
 {
 	Players players;
 	players.emplace_back(new Player(1));
-	players[0]->AddCardToHand(new Card{ Rank::ACE, Suit::DIAMOND });
-	players[0]->AddCardToHand(new Card{ Rank::ACE, Suit::CLUB });
+	players[0]->AddCardToHand(new Card{ Rank::ACE, Suit::DIAMOND }, 0);
+	players[0]->AddCardToHand(new Card{ Rank::ACE, Suit::CLUB }, 1);
 
 	players.emplace_back(new Player(2));
-	players[1]->AddCardToHand(new Card{ Rank::KING, Suit::DIAMOND });
-	players[1]->AddCardToHand(new Card{ Rank::KING, Suit::SPADE });
+	players[1]->AddCardToHand(new Card{ Rank::KING, Suit::DIAMOND }, 0);
+	players[1]->AddCardToHand(new Card{ Rank::KING, Suit::SPADE }, 1);
 
-	// Hand* cardPermutationsHandRankOnlyBuffer[2];
-    // Hand* cardPermutationsHandBuffer[2];
 	HandBuffer<2> cardPermutationsHandRankOnlyBuffer;
-	// HandBuffer<2> cardPermutationsHandBuffer;
-
-	// for(unsigned short x = 0; x < players.size(); x++)
-    // {
-    //     players[x]->setCardPermutationsHandRankOnlyBufferLocation(&cardPermutationsHandRankOnlyBuffer[x]);
-    //     players[x]->setCardPermutationsHandBufferLocation(&cardPermutationsHandBuffer[x]);
-    // }
 
 	CardBuffer<5> cards1{
 		new Card{ Rank::SEVEN, Suit::CLUB },
@@ -66,7 +57,10 @@ TEST_F(TestSuitePossibleHands, DetermineHands_2Players)
 		new Card{ Rank::TWO, Suit::CLUB }
 	};
 
-	PossibleHands::Generate(players, cards1, cardPermutationsHandRankOnlyBuffer);
+	CardBuffer<5> communityCards;
+
+	PossibleHands possibleHands(players);
+	possibleHands.Generate(cards1, communityCards, cardPermutationsHandRankOnlyBuffer);
 
 	std::cout << cardPermutationsHandRankOnlyBuffer << std::endl;
 
@@ -78,7 +72,7 @@ TEST_F(TestSuitePossibleHands, DetermineHands_2Players)
 		new Card{ Rank::TWO, Suit::CLUB }
 	};
 
-	PossibleHands::Generate(players, cards2, cardPermutationsHandRankOnlyBuffer);
+	possibleHands.Generate(cards2, communityCards, cardPermutationsHandRankOnlyBuffer);
 
 	std::cout << cardPermutationsHandRankOnlyBuffer << std::endl;
 }
@@ -87,41 +81,35 @@ TEST_F(TestSuitePossibleHands, DetermineHands_4Players)
 {
 	Players players;
 	players.emplace_back(new Player(1));
-	players[0]->AddCardToHand(new Card{ Rank::ACE, Suit::HEART });
-	players[0]->AddCardToHand(new Card{ Rank::ACE, Suit::CLUB });
+	players[0]->AddCardToHand(new Card{ Rank::ACE, Suit::CLUB }, 0);
+	players[0]->AddCardToHand(new Card{ Rank::KING, Suit::CLUB }, 1);
 
 	players.emplace_back(new Player(2));
-	players[1]->AddCardToHand(new Card{ Rank::KING, Suit::SPADE });
-	players[1]->AddCardToHand(new Card{ Rank::KING, Suit::SPADE });
+	players[1]->AddCardToHand(new Card{ Rank::KING, Suit::SPADE }, 0);
+	players[1]->AddCardToHand(new Card{ Rank::KING, Suit::SPADE }, 1);
 
 	players.emplace_back(new Player(3));
-	players[2]->AddCardToHand(new Card{ Rank::TEN, Suit::SPADE });
-	players[2]->AddCardToHand(new Card{ Rank::SEVEN, Suit::HEART });
+	players[2]->AddCardToHand(new Card{ Rank::TEN, Suit::SPADE }, 0);
+	players[2]->AddCardToHand(new Card{ Rank::SEVEN, Suit::HEART }, 1);
 
 	players.emplace_back(new Player(4));
-	players[3]->AddCardToHand(new Card{ Rank::JACK, Suit::DIAMOND });
-	players[3]->AddCardToHand(new Card{ Rank::TWO, Suit::CLUB });
+	players[3]->AddCardToHand(new Card{ Rank::JACK, Suit::DIAMOND }, 0);
+	players[3]->AddCardToHand(new Card{ Rank::TWO, Suit::CLUB }, 1);
 
-	// Hand* cardPermutationsHandRankOnlyBuffer[2];
-    // Hand* cardPermutationsHandBuffer[2];
 	HandBuffer<4> cardPermutationsHandRankOnlyBuffer;
-	// HandBuffer<4> cardPermutationsHandBuffer;
-
-	// for(unsigned short x = 0; x < players.size(); x++)
-    // {
-    //     players[x]->setCardPermutationsHandRankOnlyBufferLocation(&cardPermutationsHandRankOnlyBuffer[x]);
-    //     players[x]->setCardPermutationsHandBufferLocation(&cardPermutationsHandBuffer[x]);
-    // }
 
 	CardBuffer<5> cards1{
 		new Card{ Rank::SEVEN, Suit::CLUB },
 		new Card{ Rank::FOUR, Suit::HEART },
 		new Card{ Rank::TWO, Suit::DIAMOND },
-		new Card{ Rank::TEN, Suit::HEART },
+		new Card{ Rank::TEN, Suit::CLUB },
 		new Card{ Rank::TWO, Suit::CLUB }
 	};
 
-	PossibleHands::Generate(players, cards1, cardPermutationsHandRankOnlyBuffer);
+	CardBuffer<5> communityCards;
+
+	PossibleHands possibleHands(players);
+	possibleHands.Generate(cards1, communityCards, cardPermutationsHandRankOnlyBuffer);
 
 	std::cout << cardPermutationsHandRankOnlyBuffer << std::endl;
 
@@ -139,7 +127,7 @@ TEST_F(TestSuitePossibleHands, DetermineHands_4Players)
 		new Card{ Rank::TWO, Suit::CLUB }
 	};
 
-	PossibleHands::Generate(players, cards2, cardPermutationsHandRankOnlyBuffer);
+	possibleHands.Generate(cards2, communityCards, cardPermutationsHandRankOnlyBuffer);
 
 	std::cout << cardPermutationsHandRankOnlyBuffer << std::endl;
 }

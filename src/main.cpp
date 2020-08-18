@@ -29,5 +29,26 @@ int main(int argc, const char **argv)
     poker.Initialize(4);
     poker.NextState();
 
+    std::cout << poker << std::endl;
+
+    std::string input;
+    std::getline(std::cin, input);
+
+    poker.NextState();
+
+    std::cout << poker << std::endl;
+
+    std::getline(std::cin, input);
+
+    poker.NextState();
+
+    std::cout << poker << std::endl;
+
+    std::getline(std::cin, input);
+
+    poker.NextState();
+
+    std::cout << poker << std::endl;
+
     return 0;
 }

@@ -5,9 +5,9 @@
 class HighCardHand : public ExplicitHand
 {
     public:
-        HighCardHand(Player* player, const Cards& cards);
+        HighCardHand(Player* player);
         ~HighCardHand() = default;
 
-        bool operator<(const ExplicitHand& rhs) const noexcept;
-        bool operator>(const ExplicitHand& rhs) const noexcept;
+        bool operator<(const ExplicitHand& rhs) const noexcept override;
+        bool operator>(const ExplicitHand& rhs) const noexcept override;
 };

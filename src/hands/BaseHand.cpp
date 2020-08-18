@@ -11,9 +11,8 @@ BaseHand::BaseHand(Player* player, HandRank rank)
     
 }
 
-BaseHand* BaseHand::Reset(Player* player, HandRank rank)
+BaseHand* BaseHand::Reset(HandRank rank)
 {
-    mPlayer = player;
     mRank = rank;
     return this;
 }
@@ -46,7 +45,7 @@ std::ostream& operator<<(std::ostream & os, const BaseHand& hand)
     os << "[ ";
 
     os << "ID [ ";
-    os << hand.mPlayer->m_id;
+    hand.mPlayer == nullptr ? os << "null" : os << hand.mPlayer->m_id;
     os << " ]";
 
     os << " Rank [ ";

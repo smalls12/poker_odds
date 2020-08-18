@@ -3,7 +3,7 @@
 
 #include "gtest/gtest.h"
 
-// #include "FindPairs.hpp"
+#include "FindAllPairs.hpp"
 
 #include <chrono>
 
@@ -37,20 +37,132 @@ protected:
 
 // Test case must be called the class above
 // Also note: use TEST_F instead of TEST to access the test fixture (from google test primer)
-// TEST_F(TestSuiteFindPairs, FindFourOfAKind)
-// {
-// 	Cards cards{{
-// 		new Card{ Rank::ACE, Suit::DIAMOND },
-// 		new Card{ Rank::ACE, Suit::CLUB },
-// 		new Card{ Rank::ACE, Suit::HEART },
-// 		new Card{ Rank::ACE, Suit::SPADE },
-// 		new Card{ Rank::KING, Suit::HEART }
-// 	}};
+TEST_F(TestSuiteFindPairs, FindPair_v1)
+{
+	CardBuffer<7> cards{
+		new Card{ Rank::ACE, Suit::DIAMOND },
+		new Card{ Rank::ACE, Suit::CLUB },
+		new Card{ Rank::KING, Suit::HEART },
+		new Card{ Rank::TEN, Suit::SPADE },
+		new Card{ Rank::SEVEN, Suit::HEART },
+		new Card{ Rank::FOUR, Suit::HEART },
+		new Card{ Rank::THREE, Suit::DIAMOND }
+	};
 
-// 	std::optional<ValidatedHand> result = FindPairs::Find(cards);
-// 	EXPECT_TRUE(result);
-// 	EXPECT_TRUE((*result).rank == HandRank::FOUR_OF_A_KIND);
-// }
+	CardBuffer<7>::const_iterator iter = FindAllPairs::FindPair(cards, cards.begin(), 2);
+
+	EXPECT_TRUE(*iter == cards[1]);
+}
+
+TEST_F(TestSuiteFindPairs, FindPair_v2)
+{
+	CardBuffer<7> cards{
+		new Card{ Rank::ACE, Suit::DIAMOND },
+		new Card{ Rank::KING, Suit::CLUB },
+		new Card{ Rank::KING, Suit::HEART },
+		new Card{ Rank::TEN, Suit::SPADE },
+		new Card{ Rank::SEVEN, Suit::HEART },
+		new Card{ Rank::FOUR, Suit::HEART },
+		new Card{ Rank::THREE, Suit::DIAMOND }
+	};
+
+	CardBuffer<7>::const_iterator iter = FindAllPairs::FindPair(cards, cards.begin(), 2);
+
+	EXPECT_TRUE(*iter == cards[2]);
+}
+
+TEST_F(TestSuiteFindPairs, FindPair_v3)
+{
+	CardBuffer<7> cards{
+		new Card{ Rank::ACE, Suit::DIAMOND },
+		new Card{ Rank::KING, Suit::CLUB },
+		new Card{ Rank::JACK, Suit::HEART },
+		new Card{ Rank::TEN, Suit::SPADE },
+		new Card{ Rank::SEVEN, Suit::HEART },
+		new Card{ Rank::THREE, Suit::HEART },
+		new Card{ Rank::THREE, Suit::DIAMOND }
+	};
+
+	CardBuffer<7>::const_iterator iter = FindAllPairs::FindPair(cards, cards.begin(), 2);
+
+	EXPECT_TRUE(*iter == cards[6]);
+}
+
+TEST_F(TestSuiteFindPairs, FindTwoPair_v1)
+{
+	CardBuffer<7> cards{
+		new Card{ Rank::ACE, Suit::DIAMOND },
+		new Card{ Rank::KING, Suit::CLUB },
+		new Card{ Rank::JACK, Suit::HEART },
+		new Card{ Rank::JACK, Suit::SPADE },
+		new Card{ Rank::SEVEN, Suit::HEART },
+		new Card{ Rank::THREE, Suit::HEART },
+		new Card{ Rank::THREE, Suit::DIAMOND }
+	};
+
+	CardBuffer<7>::const_iterator iter = FindAllPairs::FindPair(cards, cards.begin(), 2);
+
+	EXPECT_TRUE(*iter == cards[3]);
+
+	iter = FindAllPairs::FindPair(cards, iter, 2);
+
+	EXPECT_TRUE(*iter == cards[6]);
+}
+
+TEST_F(TestSuiteFindPairs, FindThreeOfAKind_v1)
+{
+	CardBuffer<7> cards{
+		new Card{ Rank::ACE, Suit::DIAMOND },
+		new Card{ Rank::ACE, Suit::CLUB },
+		new Card{ Rank::ACE, Suit::HEART },
+		new Card{ Rank::TEN, Suit::SPADE },
+		new Card{ Rank::SEVEN, Suit::HEART },
+		new Card{ Rank::FOUR, Suit::HEART },
+		new Card{ Rank::THREE, Suit::DIAMOND }
+	};
+
+	CardBuffer<7>::const_iterator iter = FindAllPairs::FindPair(cards, cards.begin(), 3);
+
+	EXPECT_TRUE(*iter == cards[2]);
+}
+
+TEST_F(TestSuiteFindPairs, FindThreeOfAKind_v2)
+{
+	CardBuffer<7> cards{
+		new Card{ Rank::ACE, Suit::DIAMOND },
+		new Card{ Rank::ACE, Suit::CLUB },
+		new Card{ Rank::KING, Suit::HEART },
+		new Card{ Rank::KING, Suit::SPADE },
+		new Card{ Rank::KING, Suit::CLUB },
+		new Card{ Rank::FOUR, Suit::HEART },
+		new Card{ Rank::THREE, Suit::DIAMOND }
+	};
+
+	CardBuffer<7>::const_iterator iter = FindAllPairs::FindPair(cards, cards.begin(), 3);
+
+	EXPECT_TRUE(*iter == cards[4]);
+}
+
+TEST_F(TestSuiteFindPairs, FindFullHouse_v1)
+{
+	CardBuffer<7> cards{
+		new Card{ Rank::ACE, Suit::DIAMOND },
+		new Card{ Rank::ACE, Suit::CLUB },
+		new Card{ Rank::ACE, Suit::HEART },
+		new Card{ Rank::KING, Suit::DIAMOND },
+		new Card{ Rank::KING, Suit::CLUB },
+		new Card{ Rank::SEVEN, Suit::DIAMOND },
+		new Card{ Rank::SEVEN, Suit::CLUB }
+	};
+
+	CardBuffer<7>::const_iterator iter = FindAllPairs::FindPair(cards, cards.begin(), 3);
+
+	EXPECT_TRUE(*iter == cards[2]);
+
+	iter = FindAllPairs::FindPair(cards, cards.begin(), 2);
+
+	EXPECT_TRUE(*iter == cards[4]);
+}
 
 // TEST_F(TestSuiteFindPairs, FindFullHouse_v1)
 // {
