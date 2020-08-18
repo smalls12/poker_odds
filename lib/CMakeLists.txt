@@ -20,6 +20,8 @@ set ( lib_src_files
       src/cards/BaseCard.cpp
       src/poker/Poker.cpp
       src/poker/PokerImpl.cpp
+      src/calculator/Calculator.cpp
+      src/calculator/CalculatorImpl.cpp
       src/player/Player.cpp
       src/DeckBuilder.cpp
       src/ShuffleDeck.cpp
@@ -37,6 +39,7 @@ target_include_directories( ${PROJECT_NAME} PRIVATE include/state )
 target_include_directories( ${PROJECT_NAME} PRIVATE include/buffer )
 target_include_directories( ${PROJECT_NAME} PRIVATE include/statistics )
 target_include_directories( ${PROJECT_NAME} PRIVATE include/player )
+target_include_directories( ${PROJECT_NAME} PRIVATE include/calculator )
 target_include_directories( ${PROJECT_NAME} PRIVATE include/pool )
 
 # target_link_libraries( ${PROJECT_NAME} ${Boost_LIBRARIES} )

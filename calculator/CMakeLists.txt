@@ -8,7 +8,7 @@ set ( exe_src_files
 
 add_executable( ${PROJECT_NAME} ${exe_src_files} )
 
-target_include_directories( ${PROJECT_NAME} PRIVATE ${POKER_LIBRARY}/include/poker )
+target_include_directories( ${PROJECT_NAME} PRIVATE ${POKER_LIBRARY}/include/calculator )
 target_include_directories( ${PROJECT_NAME} PRIVATE ${POKER_LIBRARY}/include/logging )
 
 target_link_libraries( ${PROJECT_NAME} poker_lib )
