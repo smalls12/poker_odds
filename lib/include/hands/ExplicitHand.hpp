@@ -7,7 +7,7 @@
 class ExplicitHand : public BaseHand
 {
     public:
-        ExplicitHand(Player* player, HandRank rank);
+        ExplicitHand(Player& player, HandRank rank);
 
         ~ExplicitHand() = default;
 

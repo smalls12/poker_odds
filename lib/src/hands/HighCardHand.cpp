@@ -1,6 +1,6 @@
 #include "HighCardHand.hpp"
 
-HighCardHand::HighCardHand(Player* player)
+HighCardHand::HighCardHand(Player& player)
 :   ExplicitHand(player, HandRank::HIGH_CARD)
 {
 

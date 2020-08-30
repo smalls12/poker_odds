@@ -1,6 +1,6 @@
 #include "RoyalFlushHand.hpp"
 
-RoyalFlushHand::RoyalFlushHand(Player* player)
+RoyalFlushHand::RoyalFlushHand(Player& player)
 :   ExplicitHand(player, HandRank::ROYAL_FLUSH)
 {
 

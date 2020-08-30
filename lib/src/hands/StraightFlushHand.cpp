@@ -2,7 +2,7 @@
 
 #include "FindStraights.hpp"
 
-StraightFlushHand::StraightFlushHand(Player* player)
+StraightFlushHand::StraightFlushHand(Player& player)
 :   ExplicitHand(player, HandRank::STRAIGHT_FLUSH)
 {
 

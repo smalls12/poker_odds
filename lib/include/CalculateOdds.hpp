@@ -26,7 +26,7 @@ class CalculateOdds
 
             for(auto& player : players)
             {
-                playerStatistics.insert(std::pair<int, Statistics>(player->m_id, {}));
+                playerStatistics.insert(std::pair<int, Statistics>(player.m_id, {}));
             }
 
             std::string bitmask(5-N, 1); // K leading 1's

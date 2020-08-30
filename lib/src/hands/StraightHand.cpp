@@ -2,7 +2,7 @@
 
 #include "FindStraights.hpp"
 
-StraightHand::StraightHand(Player* player)
+StraightHand::StraightHand(Player& player)
 :   ExplicitHand(player, HandRank::STRAIGHT)
 {
 

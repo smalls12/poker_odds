@@ -2,7 +2,7 @@
 
 #include "FindAllPairs.hpp"
 
-OnePairHand::OnePairHand(Player* player)
+OnePairHand::OnePairHand(Player& player)
 :   ExplicitHand(player, HandRank::ONE_PAIR)
 {
 

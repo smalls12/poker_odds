@@ -2,7 +2,7 @@
 
 #include "FindAllPairs.hpp"
 
-FullHouseHand::FullHouseHand(Player* player)
+FullHouseHand::FullHouseHand(Player& player)
 :   ExplicitHand(player, HandRank::FULL_HOUSE)
 {
 

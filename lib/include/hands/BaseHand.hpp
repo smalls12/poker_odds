@@ -8,7 +8,7 @@
 class BaseHand
 {
     public:
-        BaseHand(Player* player, HandRank rank);
+        BaseHand(Player& player, HandRank rank);
         virtual ~BaseHand() = default;
         
         friend class ValidateHand;
@@ -23,6 +23,6 @@ class BaseHand
 
         BaseHand* Reset(HandRank rank);
 
-        Player* mPlayer;
+        Player& mPlayer;
         HandRank mRank;
 };

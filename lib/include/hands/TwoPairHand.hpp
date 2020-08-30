@@ -5,7 +5,7 @@
 class TwoPairHand : public ExplicitHand
 {
     public:
-        TwoPairHand(Player* player);
+        TwoPairHand(Player& player);
         ~TwoPairHand() = default;
 
         bool operator<(const ExplicitHand& rhs) const noexcept override;

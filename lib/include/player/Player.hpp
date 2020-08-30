@@ -20,11 +20,8 @@ class Player
         friend class ExplicitHand;
 
         friend std::ostream& operator<<(std::ostream & os, const Player& player);
-        // friend std::ostream& operator<<(std::ostream & os, const BaseHand& hand);
-        // friend std::ostream& operator<<(std::ostream & os, const ExplicitHand& hand);
 
-        int                     m_id;               // player id
-        // Cards                   m_hand;             // initial 2 cards dealt to player
+        int                     m_id;
 
         CardBuffer<2>           m_hand;
         CardBuffer<7>           m_buffer;

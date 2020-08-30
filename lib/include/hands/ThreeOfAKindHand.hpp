@@ -5,7 +5,7 @@
 class ThreeOfAKindHand : public ExplicitHand
 {
     public:
-        ThreeOfAKindHand(Player* player);
+        ThreeOfAKindHand(Player& player);
         ~ThreeOfAKindHand() = default;
 
         bool operator<(const ExplicitHand& rhs) const noexcept override;

@@ -38,21 +38,24 @@ protected:
 // Also note: use TEST_F instead of TEST to access the test fixture (from google test primer)
 TEST_F(TestSuiteHand, TestEquality_BaseHand_SingleHand_Equal)
 {   
-    Hand hand(nullptr, HandRank::HIGH_CARD);
+	Player player(0);
+    Hand hand(player, HandRank::HIGH_CARD);
 	EXPECT_TRUE(hand == hand);
 }
 
 TEST_F(TestSuiteHand, TestEquality_BaseHand_TwoHands_Equal)
 {   
-    Hand hand1(nullptr, HandRank::HIGH_CARD);
-	Hand hand2(nullptr, HandRank::HIGH_CARD);
+	Player player(0);
+    Hand hand1(player, HandRank::HIGH_CARD);
+	Hand hand2(player, HandRank::HIGH_CARD);
 	EXPECT_TRUE(hand1 == hand2);
 }
 
 TEST_F(TestSuiteHand, TestEquality_BaseHand_TwoHands_GreaterThan)
 {   
-    Hand hand1(nullptr, HandRank::ONE_PAIR);
-	Hand hand2(nullptr, HandRank::HIGH_CARD);
+	Player player(0);
+    Hand hand1(player, HandRank::ONE_PAIR);
+	Hand hand2(player, HandRank::HIGH_CARD);
 	EXPECT_TRUE(hand1 > hand2);
 }
 
@@ -68,7 +71,8 @@ TEST_F(TestSuiteHand, TestEquality_HighCard_TwoHands_GreaterThan)
 		new Card{ Rank::TWO, Suit::HEART }
 	};
 
-	auto hand1 = new HighCardHand(nullptr);
+	Player player(0);
+	auto hand1 = new HighCardHand(player);
 	hand1->Reset(&cards1);
 
 	CardBuffer<7> cards2{
@@ -81,7 +85,7 @@ TEST_F(TestSuiteHand, TestEquality_HighCard_TwoHands_GreaterThan)
 		new Card{ Rank::TWO, Suit::HEART }
 	};
 
-	auto hand2 = new HighCardHand(nullptr);
+	auto hand2 = new HighCardHand(player);
 	hand2->Reset(&cards2);
 
 	EXPECT_TRUE(*hand1 > *hand2);
@@ -99,7 +103,8 @@ TEST_F(TestSuiteHand, TestEquality_OnePair_v1)
 		new Card{ Rank::TWO, Suit::HEART }
 	};
 
-	OnePairHand hand1(nullptr);
+	Player player(0);
+	OnePairHand hand1(player);
 	hand1.Reset(&cards1);
 
 	CardBuffer<7> cards2{
@@ -112,7 +117,7 @@ TEST_F(TestSuiteHand, TestEquality_OnePair_v1)
 		new Card{ Rank::TWO, Suit::HEART }
 	};
 
-	OnePairHand hand2(nullptr);
+	OnePairHand hand2(player);
 	hand2.Reset(&cards2);
 
 	EXPECT_TRUE(hand1 < hand2);
@@ -130,7 +135,8 @@ TEST_F(TestSuiteHand, TestEquality_OnePair_v2)
 		new Card{ Rank::TWO, Suit::HEART }
 	};
 
-	OnePairHand hand1(nullptr);
+	Player player(0);
+	OnePairHand hand1(player);
 	hand1.Reset(&cards1);
 
 	CardBuffer<7> cards2{
@@ -143,7 +149,7 @@ TEST_F(TestSuiteHand, TestEquality_OnePair_v2)
 		new Card{ Rank::TWO, Suit::HEART }
 	};
 
-	HighCardHand hand2(nullptr);
+	HighCardHand hand2(player);
 	hand2.Reset(&cards2);
 
 	EXPECT_TRUE(hand1 > hand2);
@@ -161,7 +167,8 @@ TEST_F(TestSuiteHand, TestEquality_OnePair_v3)
 		new Card{ Rank::THREE, Suit::HEART }
 	};
 
-	OnePairHand hand1(nullptr);
+	Player player(0);
+	OnePairHand hand1(player);
 	hand1.Reset(&cards1);
 
 	CardBuffer<7> cards2{
@@ -174,7 +181,7 @@ TEST_F(TestSuiteHand, TestEquality_OnePair_v3)
 		new Card{ Rank::TWO, Suit::HEART }
 	};
 
-	OnePairHand hand2(nullptr);
+	OnePairHand hand2(player);
 	hand2.Reset(&cards2);
 
 	EXPECT_TRUE(hand1 > hand2);
@@ -192,7 +199,8 @@ TEST_F(TestSuiteHand, TestEquality_TwoPair_v1)
 		new Card{ Rank::THREE, Suit::HEART }
 	};
 
-	TwoPairHand hand1(nullptr);
+	Player player(0);
+	TwoPairHand hand1(player);
 	hand1.Reset(&cards1);
 
 	CardBuffer<7> cards2{
@@ -205,7 +213,7 @@ TEST_F(TestSuiteHand, TestEquality_TwoPair_v1)
 		new Card{ Rank::TWO, Suit::HEART }
 	};
 
-	TwoPairHand hand2(nullptr);
+	TwoPairHand hand2(player);
 	hand2.Reset(&cards2);
 
 	EXPECT_TRUE(hand1 > hand2);
@@ -223,7 +231,8 @@ TEST_F(TestSuiteHand, TestEquality_TwoPair_v2)
 		new Card{ Rank::THREE, Suit::HEART }
 	};
 
-	TwoPairHand hand1(nullptr);
+	Player player(0);
+	TwoPairHand hand1(player);
 	hand1.Reset(&cards1);
 
 	CardBuffer<7> cards2{
@@ -236,7 +245,7 @@ TEST_F(TestSuiteHand, TestEquality_TwoPair_v2)
 		new Card{ Rank::TWO, Suit::HEART }
 	};
 
-	TwoPairHand hand2(nullptr);
+	TwoPairHand hand2(player);
 	hand2.Reset(&cards2);
 
 	EXPECT_TRUE(hand1 < hand2);
@@ -254,7 +263,8 @@ TEST_F(TestSuiteHand, TestEquality_ThreeOfAKind_v1)
 		new Card{ Rank::THREE, Suit::HEART }
 	};
 
-	ThreeOfAKindHand hand1(nullptr);
+	Player player(0);
+	ThreeOfAKindHand hand1(player);
 	hand1.Reset(&cards1);
 
 	CardBuffer<7> cards2{
@@ -267,7 +277,7 @@ TEST_F(TestSuiteHand, TestEquality_ThreeOfAKind_v1)
 		new Card{ Rank::TWO, Suit::HEART }
 	};
 
-	ThreeOfAKindHand hand2(nullptr);
+	ThreeOfAKindHand hand2(player);
 	hand2.Reset(&cards2);
 
 	EXPECT_TRUE(hand1 < hand2);
@@ -285,7 +295,8 @@ TEST_F(TestSuiteHand, TestEquality_FourOfAKind_v1)
 		new Card{ Rank::THREE, Suit::HEART }
 	};
 
-	FourOfAKindHand hand1(nullptr);
+	Player player(0);
+	FourOfAKindHand hand1(player);
 	hand1.Reset(&cards1);
 
 	CardBuffer<7> cards2{
@@ -298,7 +309,7 @@ TEST_F(TestSuiteHand, TestEquality_FourOfAKind_v1)
 		new Card{ Rank::TWO, Suit::HEART }
 	};
 
-	FourOfAKindHand hand2(nullptr);
+	FourOfAKindHand hand2(player);
 	hand2.Reset(&cards2);
 
 	EXPECT_TRUE(hand1 < hand2);
@@ -316,7 +327,8 @@ TEST_F(TestSuiteHand, TestEquality_FullHouse_v1)
 		new Card{ Rank::SEVEN, Suit::CLUB }
 	};
 
-	FullHouseHand hand1(nullptr);
+	Player player(0);
+	FullHouseHand hand1(player);
 	hand1.Reset(&cards1);
 
 	CardBuffer<7> cards2{
@@ -329,7 +341,7 @@ TEST_F(TestSuiteHand, TestEquality_FullHouse_v1)
 		new Card{ Rank::SEVEN, Suit::CLUB }
 	};
 
-	FullHouseHand hand2(nullptr);
+	FullHouseHand hand2(player);
 	hand2.Reset(&cards2);
 
 	EXPECT_TRUE(hand1 > hand2);
@@ -347,7 +359,8 @@ TEST_F(TestSuiteHand, TestEquality_FullHouse_v2)
 		new Card{ Rank::SEVEN, Suit::CLUB }
 	};
 
-	FullHouseHand hand1(nullptr);
+	Player player(0);
+	FullHouseHand hand1(player);
 	hand1.Reset(&cards1);
 
 	CardBuffer<7> cards2{
@@ -360,7 +373,7 @@ TEST_F(TestSuiteHand, TestEquality_FullHouse_v2)
 		new Card{ Rank::SEVEN, Suit::CLUB }
 	};
 
-	FullHouseHand hand2(nullptr);
+	FullHouseHand hand2(player);
 	hand2.Reset(&cards2);
 
 	EXPECT_TRUE(hand1 > hand2);
@@ -378,7 +391,8 @@ TEST_F(TestSuiteHand, TestEquality_FullHouse_v3)
 		new Card{ Rank::SEVEN, Suit::CLUB }
 	};
 
-	FullHouseHand hand1(nullptr);
+	Player player(0);
+	FullHouseHand hand1(player);
 	hand1.Reset(&cards1);
 
 	CardBuffer<7> cards2{
@@ -391,7 +405,7 @@ TEST_F(TestSuiteHand, TestEquality_FullHouse_v3)
 		new Card{ Rank::SEVEN, Suit::CLUB }
 	};
 
-	FullHouseHand hand2(nullptr);
+	FullHouseHand hand2(player);
 	hand2.Reset(&cards2);
 
 	EXPECT_TRUE(hand1 > hand2);

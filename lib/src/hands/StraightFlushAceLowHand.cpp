@@ -1,6 +1,6 @@
 #include "StraightFlushAceLowHand.hpp"
 
-StraightFlushAceLowHand::StraightFlushAceLowHand(Player* player)
+StraightFlushAceLowHand::StraightFlushAceLowHand(Player& player)
 :   ExplicitHand(player, HandRank::STRAIGHT_FLUSH_ACE_LOW)
 {
 

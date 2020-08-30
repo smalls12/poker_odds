@@ -39,13 +39,13 @@ protected:
 TEST_F(TestSuitePossibleHands, DetermineHands_2Players)
 {
 	Players players;
-	players.emplace_back(new Player(1));
-	players[0]->AddCardToHand(new Card{ Rank::ACE, Suit::DIAMOND }, 0);
-	players[0]->AddCardToHand(new Card{ Rank::ACE, Suit::CLUB }, 1);
+	players.emplace_back(Player(1));
+	players[0].AddCardToHand(new Card{ Rank::ACE, Suit::DIAMOND }, 0);
+	players[0].AddCardToHand(new Card{ Rank::ACE, Suit::CLUB }, 1);
 
-	players.emplace_back(new Player(2));
-	players[1]->AddCardToHand(new Card{ Rank::KING, Suit::DIAMOND }, 0);
-	players[1]->AddCardToHand(new Card{ Rank::KING, Suit::SPADE }, 1);
+	players.emplace_back(Player(2));
+	players[1].AddCardToHand(new Card{ Rank::KING, Suit::DIAMOND }, 0);
+	players[1].AddCardToHand(new Card{ Rank::KING, Suit::SPADE }, 1);
 
 	HandBuffer<2> cardPermutationsHandRankOnlyBuffer;
 
@@ -80,21 +80,21 @@ TEST_F(TestSuitePossibleHands, DetermineHands_2Players)
 TEST_F(TestSuitePossibleHands, DetermineHands_4Players)
 {
 	Players players;
-	players.emplace_back(new Player(1));
-	players[0]->AddCardToHand(new Card{ Rank::ACE, Suit::CLUB }, 0);
-	players[0]->AddCardToHand(new Card{ Rank::KING, Suit::CLUB }, 1);
+	players.emplace_back(Player(1));
+	players[0].AddCardToHand(new Card{ Rank::ACE, Suit::CLUB }, 0);
+	players[0].AddCardToHand(new Card{ Rank::KING, Suit::CLUB }, 1);
 
-	players.emplace_back(new Player(2));
-	players[1]->AddCardToHand(new Card{ Rank::KING, Suit::SPADE }, 0);
-	players[1]->AddCardToHand(new Card{ Rank::KING, Suit::SPADE }, 1);
+	players.emplace_back(Player(2));
+	players[1].AddCardToHand(new Card{ Rank::KING, Suit::SPADE }, 0);
+	players[1].AddCardToHand(new Card{ Rank::KING, Suit::SPADE }, 1);
 
-	players.emplace_back(new Player(3));
-	players[2]->AddCardToHand(new Card{ Rank::TEN, Suit::SPADE }, 0);
-	players[2]->AddCardToHand(new Card{ Rank::SEVEN, Suit::HEART }, 1);
+	players.emplace_back(Player(3));
+	players[2].AddCardToHand(new Card{ Rank::TEN, Suit::SPADE }, 0);
+	players[2].AddCardToHand(new Card{ Rank::SEVEN, Suit::HEART }, 1);
 
-	players.emplace_back(new Player(4));
-	players[3]->AddCardToHand(new Card{ Rank::JACK, Suit::DIAMOND }, 0);
-	players[3]->AddCardToHand(new Card{ Rank::TWO, Suit::CLUB }, 1);
+	players.emplace_back(Player(4));
+	players[3].AddCardToHand(new Card{ Rank::JACK, Suit::DIAMOND }, 0);
+	players[3].AddCardToHand(new Card{ Rank::TWO, Suit::CLUB }, 1);
 
 	HandBuffer<4> cardPermutationsHandRankOnlyBuffer;
 

@@ -72,7 +72,7 @@ void PokerImpl::Initialize(unsigned int numberOfPlayers)
 {
     for(unsigned int i = 0; i < numberOfPlayers; i++)
     {
-        m_players.emplace_back(std::make_shared<Player>(i));
+        m_players.emplace_back(Player(i));
     }
 }
 
@@ -85,12 +85,12 @@ void PokerImpl::DealCardsToPlayers()
 {
     for(auto& player : m_players)
     {
-        Dealer::DealCards(&player->m_hand[0], m_deck);
+        Dealer::DealCards(&player.m_hand[0], m_deck);
     }
 
     for(auto& player : m_players)
     {
-        Dealer::DealCards(&player->m_hand[1], m_deck);
+        Dealer::DealCards(&player.m_hand[1], m_deck);
     }
 }
 
@@ -148,7 +148,7 @@ std::ostream& operator<<(std::ostream & os, const PokerImpl& impl)
     os << " === PLAYERS === \n";
     for(auto& player : impl.m_players)
     {
-        os << *player.get();
+        os << player;
         os << "\n";
     }
     os << " === PLAYERS === \n";

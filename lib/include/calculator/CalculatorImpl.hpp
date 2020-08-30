@@ -9,20 +9,15 @@ class CalculatorImpl
         CalculatorImpl();
         ~CalculatorImpl();
 
-        void Initialize(unsigned int numberOfPlayers);
-        void NextState();
+        void Initialize(const std::vector<Player>& players);
+        
+        template<size_t N>
+        void CalculateOdds(const CardBuffer<N>& communityCards) noexcept;
 
         friend std::ostream& operator<<(std::ostream & os, const CalculatorImpl& impl);
 
     private:
-        template<size_t N>
-        void CalculateOdds(const CardBuffer<N>& communityCards) noexcept;
-
         Deck                m_deck;
         Players             m_players;
-
-        CardBuffer<3>       mCommunityCardsFlop;
-        CardBuffer<4>       mCommunityCardsTurn;
-        CardBuffer<5>       mCommunityCardsRiver;
 
 };

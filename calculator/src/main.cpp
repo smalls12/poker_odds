@@ -2,6 +2,8 @@
 
 #include "Logging.hpp"
 
+#include <vector>
+
 // #include "spdlog/spdlog.h"
 // #include "spdlog/sinks/stdout_color_sinks.h"
 
@@ -24,6 +26,23 @@ int main(int argc, const char **argv)
 
     // spdlog::get("console")->info("poker_odds::Start");
     // spdlog::get("console")->info("poker_odds::Start - CPP {}", __cplusplus);
+
+    Calculator calculator;
+
+    Player player1(1);
+    player1.AddCardToHand(new Card{Rank::ACE, Suit::DIAMOND}, 0);
+    player1.AddCardToHand(new Card{Rank::KING, Suit::DIAMOND}, 1);
+
+    Player player2(2);
+    player2.AddCardToHand(new Card{Rank::QUEEN, Suit::DIAMOND}, 0);
+    player2.AddCardToHand(new Card{Rank::JACK, Suit::DIAMOND}, 1);
+
+    calculator.Initialize({player1, player2});
+
+    CardBuffer<0ul> communityCards;
+    calculator.CalculateOdds<0ul>(communityCards);
+
+    std::cout << calculator << std::endl;
 
     return 0;
 }

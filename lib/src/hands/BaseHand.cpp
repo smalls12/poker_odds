@@ -4,7 +4,7 @@
 
 #include <algorithm>
 
-BaseHand::BaseHand(Player* player, HandRank rank)
+BaseHand::BaseHand(Player& player, HandRank rank)
 :   mPlayer(player),
     mRank(rank)
 {
@@ -45,7 +45,7 @@ std::ostream& operator<<(std::ostream & os, const BaseHand& hand)
     os << "[ ";
 
     os << "ID [ ";
-    hand.mPlayer == nullptr ? os << "null" : os << hand.mPlayer->m_id;
+    os << hand.mPlayer.m_id;
     os << " ]";
 
     os << " Rank [ ";

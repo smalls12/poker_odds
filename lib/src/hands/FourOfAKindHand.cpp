@@ -2,7 +2,7 @@
 
 #include "FindAllPairs.hpp"
 
-FourOfAKindHand::FourOfAKindHand(Player* player)
+FourOfAKindHand::FourOfAKindHand(Player& player)
 :   ExplicitHand(player, HandRank::FOUR_OF_A_KIND)
 {
 

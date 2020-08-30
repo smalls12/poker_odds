@@ -1,6 +1,6 @@
 #include "ExplicitHand.hpp"
 
-ExplicitHand::ExplicitHand(Player* player, HandRank rank)
+ExplicitHand::ExplicitHand(Player& player, HandRank rank)
 :   BaseHand(player, rank),
     cards(nullptr),
     flush(std::nullopt)
@@ -38,7 +38,7 @@ bool ExplicitHand::operator>(const ExplicitHand& rhs) const noexcept
 std::ostream& operator<<(std::ostream & os, const ExplicitHand& hand)
 {
     os << "ID [ ";
-    os << ( hand.mPlayer == nullptr ? "null" : std::to_string(hand.mPlayer->m_id) );
+    os << std::to_string(hand.mPlayer.m_id);
     os << " ]";
 
     os << " Rank [ ";

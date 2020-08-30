@@ -47,7 +47,8 @@ TEST_F(TestSuiteWinningHands, SortRank_v1)
 		new Card{ Rank::TWO, Suit::HEART }
 	};
 
-	HighCardHand hand1(nullptr);
+	Player player(0);
+	HighCardHand hand1(player);
 	hand1.Reset(&cards1);
 
     CardBuffer<7> cards2{
@@ -60,7 +61,7 @@ TEST_F(TestSuiteWinningHands, SortRank_v1)
 		new Card{ Rank::TWO, Suit::HEART }
 	};
 
-	HighCardHand hand2(nullptr);
+	HighCardHand hand2(player);
 	hand2.Reset(&cards2);
 
     CardBuffer<7> cards3{
@@ -73,7 +74,7 @@ TEST_F(TestSuiteWinningHands, SortRank_v1)
 		new Card{ Rank::TWO, Suit::HEART }
 	};
 
-	OnePairHand hand3(nullptr);
+	OnePairHand hand3(player);
 	hand3.Reset(&cards3);
 
     CardBuffer<7> cards4{
@@ -86,7 +87,7 @@ TEST_F(TestSuiteWinningHands, SortRank_v1)
 		new Card{ Rank::THREE, Suit::HEART }
 	};
 
-	TwoPairHand hand4(nullptr);
+	TwoPairHand hand4(player);
 	hand4.Reset(&cards4);
 
     HandBuffer<4> hands{
@@ -115,7 +116,8 @@ TEST_F(TestSuiteWinningHands, SortRank_v2)
 		new Card{ Rank::TWO, Suit::HEART }
 	};
 
-	HighCardHand hand1(nullptr);
+	Player player(0);
+	HighCardHand hand1(player);
 	hand1.Reset(&cards1);
 
     CardBuffer<7> cards2{
@@ -128,7 +130,7 @@ TEST_F(TestSuiteWinningHands, SortRank_v2)
 		new Card{ Rank::TWO, Suit::HEART }
 	};
 
-	HighCardHand hand2(nullptr);
+	HighCardHand hand2(player);
 	hand2.Reset(&cards2);
 
     CardBuffer<7> cards3{
@@ -141,7 +143,7 @@ TEST_F(TestSuiteWinningHands, SortRank_v2)
 		new Card{ Rank::TWO, Suit::HEART }
 	};
 
-	HighCardHand hand3(nullptr);
+	HighCardHand hand3(player);
 	hand3.Reset(&cards3);
 
     CardBuffer<7> cards4{
@@ -154,7 +156,7 @@ TEST_F(TestSuiteWinningHands, SortRank_v2)
 		new Card{ Rank::THREE, Suit::HEART }
 	};
 
-	TwoPairHand hand4(nullptr);
+	TwoPairHand hand4(player);
 	hand4.Reset(&cards4);
 
     HandBuffer<4> hands{
@@ -183,7 +185,8 @@ TEST_F(TestSuiteWinningHands, SortRank_v3)
 		new Card{ Rank::TWO, Suit::HEART }
 	};
 
-	auto hand1 = new HighCardHand(nullptr);
+	Player player(0);
+	auto hand1 = new HighCardHand(player);
 	hand1->Reset(&cards1);
 
     CardBuffer<7> cards2{
@@ -196,7 +199,7 @@ TEST_F(TestSuiteWinningHands, SortRank_v3)
 		new Card{ Rank::TWO, Suit::HEART }
 	};
 
-	auto hand2 = new HighCardHand(nullptr);
+	auto hand2 = new HighCardHand(player);
 	hand2->Reset(&cards2);
 
     CardBuffer<7> cards3{
@@ -209,7 +212,7 @@ TEST_F(TestSuiteWinningHands, SortRank_v3)
 		new Card{ Rank::TWO, Suit::HEART }
 	};
 
-	auto hand3 = new HighCardHand(nullptr);
+	auto hand3 = new HighCardHand(player);
 	hand3->Reset(&cards3);
 
     CardBuffer<7> cards4{
@@ -222,7 +225,7 @@ TEST_F(TestSuiteWinningHands, SortRank_v3)
 		new Card{ Rank::THREE, Suit::HEART }
 	};
 
-	auto hand4 = new HighCardHand(nullptr);
+	auto hand4 = new HighCardHand(player);
 	hand4->Reset(&cards4);
 
     HandBuffer<4> hands{
@@ -251,7 +254,9 @@ TEST_F(TestSuiteWinningHands, SortRank_v4)
 		new Card{ Rank::TWO, Suit::HEART }
 	};
 
-	auto hand1 = new HighCardHand(nullptr);
+	Player player(0);
+
+	auto hand1 = new HighCardHand(player);
 	hand1->Reset(&cards1);
 
     CardBuffer<7> cards2{
@@ -264,7 +269,7 @@ TEST_F(TestSuiteWinningHands, SortRank_v4)
 		new Card{ Rank::TWO, Suit::HEART }
 	};
 
-	auto hand2 = new HighCardHand(nullptr);
+	auto hand2 = new HighCardHand(player);
 	hand2->Reset(&cards2);
 
     CardBuffer<7> cards3{
@@ -277,7 +282,7 @@ TEST_F(TestSuiteWinningHands, SortRank_v4)
 		new Card{ Rank::TWO, Suit::HEART }
 	};
 
-	auto hand3 = new TwoPairHand(nullptr);
+	auto hand3 = new TwoPairHand(player);
 	hand3->Reset(&cards3);
 
     CardBuffer<7> cards4{
@@ -290,7 +295,7 @@ TEST_F(TestSuiteWinningHands, SortRank_v4)
 		new Card{ Rank::THREE, Suit::HEART }
 	};
 
-	auto hand4 = new TwoPairHand(nullptr);
+	auto hand4 = new TwoPairHand(player);
 	hand4->Reset(&cards4);
 
     HandBuffer<4> hands{
@@ -319,9 +324,9 @@ TEST_F(TestSuiteWinningHands, SortRank_v5)
 		new Card{ Rank::TWO, Suit::HEART }
 	};
 
-	Player* player1 = new Player(1);
-	player1->AddCardToHand(cards1[0], 0);
-	player1->AddCardToHand(cards1[1], 1);
+	Player player1(1);
+	player1.AddCardToHand(cards1[0], 0);
+	player1.AddCardToHand(cards1[1], 1);
 
 	auto hand1 = new HighCardHand(player1);
 	hand1->Reset(&cards1);
@@ -336,9 +341,9 @@ TEST_F(TestSuiteWinningHands, SortRank_v5)
 		new Card{ Rank::TWO, Suit::HEART }
 	};
 
-	Player* player2 = new Player(1);
-	player2->AddCardToHand(cards2[0], 0);
-	player2->AddCardToHand(cards2[1], 1);
+	Player player2(1);
+	player2.AddCardToHand(cards2[0], 0);
+	player2.AddCardToHand(cards2[1], 1);
 
 	auto hand2 = new HighCardHand(player2);
 	hand2->Reset(&cards2);
@@ -353,9 +358,9 @@ TEST_F(TestSuiteWinningHands, SortRank_v5)
 		new Card{ Rank::TWO, Suit::CLUB }
 	};
 
-	Player* player3 = new Player(1);
-	player3->AddCardToHand(cards3[0], 0);
-	player3->AddCardToHand(cards3[1], 1);
+	Player player3(1);
+	player3.AddCardToHand(cards3[0], 0);
+	player3.AddCardToHand(cards3[1], 1);
 
 	auto hand3 = new FlushHand(player3);
 	hand3->Reset(&cards3, {Suit::CLUB});
@@ -370,9 +375,9 @@ TEST_F(TestSuiteWinningHands, SortRank_v5)
 		new Card{ Rank::THREE, Suit::CLUB }
 	};
 
-	Player* player4 = new Player(1);
-	player4->AddCardToHand(cards4[0], 0);
-	player4->AddCardToHand(cards4[1], 1);
+	Player player4(1);
+	player4.AddCardToHand(cards4[0], 0);
+	player4.AddCardToHand(cards4[1], 1);
 
 	auto hand4 = new FlushHand(player4);
 	hand4->Reset(&cards4, {Suit::CLUB});

@@ -19,10 +19,10 @@ class AnalyzeRounds
         {
             if( ( *hands[0] > *hands[1] ) || ( *hands[0] < *hands[1] ) )
             {
-                router[PlayerRoundOutcome::WIN](hands[0]->mPlayer->m_id, playerStatistics);
+                router[PlayerRoundOutcome::WIN](hands[0]->mPlayer.m_id, playerStatistics);
                 for( size_t x = 1; x < hands.size(); x++ )
                 {
-                    router[PlayerRoundOutcome::LOSE](hands[x]->mPlayer->m_id, playerStatistics);
+                    router[PlayerRoundOutcome::LOSE](hands[x]->mPlayer.m_id, playerStatistics);
                 }
             }
             else
@@ -32,11 +32,11 @@ class AnalyzeRounds
                 {
                     if( ( *hands[x] > *hands[0] ) || ( *hands[x] < *hands[0] ) )
                     {
-                        router[PlayerRoundOutcome::LOSE](hands[x]->mPlayer->m_id, playerStatistics);
+                        router[PlayerRoundOutcome::LOSE](hands[x]->mPlayer.m_id, playerStatistics);
                     }
                     else
                     {
-                        router[PlayerRoundOutcome::TIE](hands[x]->mPlayer->m_id, playerStatistics);
+                        router[PlayerRoundOutcome::TIE](hands[x]->mPlayer.m_id, playerStatistics);
                     }
                 }
             }
